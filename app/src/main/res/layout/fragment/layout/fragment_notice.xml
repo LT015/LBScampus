@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+    android:paddingTop="@dimen/space_40px"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+            <android.support.design.widget.TabLayout
+                app:tabMaxWidth="0dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/fragment_notice_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_86px"
+                android:background="#eee"
+                app:tabBackground="@color/white"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/bg_blue"
+                app:tabIndicatorHeight="@dimen/space_2px"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/bg_blue"
+                app:tabTextColor="@color/indicator_unselected_color"/>
+
+
+            <android.support.v4.view.ViewPager
+                android:layout_below="@+id/fragment_notice_title"
+                android:id="@+id/fragment_notice_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"/>
+            <ImageView
+                android:id="@+id/add_notice"
+                android:background="@drawable/circle_blue"
+                android:layout_marginBottom="@dimen/space_40px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/add"
+                android:layout_width="@dimen/space_100px"
+                android:layout_height="@dimen/space_100px" />
+</com.zhy.autolayout.AutoRelativeLayout>

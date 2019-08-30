@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:id="@+id/building_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="@dimen/space_20px"
+    android:orientation="vertical"
+    android:background="@drawable/touch_bg"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.lbs.cheng.lbscampus.view.RCImageView
+            android:src="@mipmap/building"
+            android:layout_marginLeft="@dimen/space_20px"
+            android:id="@+id/item_building_image"
+            android:layout_width="@dimen/space_208px"
+            android:layout_height="@dimen/space_144px" />
+
+            <TextView
+                android:text="我是建筑"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/space_30px"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:id="@+id/item_building_name"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_marginRight="@dimen/space_40px"
+                android:src="@mipmap/navigation"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/space_10px"
+                android:id="@+id/item_building_go"
+                android:textSize="12sp"
+                android:layout_width="@dimen/space_80px"
+                android:layout_height="@dimen/space_80px" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginTop="@dimen/space_10px"
+        android:background="@color/grey_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1px"/>
+</com.zhy.autolayout.AutoLinearLayout>

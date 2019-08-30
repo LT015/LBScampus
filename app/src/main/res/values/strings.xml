@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">LBS天财</string>
+    <string name="bottom_tab_home">首页</string>
+    <string name="bottom_tab_notice">公告</string>
+    <string name="bottom_tab_map">地图</string>
+    <string name="bottom_tab_my">我的</string>
+
+    <string name="head_icon_1">建筑物查询</string>
+    <string name="head_icon_2">部门查询</string>
+    <string name="head_icon_3">特定人查询</string>
+    <string name="head_icon_4">失物招领</string>
+    <string name="head_icon_5">求助</string>
+    <string name="head_icon_6">更多功能</string>
+
+    <string name="search">搜索</string>
+    <string name="search_hint">搜索公告、活动</string>
+    <string name="search_people_hint">寻找开启共享位置的用户</string>
+    <string name="search_section_hint">部门查询</string>
+    <string name="search_building_hint">建筑物查询</string>
+    <string name="search_all_hint">请输入你要搜索的内容</string>
+    <string name="user_mode">共享模式</string>
+
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+    <string name="yes">确定</string>
+
+
+
+    <string name="app_exit_notice">再按一次退出LBS校园</string>"
+
+
+
+    <string name="title">请选择时间</string>
+    <string name="confirm">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+
+</resources>

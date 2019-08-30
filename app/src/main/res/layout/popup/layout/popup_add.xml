@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:focusable="false"
+    android:orientation="vertical"
+    android:background="@drawable/border_add"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/space_460px"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/popup_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/space_40px"
+        android:gravity="center"
+        android:text="创建新的公告？"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_200px" />
+    <View
+        android:background="@color/date_picker_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_2px"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:focusable="false"
+            android:id="@+id/popup_add_confirm"
+            android:gravity="center"
+            android:text="确定"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_100px" />
+        <View
+            android:background="@color/date_picker_divider"
+            android:layout_width="@dimen/space_2px"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:focusable="false"
+            android:id="@+id/popup_add_cancel"
+            android:background="@drawable/border_add_cancel"
+            android:gravity="center"
+            android:text="取消"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_100px" />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

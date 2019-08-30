@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string-array name="search_type">
+        <item >教师</item>
+
+        <item >学生</item>
+
+        <item >部门</item>
+
+        <item >班级</item>
+
+
+    </string-array>
+
+</resources>

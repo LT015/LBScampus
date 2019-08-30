@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:id="@+id/item_department_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="@dimen/space_20px"
+    android:orientation="vertical"
+    android:background="@drawable/touch_bg"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.lbs.cheng.lbscampus.view.RCImageView
+            android:layout_marginLeft="@dimen/space_20px"
+            android:scaleType="fitXY"
+            android:src="@mipmap/section"
+            android:id="@+id/item_department_image"
+            android:layout_width="@dimen/space_208px"
+            android:layout_height="@dimen/space_144px" />
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginRight="@dimen/space_30px"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/space_30px"
+            android:layout_width="@dimen/space_460px"
+            android:layout_height="@dimen/space_140px">
+            <TextView
+                android:text="名称名称名称"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:id="@+id/item_department_title"
+                android:lineSpacingExtra="@dimen/dimen_18dp"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+                android:layout_marginTop="@dimen/space_4px"
+                android:maxLines="3"
+                android:text="简介：暂无"
+                android:layout_marginBottom="@dimen/space_35px"
+                android:id="@+id/item_department_description"
+                android:textSize="13sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_marginTop="@dimen/space_10px"
+        android:background="@color/grey_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1px"/>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lbs.cheng.lbscampus.activity.DepartmentDetailActivity">
+
+    <include layout="@layout/title_bar"/>
+
+    <ImageView
+        android:id="@+id/department_image"
+        android:scaleType="fitXY"
+        android:src="@mipmap/section"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_350px" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_160px">
+
+        <TextView
+            android:id="@+id/department_name"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/space_40px"
+            android:layout_marginLeft="@dimen/space_60px"
+            android:text="部门名称"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/to_navigation"
+            android:layout_marginRight="@dimen/space_60px"
+            android:src="@mipmap/navigation"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/space_80px"
+            android:layout_height="@dimen/space_80px" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:background="@color/grey_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_2px"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_weight="1"
+        android:paddingRight="@dimen/space_60px"
+        android:paddingLeft="@dimen/space_60px"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/demartment_description"
+            android:layout_marginTop="@dimen/space_40px"
+            android:textSize="@dimen/space_30px"
+            android:text="    负责贯彻公司领导指示。做好上下联络沟通工作，及时向领导反映情况、反馈信息；搞好各部门间相互配合、综合协调工作；对各项工作和计划的督办和检查。"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <TextView
+        android:id="@+id/click_to_navigation"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:background="@color/bg_blue"
+        android:text="点击导航"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100px" />
+
+
+</com.zhy.autolayout.AutoLinearLayout>

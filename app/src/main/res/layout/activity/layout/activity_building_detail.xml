@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lbs.cheng.lbscampus.activity.BuildingDetailActivity">
+
+    <include layout="@layout/title_bar"/>
+
+    <ImageView
+        android:id="@+id/building_image"
+        android:scaleType="fitXY"
+        android:src="@mipmap/building"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_350px" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_160px">
+
+        <TextView
+            android:id="@+id/building_name"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/space_40px"
+            android:layout_marginLeft="@dimen/space_60px"
+            android:text="我是体育场"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/to_navigation"
+            android:layout_marginRight="@dimen/space_60px"
+            android:src="@mipmap/navigation"
+            android:layout_gravity="center"
+            android:layout_width="@dimen/space_80px"
+            android:layout_height="@dimen/space_80px" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:background="@color/grey_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_2px"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_weight="1"
+        android:paddingRight="@dimen/space_60px"
+        android:paddingLeft="@dimen/space_60px"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/description"
+            android:layout_marginTop="@dimen/space_40px"
+            android:textSize="@dimen/space_30px"
+            android:text="    该馆为新建场馆，由天津市建筑设计院设计，目前已完成立项，计划2016年12月竣工。该馆规划位于天津市河西区珠江道天津财经大学校内，占地27500平方米，建筑面积15000平方米，距全运村约8公里。比赛场地长44米，宽38米，高24米；观众固定座席3000个；。"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <TextView
+        android:id="@+id/click_to_navigation"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:background="@color/bg_blue"
+        android:text="点击导航"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100px" />
+
+</com.zhy.autolayout.AutoLinearLayout>

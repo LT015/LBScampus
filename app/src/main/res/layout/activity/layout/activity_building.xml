@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lbs.cheng.lbscampus.activity.BuildingActivity">
+    <include layout="@layout/title_bar"/>
+    <android.support.design.widget.TabLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_building_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_86px"
+        android:background="#eee"
+        app:tabBackground="@color/white"
+        app:tabGravity="center"
+        app:tabIndicatorColor="@color/bg_blue"
+        app:tabIndicatorHeight="@dimen/space_2px"
+        app:tabMode="scrollable"
+        app:tabSelectedTextColor="@color/bg_blue"
+        app:tabTextColor="@color/indicator_unselected_color"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_building_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"/>
+</com.zhy.autolayout.AutoLinearLayout>

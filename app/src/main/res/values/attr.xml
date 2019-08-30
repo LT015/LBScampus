@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="custom_banner">
+        <attr name="indicatorGravity" format="enum">
+            <enum name="LEFT" value="1" />
+            <enum name="RIGHT" value="2" />
+            <enum name="CENTER" value="3" />
+        </attr>
+        <attr name="indicatorStyle" format="enum">
+            <enum name="NONE" value="1" />
+            <enum name="NUMBER" value="2" />
+            <enum name="ORDINARY" value="3" />
+        </attr>
+        <attr name="indicatorSelectRes" format="reference" />
+        <attr name="indicatorUnSelectRes" format="reference" />
+        <attr name="indicatorInterval" format="dimension" />
+    </declare-styleable>
+
+    <!-- *公共属性* -->
+    <!--圆形-->
+    <attr name="round_as_circle" format="boolean" />
+    <!--全部圆角半径-->
+    <attr name="round_corner" format="integer|dimension" />
+    <!--针对各个角的半径-->
+    <attr name="round_corner_top_left" format="integer|dimension" />
+    <attr name="round_corner_top_right" format="integer|dimension" />
+    <attr name="round_corner_bottom_left" format="integer|dimension" />
+    <attr name="round_corner_bottom_right" format="integer|dimension" />
+
+    <!--描边颜色／半径-->
+    <attr name="stroke_color" format="color|reference" />
+    <attr name="stroke_width" format="integer|dimension" />
+
+    <!-- 是否剪裁 RCLayout 的背景 -->
+    <attr name="clip_background" format="boolean" />
+
+    <!--真正用于解析的属性-->
+    <declare-styleable name="RCAttrs">
+        <attr name="round_as_circle" />
+        <attr name="round_corner" />
+        <attr name="round_corner_top_left" />
+        <attr name="round_corner_top_right" />
+        <attr name="round_corner_bottom_left" />
+        <attr name="round_corner_bottom_right" />
+        <attr name="stroke_color" />
+        <attr name="stroke_width" />
+        <attr name="clip_background" />
+    </declare-styleable>
+
+    <declare-styleable name="RefreshView">
+        <attr name="type" format="enum">
+            <enum name="sun" value="0" />
+        </attr>
+    </declare-styleable>
+</resources>

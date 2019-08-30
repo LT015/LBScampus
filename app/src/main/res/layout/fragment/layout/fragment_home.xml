@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lbs.cheng.lbscampus.view.PullToRefreshView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/home_refreshView"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.v4.widget.NestedScrollView
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:paddingTop="@dimen/space_20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_blue"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/space_20px"
+                    android:layout_marginTop="@dimen/space_30px"
+                    android:text="首页"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_332px">
+                <View
+                    android:id="@+id/banner_view_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_190px"
+                    android:background="@color/bg_blue"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/banner_view_1"
+                    android:background="@color/colorGray"/>
+                <com.youth.banner.Banner
+                    android:paddingLeft="@dimen/space_12px"
+                    android:paddingRight="@dimen/space_12px"
+                    android:id="@+id/home_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_300px"
+                    android:layout_centerHorizontal="true">
+                </com.youth.banner.Banner>
+            </com.zhy.autolayout.AutoRelativeLayout>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:paddingTop="@dimen/space_20px"
+                android:paddingBottom="@dimen/space_20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/head_icon_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/building" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_1" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/head_icon_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/department" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_2" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/head_icon_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/people" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_3" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/head_icon_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/find" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_4" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+
+
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:layout_marginBottom="@dimen/space_10px"
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+            <com.zhy.autolayout.AutoLinearLayout
+                android:paddingBottom="@dimen/space_20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/head_icon_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/help" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_5" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:visibility="visible"
+                    android:id="@+id/head_icon_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/more_function" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_6" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:visibility="invisible"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/more_function" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_6" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:visibility="invisible"
+                    android:id="@+id/head_icon_8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_80px"
+                        android:layout_height="@dimen/space_80px"
+                        android:src="@drawable/more_function" />
+
+                    <TextView
+                        style="@style/head_icon_text_style"
+                        android:text="@string/head_icon_6" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:layout_marginBottom="@dimen/space_10px"
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_recyclerlistview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false">
+            </android.support.v7.widget.RecyclerView>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</com.lbs.cheng.lbscampus.view.PullToRefreshView>

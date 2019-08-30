@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.lbs.cheng.lbscampus.activity.HomeActivity">
+
+    <!--tabhost必须用系统的id-->
+    <android.support.v4.app.FragmentTabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!--tabcontent，放fragment的，必须用系统给定的id-->
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+            </FrameLayout>
+            <View
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+            <!--页签-->
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_110px"
+                android:requiresFadingEdge="none"
+                android:tabStripEnabled="false"
+                android:showDividers="none">
+            </TabWidget>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </android.support.v4.app.FragmentTabHost>
+
+</com.zhy.autolayout.AutoLinearLayout>

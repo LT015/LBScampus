@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/three_fragment_root"
+    android:layout_height="match_parent">
+
+
+
+    <include layout="@layout/title_bar"
+        android:id="@+id/header"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_below="@+id/header"
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ll"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:visibility="visible"
+                android:id="@+id/user_head_image"
+                android:orientation="vertical"
+                android:background="@drawable/touch_bg"
+                android:paddingLeft="@dimen/space_25px"
+                android:paddingRight="@dimen/space_25px"
+                android:layout_marginTop="@dimen/space_20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="15sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:text="头像"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.lbs.cheng.lbscampus.view.CircleImageView
+                    android:id="@+id/my_head_img"
+                    android:src="@mipmap/head_img"
+                    android:scaleType="centerCrop"
+                    android:layout_toLeftOf="@+id/head_right"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/space_120px"
+                    android:layout_height="@dimen/space_120px" />
+
+                <ImageView
+                    android:id="@+id/head_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/icon_right"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/space_30px"
+                    android:layout_height="@dimen/space_30px" />
+
+
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:visibility="visible"
+                android:id="@+id/user_set_up"
+                android:layout_marginBottom="@dimen/space_20px"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/space_20px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    style="@style/grey_divider" />
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_name"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/use_name_text"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:layout_toLeftOf="@+id/right"
+                        android:text="帅气小白城"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_nick_name"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_nickName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/user_nick_name_text"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:layout_toLeftOf="@+id/right"
+                        android:text="帅气小白城"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_num"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/user_num_text"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:text="2015111111"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_sex"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/user_sex_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:text="男"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp" />
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_phone"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/user_phone_text"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:text="136****9395"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_email"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/user_email_text"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:text="136****9395@qq.com"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:visibility="gone"
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/my_QQ"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="QQ"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:ellipsize="end"
+                        android:id="@+id/user_qq"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:layout_toLeftOf="@+id/right"
+                        android:textColor="@color/color_999"
+                        android:text="未绑定"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:visibility="gone"
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/my_wechat"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:text="微信"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/user_wechat"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:text="未绑定"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+
+
+                <View
+                    android:layout_marginTop="@dimen/space_20px"
+                    style="@style/grey_divider" />
+
+                <com.zhy.autolayout.AutoRelativeLayout
+                    android:background="@drawable/touch_bg"
+                    android:id="@+id/user_password"
+                    android:padding="@dimen/space_25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="15sp"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black"
+                        android:text="@string/user_pwd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/alter_user_pwd"
+                        android:drawablePadding="@dimen/space_10px"
+                        android:layout_alignParentRight="true"
+                        android:drawableRight="@mipmap/icon_right"
+                        android:layout_toLeftOf="@+id/right"
+                        android:text="@string/alter"
+                        android:textColor="@color/color_999"
+                        android:textSize="15sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </com.zhy.autolayout.AutoRelativeLayout>
+
+                <View
+                    style="@style/grey_divider" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</com.zhy.autolayout.AutoRelativeLayout>

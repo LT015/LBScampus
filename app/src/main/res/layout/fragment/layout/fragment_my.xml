@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:orientation="vertical"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/title_bar"/>
+    <android.support.v4.widget.NestedScrollView
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:background="@color/bg_blue"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/fragment_my_login"
+                    android:layout_marginLeft="@dimen/space_50px"
+                    android:layout_marginTop="@dimen/space_20px"
+                    android:layout_marginBottom="@dimen/space_40px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.lbs.cheng.lbscampus.view.CircleImageView
+                        android:id="@+id/my_image"
+                        android:src="@mipmap/head_img"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/space_176px"
+                        android:layout_height="@dimen/space_176px" />
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="@dimen/space_30px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/my_name"
+                            android:textSize="26sp"
+                            android:textColor="@color/white"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="名字"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/fragment_my_point"
+                            android:background="@drawable/border_gray"
+                            android:textSize="12sp"
+                            android:text="点击编辑"
+                            android:textColor="@color/white"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+                    <ImageView
+                        android:src="@mipmap/right_arrow"
+                        android:layout_marginRight="@dimen/space_24px"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/space_30px"
+                        android:layout_height="@dimen/space_80px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+                <!--我的公告-->
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/my_notice"
+                    android:paddingLeft="@dimen/space_32px"
+                    android:paddingRight="@dimen/space_32px"
+                    android:background="@drawable/touch_bg"
+                    android:clickable="true"
+                    android:paddingBottom="@dimen/space_40px"
+                    android:paddingTop="@dimen/space_40px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="我的公告"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/right_arrow_gray"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/space_24px"
+                        android:layout_height="@dimen/space_60px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <View
+                    android:background="@color/grey_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1px"/>
+                <!--我的收藏-->
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/collect_notice"
+                    android:paddingLeft="@dimen/space_32px"
+                    android:paddingRight="@dimen/space_32px"
+                    android:background="@drawable/touch_bg"
+                    android:clickable="true"
+                    android:paddingBottom="@dimen/space_40px"
+                    android:paddingTop="@dimen/space_40px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="我的收藏"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/right_arrow_gray"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/space_24px"
+                        android:layout_height="@dimen/space_60px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <View
+                    android:background="@color/grey_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1px"/>
+                <!--编辑爱好-->
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/select_interst"
+                    android:paddingLeft="@dimen/space_32px"
+                    android:paddingRight="@dimen/space_32px"
+                    android:background="@drawable/touch_bg"
+                    android:clickable="true"
+                    android:paddingBottom="@dimen/space_40px"
+                    android:paddingTop="@dimen/space_40px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="编辑爱好"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/right_arrow_gray"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/space_24px"
+                        android:layout_height="@dimen/space_60px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <View
+                    android:background="@color/grey_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1px"/>
+
+                <!--共享模式-->
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/share_mode"
+                    android:paddingLeft="@dimen/space_32px"
+                    android:paddingRight="@dimen/space_32px"
+                    android:background="@drawable/touch_bg"
+                    android:clickable="true"
+                    android:paddingBottom="@dimen/space_40px"
+                    android:paddingTop="@dimen/space_40px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="共享模式"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:src="@mipmap/right_arrow_gray"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/space_24px"
+                        android:layout_height="@dimen/space_60px" />
+
+                </com.zhy.autolayout.AutoLinearLayout>
+                <View
+                    android:background="@color/grey_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_1px"/>
+
+            <!--共享时段-->
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/share_time"
+                android:paddingLeft="@dimen/space_32px"
+                android:paddingRight="@dimen/space_32px"
+                android:background="@drawable/touch_bg"
+                android:clickable="true"
+                android:paddingBottom="@dimen/space_40px"
+                android:paddingTop="@dimen/space_40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/black"
+                    android:text="共享时段"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/right_arrow_gray"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/space_24px"
+                    android:layout_height="@dimen/space_60px" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+            <!--审核信息-->
+            <com.zhy.autolayout.AutoLinearLayout
+                android:visibility="gone"
+                android:id="@+id/verify"
+                android:paddingLeft="@dimen/space_32px"
+                android:paddingRight="@dimen/space_32px"
+                android:background="@drawable/touch_bg"
+                android:clickable="true"
+                android:paddingBottom="@dimen/space_40px"
+                android:paddingTop="@dimen/space_40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/black"
+                    android:text="审核公告"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/right_arrow_gray"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/space_24px"
+                    android:layout_height="@dimen/space_60px" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+
+
+            <TextView
+                android:id="@+id/drop_out"
+                android:background="@drawable/touch_drop_out"
+                android:paddingTop="@dimen/space_10px"
+                android:paddingBottom="@dimen/space_20px"
+                android:paddingRight="@dimen/space_80px"
+                android:paddingLeft="@dimen/space_80px"
+                android:text="退出登录"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="@dimen/space_80px"
+                android:layout_marginTop="@dimen/space_60px"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </com.zhy.autolayout.AutoLinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+
+</com.zhy.autolayout.AutoLinearLayout>

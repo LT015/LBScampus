@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Android="http://schemas.android.com/apk/res-auto"
+    package="com.lbs.cheng.lbscampus">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <!-- 获取CUID，用于鉴权，请求签名等 -->
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+
+    <application
+        android:name="org.litepal.LitePalApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/map"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- 自适应布局 -->
+        <meta-data
+            android:name="design_width"
+            android:value="720" />
+        <meta-data
+            android:name="design_height"
+            android:value="1280" />
+        <!-- 地图key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="GBWC8Wj8ABBV3jO47vpEeAAI1eAcCkmv" />
+        <!-- 注册activity -->
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <activity
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ThemeWelcome">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CollectNoticeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".overlay.RoutePlanDemo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WNaviGuideActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BuildingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SelectInterstActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ChoosePhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.UserActivity" />
+        <activity android:name=".activity.AlterPhoneActivity" />
+        <activity android:name=".activity.AlterPwdActivity" />
+        <activity
+            android:name=".activity.LostPropertyActivity"
+            android:label="@string/title_activity_lost_property"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.SearchPeopleActivity" />
+        <activity android:name=".activity.SearchDepartmentActivity" />
+        <activity android:name=".activity.SearchBuildingActivity" />
+        <activity android:name=".activity.TimeIntervalActivity" />
+        <activity android:name=".activity.SearchAllActivity" />
+        <activity android:name=".activity.NoticeActivity" />
+        <activity android:name=".activity.AddNoticeActivity" />
+        <activity android:name=".activity.BuildingDetailActivity" />
+        <activity android:name=".activity.PeopleDetailActivity" />
+        <activity android:name=".activity.DepartmentDetailActivity" />
+        <activity android:name=".activity.HelpActivity" />
+        <activity android:name=".activity.VerifyActivity"></activity>
+    </application>
+
+</manifest>

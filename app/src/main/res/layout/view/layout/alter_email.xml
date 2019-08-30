@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="12dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:layout_height="match_parent">
+
+    <EditText
+        app:layout_constraintTop_toTopOf="parent"
+        android:maxLength="17"
+        android:id="@+id/email"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <View
+        app:layout_constraintBottom_toTopOf="@id/des"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        android:id="@+id/divider"
+        android:background="@color/text_select_color"
+        android:layout_width="0dp"
+        android:layout_height="2dp"/>
+    <TextView
+        android:id="@+id/des"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        android:layout_marginTop="@dimen/dimen_6dp"
+        android:text="请输入邮箱"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</android.support.constraint.ConstraintLayout>

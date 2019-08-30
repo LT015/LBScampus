@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lbs.cheng.lbscampus.view.PullToRefreshView
+    android:orientation="vertical"
+    android:id="@+id/notice_refreshView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v4.widget.NestedScrollView
+        android:overScrollMode="never"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/fragment_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="20px"
+                android:layout_marginBottom="@dimen/space_10px"
+                android:background="@drawable/round_gray_rectangle"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:id="@+id/order_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="40px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="@dimen/space_20px"
+                        android:layout_marginTop="@dimen/space_10px"
+                        android:src="@mipmap/ic_search" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="60px"
+                        android:layout_marginTop="@dimen/space_10px"
+                        android:text="点击搜索"
+                        android:textColor="@color/text_color_grey"
+                        android:textSize="30px" />
+                </com.zhy.autolayout.AutoLinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginBottom="@dimen/space_10px"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="4px"
+                    android:background="@color/grey_divider" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:nestedScrollingEnabled="false"
+                android:id="@+id/notice_item_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</com.lbs.cheng.lbscampus.view.PullToRefreshView>

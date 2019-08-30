@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="20dp"/>
+    <solid
+        android:color="@color/selected_interst" />
+    <!-- 边距 -->
+    <padding
+        android:bottom="30px"
+        android:left="30px"
+        android:right="30px"
+        android:top="30px" />
+</shape>
