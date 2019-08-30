@@ -21,15 +21,13 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs =
+            res.srcDirs +=
                     [
                             'src/main/res/layout/activity',
                             'src/main/res/layout/listitem',
                             'src/main/res/layout/fragment',
                             'src/main/res/layout/popup',
                             'src/main/res/layout/view',
-                            'src/main/res',
-                            'src/main/res/layout',
                     ]
         }
     }
