@@ -26,7 +26,7 @@ public class ChoosePhoneActivity extends BaseActivity {
         back.setOnClickListener(this);
         titleName.setOnClickListener(this);
         back.setVisibility(View.VISIBLE);
-        titleName.setText("绑定手机");
+        titleName.setText("绑定123手机");
     }
     public void initListener(){
         register.setOnClickListener(this);
