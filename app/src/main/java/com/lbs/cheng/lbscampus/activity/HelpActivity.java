@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +35,7 @@ import okhttp3.Response;
 
 import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 
+@Route(path = "/app/help")
 public class HelpActivity extends BaseActivity {
 
     ImageView back;

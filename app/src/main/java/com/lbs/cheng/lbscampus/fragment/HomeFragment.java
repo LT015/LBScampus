@@ -6,11 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.Postcard;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.facade.callback.NavCallback;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -51,7 +56,7 @@ import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 /**
  * Created by cheng on 2019/1/15.
  */
-
+@Route(path = "/app/home")
 public class HomeFragment extends Fragment implements View.OnClickListener{
     private View view;
     @BindView(R.id.home_banner)
@@ -72,6 +77,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     AutoLinearLayout headIcon5;
     @BindView(R.id.head_icon_6)
     AutoLinearLayout headIcon6;
+    @BindView(R.id.head_icon_7)
+    AutoLinearLayout headIcon7;
     Unbinder unbinder;
     List<NoticeDetailBean> list = new ArrayList<>();
 
@@ -102,6 +109,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         headIcon4.setOnClickListener(this);
         headIcon5.setOnClickListener(this);
         headIcon6.setOnClickListener(this);
+        headIcon7.setOnClickListener(this);
     }
 
 
@@ -231,6 +239,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent5);
                 break;
             case R.id.head_icon_6:
+                ARouter.getInstance().build("/course/main").navigation();
+                break;
+            case R.id.head_icon_7:
                 Toast.makeText(getContext(),"敬请期待",Toast.LENGTH_LONG).show();
                 break;
         }

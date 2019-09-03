@@ -3,6 +3,8 @@ package com.lbs.cheng.lbscampus;
 import android.app.Application;
 import android.content.Context;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+
 import org.litepal.LitePal;
 
 public class MyApplication extends Application {
@@ -14,6 +16,7 @@ public class MyApplication extends Application {
         super.onCreate();
         context = getApplicationContext();
         LitePal.initialize(context);
+
     }
 
     public static Context getContext(){

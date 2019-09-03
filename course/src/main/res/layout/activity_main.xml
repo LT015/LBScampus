@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    android:background="@color/blue"
+    android:background="@color/bg_blue"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,22 +12,16 @@
         android:layout_height="wrap_content">
 
 
-        <LinearLayout
+        <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <!--Toolbar-->
-            <android.support.v7.widget.Toolbar
-                android:visibility="gone"
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/AlertDialog.AppCompat.Light"/>
+            <include layout="@layout/title_bar" />
 
             <!--星期条-->
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:background="@color/green"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -73,9 +67,9 @@
                     android:gravity="center"
                     android:textSize="16dp"
                     android:text="周五"/>
-            </LinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
             <!--课程表-->
-            <LinearLayout
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -121,9 +115,9 @@
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="1dp"/>
-            </LinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
 
-        </LinearLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
 
     </FrameLayout>
 

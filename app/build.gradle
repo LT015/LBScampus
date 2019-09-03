@@ -47,7 +47,6 @@ dependencies {
     //glide
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 
-    implementation files('libs/BaiduLBS_Android.jar')
     //ARouter
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
 

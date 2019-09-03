@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.mapapi.SDKInitializer;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.overlay.RoutePlanDemo;
@@ -16,6 +17,11 @@ public class WelcomeActivity extends AppCompatActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_welcome);
         initDelay();
+//        if (true) {
+//            ARouter.openLog();
+//            ARouter.openDebug();
+//        }
+        ARouter.init(getApplication());
     }
 
     private void initDelay() {

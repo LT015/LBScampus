@@ -10,7 +10,8 @@
     <string name="head_icon_3">特定人查询</string>
     <string name="head_icon_4">失物招领</string>
     <string name="head_icon_5">求助</string>
-    <string name="head_icon_6">更多功能</string>
+    <string name="head_icon_6">课表</string>
+    <string name="head_icon_7">更多功能</string>
 
     <string name="search">搜索</string>
     <string name="search_hint">搜索公告、活动</string>

@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+
 public class HomeActivity extends BaseActivity {
     private static final String TAG = "HomeActivity";
     private long mExitTime = 0;

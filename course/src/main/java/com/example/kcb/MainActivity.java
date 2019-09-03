@@ -8,24 +8,32 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.lt.common.activity.BaseActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+@Route(path = "/course/main")
+public class MainActivity extends BaseActivity {
 
     //星期几
     private RelativeLayout day;
-
+    ImageView back;
+    TextView titleName;
     //SQLite Helper类
     private DatabaseHelper databaseHelper = new DatabaseHelper
             (this, "database.db", null, 1);
@@ -38,15 +46,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //工具条
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         //初始化数据
         initCourse();
         //从数据库读取数据
         loadData();
     }
 
+    @Override
+    protected void initView() {
+        super.initView();
+        initTitle();
+    }
+
+    private void initTitle() {
+        back = findViewById(R.id.title_back);
+        titleName=findViewById(R.id.title_name);
+        back.setOnClickListener(this);
+        titleName.setOnClickListener(this);
+        back.setVisibility(View.VISIBLE);
+        titleName.setText("课程表");
+    }
     //从数据库加载数据
     private void loadData() {
         ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
@@ -119,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
     private void createItemCourseView(final Course course) {
         int getDay = course.getDay();
         if ((getDay < 1 || getDay > 5) || course.getStart() > course.getEnd())
-            Toast.makeText(this, "星期几没写对,或课程结束时间比开始时间还早~~", Toast.LENGTH_LONG).show();
+            // TODO: 2019/9/3
+            Log.d("course", "星期几没写对,或课程结束时间比开始时间还早~~: ");
         else {
             int dayId = 0;
             switch (getDay) {
@@ -184,4 +204,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v.getId() == R.id.title_back) {
+            finish();
+        }
+    }
 }
