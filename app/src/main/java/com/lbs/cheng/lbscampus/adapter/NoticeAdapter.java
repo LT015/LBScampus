@@ -50,7 +50,7 @@ public class NoticeAdapter extends BaseQuickAdapter<NoticeDetailBean, BaseViewHo
         helper.addOnClickListener(R.id.verify_successs).addOnClickListener(R.id.verify_fail);
 
         if(item.getImageList().size()>0){
-            String path = HttpUtil.Image + item.getImageList().get(0).getImagePath();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + item.getImageList().get(0).getImagePath();
             RCImageView imageView = helper.getView(R.id.item_notice_image);
             imageView.setRadius(18);
             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片

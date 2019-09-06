@@ -132,7 +132,7 @@ public class SelectInterstActivity extends BaseActivity {
 
 
     public void getTagList(){  //通过网络请求得到所有标签
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.TAG_LIST, new ArrayList<String>(), new Callback() {
+        HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.TAG_LIST, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
@@ -170,7 +170,7 @@ public class SelectInterstActivity extends BaseActivity {
     public void saveInterest(){
 
         String json = new Gson().toJson(list);
-        HttpUtil.upLoadImgsRequest(HttpUtil.UPDATE_HOBBY + "/"+userBean.getUserId(), json, new Callback() {
+        HttpUtil.upLoadImgsRequest( HttpUtil.HOME_PATH + HttpUtil.UPDATE_HOBBY + "/"+userBean.getUserId(), json, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {

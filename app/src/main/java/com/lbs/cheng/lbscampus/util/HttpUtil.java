@@ -34,98 +34,103 @@ public class HttpUtil {
     public static final String SERVER_HOST = "server_host";
     //public static String HOME_PATH = "http://192.168.0.172:8080";
     public static String HOME_PATH = "http://39.106.220.192:8765";
-    public static String Banner = HOME_PATH+"/banner/";
-    public static String Image = HOME_PATH+"/images/";
+    public static String Banner = "/banner/";
+    public static String Image = "/images/";
     private static final MediaType MEDIA_TYPE_IMAGE = MediaType.parse("image/*");
     private HttpUtil(){}
     //Activity
-    public static final String GET_LIST=HOME_PATH+"/LBS/activity/list";
-    public static final String GET_INTIME_LIST=HOME_PATH+"/LBS/activity/list/inTime";
-    public static final String GET_WITH_PAGER=HOME_PATH+"/LBS/activity/list/range";
-    public static final String CREATE_ACTIVITY=HOME_PATH+"/LBS/activity";
-    public static final String UPDATE_TITLE=HOME_PATH+"/LBS/activity/update/title";
-    public static final String UPDATE_CONTENT=HOME_PATH+"/LBS/activity/update/content";
-    public static final String UPDATE_ADMIN_ID=HOME_PATH+"/LBS/activity/update/adminId";
-    public static final String UPDATE_PICTURE_PATH=HOME_PATH+"/LBS/activity/update/picturePath";
-    public static final String UPDATE_START_TIME=HOME_PATH+"/LBS/activity/update/startTime";
-    public static final String UPDATE_END_TIME=HOME_PATH+"/LBS/activity/update/endTime";
-    public static final String UPDATE_STATUS=HOME_PATH+"/LBS/activity/update/status";
-    public static final String UPDATE_TAG_LIST=HOME_PATH+"/LBS/activity/update/tag";
-    public static final String UPDATE_IMAGE_LIST=HOME_PATH+"/LBS/activity/update/image";
-    public static final String EXAMINE=HOME_PATH+"/LBS/activity/examine";
-    public static final String DELETE_ACTIVITY=HOME_PATH+"/LBS/activity";
+    public static final String GET_LIST="/LBS/activity/list";
+    public static final String GET_INTIME_LIST="/LBS/activity/list/inTime";
+    public static final String GET_WITH_PAGER="/LBS/activity/list/range";
+    public static final String CREATE_ACTIVITY="/LBS/activity";
+    public static final String UPDATE_TITLE="/LBS/activity/update/title";
+    public static final String UPDATE_CONTENT="/LBS/activity/update/content";
+    public static final String UPDATE_ADMIN_ID="/LBS/activity/update/adminId";
+    public static final String UPDATE_PICTURE_PATH="/LBS/activity/update/picturePath";
+    public static final String UPDATE_START_TIME="/LBS/activity/update/startTime";
+    public static final String UPDATE_END_TIME="/LBS/activity/update/endTime";
+    public static final String UPDATE_STATUS="/LBS/activity/update/status";
+    public static final String UPDATE_TAG_LIST="/LBS/activity/update/tag";
+    public static final String UPDATE_IMAGE_LIST="/LBS/activity/update/image";
+    public static final String EXAMINE="/LBS/activity/examine";
+    public static final String DELETE_ACTIVITY="/LBS/activity";
     //Admin
-    public static final String CREATE=HOME_PATH+"/LBS/admin";
-    public static final String DELETE=HOME_PATH+"/LBS/admin";
-    public static final String LIST=HOME_PATH+"/LBS/admin/list";
-    public static final String QUERY=HOME_PATH+"/LBS/admin/department";
-    public static final String UPDATE_ROLE=HOME_PATH+"/LBS/admin/update";//"/update/{adminId:.+}/role/{role:.+}
+    public static final String CREATE="/LBS/admin";
+    public static final String DELETE="/LBS/admin";
+    public static final String LIST="/LBS/admin/list";
+    public static final String QUERY="/LBS/admin/department";
+    public static final String UPDATE_ROLE="/LBS/admin/update";//"/update/{adminId:.+}/role/{role:.+}
     //Building
-    public static final String CREATE_BUILDING=HOME_PATH+"/LBS/building";
-    public static final String DELETE_BUILDING=HOME_PATH+"/LBS/building";///{buildingId:.+}
-    public static final String SEARCH_BUILDING=HOME_PATH+"/LBS/building";///type/{type:.+}/name/{name:.+}
-    public static final String BUILDING_LIST=HOME_PATH+"/LBS/building/list";
-    public static final String GET_BY_ID=HOME_PATH+"/LBS/building";//{id:.+}
-    public static final String UPDATE_BUILDING_PICTURE_PATH=HOME_PATH+"/LBS/building/update/picturePath";///{id:.+}/{picturePath:.+}
-    public static final String UPDATE_DESCRIPTION=HOME_PATH+"/LBS/building/update/description";//{id:.+}/{description:.+}
+    public static final String CREATE_BUILDING="/LBS/building";
+    public static final String DELETE_BUILDING="/LBS/building";///{buildingId:.+}
+    public static final String SEARCH_BUILDING="/LBS/building";///type/{type:.+}/name/{name:.+}
+    public static final String BUILDING_LIST="/LBS/building/list";
+    public static final String GET_BY_ID="/LBS/building";//{id:.+}
+    public static final String UPDATE_BUILDING_PICTURE_PATH="/LBS/building/update/picturePath";///{id:.+}/{picturePath:.+}
+    public static final String UPDATE_DESCRIPTION="/LBS/building/update/description";//{id:.+}/{description:.+}
     //Department  部门
-    public static final String CREATE_REST=HOME_PATH+"/LBS/department";
-    public static final String DELETE_REST=HOME_PATH+"/LBS/department";///{departmentId:.+}
-    public static final String REST_LIST=HOME_PATH+"/LBS/department/list";
-    public static final String SEARCH_DEPART=HOME_PATH+"/LBS/department";//
-    public static final String UPDATE_DEPART_PICTURE_PATH=HOME_PATH+"/LBS/department/update/picturePath";//{id:.+}/{picturePath:.+}
-    public static final String UPDATE_DEPART_DESCRIPTION=HOME_PATH+"/LBS/department/update/description";//{id:.+}/{description:.+}
-    public static final String UPDATE_DEPART_NAME=HOME_PATH+"/LBS/department/update/name";//{id:.+}/{name:.+}
-    public static final String UPDATE_BUILDING_ID=HOME_PATH+"/LBS/department/update/buildingId";//{id:.+}/{buildingId:.+}
+    public static final String CREATE_REST="/LBS/department";
+    public static final String DELETE_REST="/LBS/department";///{departmentId:.+}
+    public static final String REST_LIST="/LBS/department/list";
+    public static final String SEARCH_DEPART="/LBS/department";//
+    public static final String UPDATE_DEPART_PICTURE_PATH="/LBS/department/update/picturePath";//{id:.+}/{picturePath:.+}
+    public static final String UPDATE_DEPART_DESCRIPTION="/LBS/department/update/description";//{id:.+}/{description:.+}
+    public static final String UPDATE_DEPART_NAME="/LBS/department/update/name";//{id:.+}/{name:.+}
+    public static final String UPDATE_BUILDING_ID="/LBS/department/update/buildingId";//{id:.+}/{buildingId:.+}
     //notice
-    public static final String GET_NOTICE_LIST=HOME_PATH+"/LBS/notice/list";//得到所有notice  get请求
-    public static final String GET_NOTICE_BY_ID=HOME_PATH+"/LBS/notice/id";  //get请求
-    //public static final String GET_BOTICE_WITH_PAGER=HOME_PATH+"/LBS/notice/list/pager";///{userId:.+}
-    public static final String GET_NOTICE_BY_TYPE=HOME_PATH+"/LBS/notice/type";  //get请求 //type/{type:.+}/status/{status:.+}
-    public static final String GET_NOTICE_BY_TITLE=HOME_PATH+"/LBS/notice";  //get请求 /type/{type:.+}/title/{title:.+}
-    public static final String CREATE_NOTICE=HOME_PATH+"/LBS/notice";//PUT
-    public static final String GET_MY_NOTICE=HOME_PATH+"/LBS/notice";///publisher/{publisher:.+}/status/{status:.+}
-    public static final String UPDATE_NOTICE_TITLE=HOME_PATH+"/LBS/notice/update/title";//{id:.+}/{title:.+}
-    public static final String UPDATE_NOTICE_CONTENT=HOME_PATH+"/LBS/notice/update/content";//{id:.+}/{content:.+}
-    public static final String UPDATE_NOTICE_ADMAIN=HOME_PATH+"/LBS/notice/update/adminId";//{id:.+}/{adminId:.+}
-    public static final String UPDATE_NOTICE_PICTURE_PATH=HOME_PATH+"/LBS/notice/update/picturePath";//{id:.+}/{picturePath:.+}
-    public static final String UPDATE_NOTICE_STATUS=HOME_PATH+"/LBS/notice/update/status";//{id:.+}/{status:.+}
-    public static final String UPDATE_NOTICE_TAG_LIST=HOME_PATH+"/LBS/notice/update/tag";//{id:.+}
-    public static final String UPDATE_NOTICE_TYPE=HOME_PATH+"/LBS/notice/update/type";//{id:.+}/{type:.+}
-    public static final String UPDATE_PRIORITY=HOME_PATH+"/LBS/notice/update/priority";//{id:.+}/{priority:.+}
-    public static final String UPDATE_NOTICE_IMAGE_LIST=HOME_PATH+"/LBS/notice/update/image";//{id:.+}
-    public static final String NOTICE_EXAMINE=HOME_PATH+"/LBS/notice/examine";//{id:.+}/{userId:,+}/{status:.+}
-    public static final String DELETE_NOTICE=HOME_PATH+"/LBS/notice";//  DELETE  /{id:.+}
+    public static final String GET_NOTICE_LIST="/LBS/notice/list";//得到所有notice  get请求
+    public static final String GET_NOTICE_BY_ID="/LBS/notice/id";  //get请求
+    //public static final String GET_BOTICE_WITH_PAGER="/LBS/notice/list/pager";///{userId:.+}
+    public static final String GET_NOTICE_BY_TYPE="/LBS/notice/type";  //get请求 //type/{type:.+}/status/{status:.+}
+    public static final String GET_NOTICE_BY_TITLE="/LBS/notice";  //get请求 /type/{type:.+}/title/{title:.+}
+    public static final String CREATE_NOTICE="/LBS/notice";//PUT
+    public static final String GET_MY_NOTICE="/LBS/notice";///publisher/{publisher:.+}/status/{status:.+}
+    public static final String UPDATE_NOTICE_TITLE="/LBS/notice/update/title";//{id:.+}/{title:.+}
+    public static final String UPDATE_NOTICE_CONTENT="/LBS/notice/update/content";//{id:.+}/{content:.+}
+    public static final String UPDATE_NOTICE_ADMAIN="/LBS/notice/update/adminId";//{id:.+}/{adminId:.+}
+    public static final String UPDATE_NOTICE_PICTURE_PATH="/LBS/notice/update/picturePath";//{id:.+}/{picturePath:.+}
+    public static final String UPDATE_NOTICE_STATUS="/LBS/notice/update/status";//{id:.+}/{status:.+}
+    public static final String UPDATE_NOTICE_TAG_LIST="/LBS/notice/update/tag";//{id:.+}
+    public static final String UPDATE_NOTICE_TYPE="/LBS/notice/update/type";//{id:.+}/{type:.+}
+    public static final String UPDATE_PRIORITY="/LBS/notice/update/priority";//{id:.+}/{priority:.+}
+    public static final String UPDATE_NOTICE_IMAGE_LIST="/LBS/notice/update/image";//{id:.+}
+    public static final String NOTICE_EXAMINE="/LBS/notice/examine";//{id:.+}/{userId:,+}/{status:.+}
+    public static final String DELETE_NOTICE="/LBS/notice";//  DELETE  /{id:.+}
     //Position
-    public static final String UPDATE_POSITION=HOME_PATH+"/LBS/position";//PUT
-    public static final String GET_POSITION=HOME_PATH+"/LBS/position";//GET {userId}
+    public static final String UPDATE_POSITION="/LBS/position";//PUT
+    public static final String GET_POSITION="/LBS/position";//GET {userId}
     //TagBean
-    public static final String TAG_LIST=HOME_PATH+"/LBS/tag";//GET
-    public static final String CREAT_TAG=HOME_PATH+"/LBS/tag";//PUT
-    public static final String DELETE_TAG=HOME_PATH+"/LBS/tag";//DELETE   tagId:.+}
+    public static final String TAG_LIST="/LBS/tag";//GET
+    public static final String CREAT_TAG="/LBS/tag";//PUT
+    public static final String DELETE_TAG="/LBS/tag";//DELETE   tagId:.+}
     //User
-    public static final String LOG_IN=HOME_PATH+"/LBS/user/logIn";//{userId:.+}/{password:.+}
-    public static final String USER_QUERY=HOME_PATH+"/LBS/user/userId";//{userId:.+}"  得到用户详情信息
-    public static final String REGISTER=HOME_PATH+"/LBS/user/register";//
-    public static final String SEARCH_USER=HOME_PATH+"/LBS/user";//
-    public static final String DELETE_USER=HOME_PATH+"/LBS/user";///{userId:.+}
-    public static final String UPDATE_TEL_NUM=HOME_PATH+"/LBS/user/update/tel";//{userId:.+}/{telNum:.+}
-    public static final String UPDATE_IMAGE=HOME_PATH+"/LBS/user/update/image";//{userId:.+}/{image:.+
-    public static final String UPDATE_NICK_NAME=HOME_PATH+"/LBS/user/update/nick";//{userId:.+}/{nickName:.+}
-    public static final String UPDATE_EMAIL=HOME_PATH+"/LBS/user/update/email";//{userId:.+}/{email:.+}
-    public static final String UPDATE_SHARE_TIME=HOME_PATH+"/LBS/user/update/shareTime";//{userId:.+}/{start:.+}/{end:.+}
-    public static final String UPDATE_PORTRAIT_PATH=HOME_PATH+"/LBS/user/update/portrait";//{userId:.+}/{portrait:.+}
-    public static final String UPDATE_USER_STATUS=HOME_PATH+"/LBS/user/update/status";//{userId:.+}/{status:.+}
-    public static final String UPDATE_PASSWORD=HOME_PATH+"/LBS/user/update/password";//{userId:.+}/{password:.+}/{oldPassword:.+}
-    public static final String UPDATE_HOBBY=HOME_PATH+"/LBS/user/update/hobby";//{userId:.+}
+    public static final String LOG_IN="/LBS/user/logIn";//{userId:.+}/{password:.+}
+    public static final String USER_QUERY="/LBS/user/userId";//{userId:.+}"  得到用户详情信息
+    public static final String REGISTER="/LBS/user/register";//
+    public static final String SEARCH_USER="/LBS/user";//
+    public static final String DELETE_USER="/LBS/user";///{userId:.+}
+    public static final String UPDATE_TEL_NUM="/LBS/user/update/tel";//{userId:.+}/{telNum:.+}
+    public static final String UPDATE_IMAGE="/LBS/user/update/image";//{userId:.+}/{image:.+
+    public static final String UPDATE_NICK_NAME="/LBS/user/update/nick";//{userId:.+}/{nickName:.+}
+    public static final String UPDATE_EMAIL="/LBS/user/update/email";//{userId:.+}/{email:.+}
+    public static final String UPDATE_SHARE_TIME="/LBS/user/update/shareTime";//{userId:.+}/{start:.+}/{end:.+}
+    public static final String UPDATE_PORTRAIT_PATH="/LBS/user/update/portrait";//{userId:.+}/{portrait:.+}
+    public static final String UPDATE_USER_STATUS="/LBS/user/update/status";//{userId:.+}/{status:.+}
+    public static final String UPDATE_PASSWORD="/LBS/user/update/password";//{userId:.+}/{password:.+}/{oldPassword:.+}
+    public static final String UPDATE_HOBBY="/LBS/user/update/hobby";//{userId:.+}
 
 
     //image
-    public static final String GET_IMAGE=HOME_PATH+"/LBS/iamge";
+    public static final String GET_IMAGE="/LBS/iamge";
 
     public static final String SAVE_USER_NAME = "";
     public static final String SAVE_USER_PHONE = "";
     public static final String SAVE_USER_EMAIL = "";
+
+    public static void setHomePath(String path){
+        HOME_PATH = path;
+    }
+
 
     private static class SingHolder{
         private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -290,13 +295,13 @@ http请求的onFailure格式：
                     }
                 });
 Glide加载图片
-               String imagePath= HttpUtil.Image+building.getPicturePath();
+               String imagePath= HttpUtil.HOME_PATH + HttpUtil.Image+building.getPicturePath();
         if(imagePath != null){
             GlideUtil.load(BuildingDetailActivity.this, imagePath, buildingImage, GlideUtil.REQUEST_OPTIONS);
         }
 
  Glide在BasequickAdapter加载图片
-                String path = HttpUtil.Image + item.getPicturePath();
+                String path = HttpUtil.HOME_PATH + HttpUtil.Image + item.getPicturePath();
         ImageView imageView = helper.getView(R.id.item_department_image);
         GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);
  */

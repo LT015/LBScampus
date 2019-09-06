@@ -53,7 +53,7 @@ public class RegisterActivity extends BaseActivity {
                 userBean.setPassword("123456");
                 userBean.setSex("man");
                 String json = new Gson().toJson(userBean);
-                HttpUtil.sendOkHttpPutRequest(HttpUtil.REGISTER, json, new Callback() {
+                HttpUtil.sendOkHttpPutRequest( HttpUtil.HOME_PATH + HttpUtil.REGISTER, json, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         Log.d(TAG, "注册失败: ");

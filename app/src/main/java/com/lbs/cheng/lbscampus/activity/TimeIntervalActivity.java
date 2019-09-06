@@ -101,7 +101,7 @@ public class TimeIntervalActivity extends BaseActivity{
         start = DateUtil.getStartAndEndTime(startTime);
         end = DateUtil.getStartAndEndTime(endTime);
 
-        String url=HttpUtil.UPDATE_SHARE_TIME+"/"+user.getUserId()+"/"+start+"/"+end;
+        String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_SHARE_TIME+"/"+user.getUserId()+"/"+start+"/"+end;
         HashMap<String,String> hash=new HashMap<>();
         hash.put("userId",user.getUserId());
         HttpUtil.sendOkHttpPostRequest(url, hash, new Callback() {

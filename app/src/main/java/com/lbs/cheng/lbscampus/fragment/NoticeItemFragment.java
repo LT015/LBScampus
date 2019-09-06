@@ -92,7 +92,7 @@ public class NoticeItemFragment extends Fragment{
     public void getNoticeData() {
         List<String> list = new ArrayList<>();
         list.add(""+ CommonUtils.noticeTypeId+"/status/2");
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
+        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {

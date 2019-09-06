@@ -110,7 +110,7 @@ public class FinishFragment extends Fragment implements View.OnClickListener{
     }
     public void getNoticeData() {
         UserBean user = DataSupport.findLast(UserBean.class);
-        String url= HttpUtil.GET_MY_NOTICE+"/publisher/"+user.getUserId()+"/status/2";
+        String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/publisher/"+user.getUserId()+"/status/2";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -207,7 +207,7 @@ public class FinishFragment extends Fragment implements View.OnClickListener{
         int id=noticeList.get(noticePosition).getNoticeId();
         HashMap<String,String> hash = new HashMap<>();
         hash.put("noticeId",""+id);
-        HttpUtil.sendOkHttpPostRequest(HttpUtil.UPDATE_NOTICE_STATUS + "/" + id + "/4", hash, new Callback() {
+        HttpUtil.sendOkHttpPostRequest( HttpUtil.HOME_PATH + HttpUtil.UPDATE_NOTICE_STATUS + "/" + id + "/4", hash, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 getActivity().runOnUiThread(new Runnable() {

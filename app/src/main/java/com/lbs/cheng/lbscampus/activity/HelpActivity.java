@@ -98,7 +98,7 @@ public class HelpActivity extends BaseActivity {
         List<String> list = new ArrayList<>();
         list.add("3");
         list.add("/status/2");
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
+        HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {

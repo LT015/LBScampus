@@ -258,7 +258,7 @@ public class SearchDepartmentActivity extends BaseActivity {
 //    }
     public void getDepartmentDetailList() {
 
-        String url = HttpUtil.SEARCH_DEPART;
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_DEPART;
 
         if(type != -1){
             url=url+"/type/+"+type;

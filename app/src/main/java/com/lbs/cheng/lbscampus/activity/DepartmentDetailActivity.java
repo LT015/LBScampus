@@ -68,7 +68,7 @@ public class DepartmentDetailActivity extends BaseActivity {
         super.initView();
         initListener();
         initTitle();
-        String imagePath= HttpUtil.Image+department.getPicturePath();
+        String imagePath = HttpUtil.HOME_PATH + HttpUtil.Image+department.getPicturePath();
         if(imagePath != null){
             GlideUtil.load(DepartmentDetailActivity.this, imagePath, departmentImage, GlideUtil.REQUEST_OPTIONS);
         }

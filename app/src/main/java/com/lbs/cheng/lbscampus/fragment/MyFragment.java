@@ -113,7 +113,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 myImage.setImageResource(R.mipmap.head_img);
 
             }else{
-                String path = HttpUtil.Image + userBean.getUserImage();
+                String path = HttpUtil.HOME_PATH + HttpUtil.Image + userBean.getUserImage();
                 //GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名
                 GlideUtil.load(getContext(), path, myImage, GlideUtil.REQUEST_OPTIONS);
             }
@@ -267,7 +267,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                            HashMap<String,String> hash = new HashMap<>();
                            hash.put("user_id",user1.getUserId());
                            hash.put("user_status",status);
-                           String url=HttpUtil.UPDATE_USER_STATUS+"/"+user1.getUserId()+"/"+statusId;
+                           String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_USER_STATUS+"/"+user1.getUserId()+"/"+statusId;
                            HttpUtil.sendOkHttpPostRequest(url, hash, new Callback() {
                                @Override
                                public void onFailure(Call call, IOException e) {

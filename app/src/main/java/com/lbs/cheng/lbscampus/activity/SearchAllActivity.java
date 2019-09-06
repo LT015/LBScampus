@@ -305,7 +305,7 @@ public class SearchAllActivity extends BaseActivity {
 
     }
     public void getBuildingList() {
-        String url = HttpUtil.SEARCH_BUILDING;
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_BUILDING;
 
         url=url+"/name/"+name;
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
@@ -348,7 +348,7 @@ public class SearchAllActivity extends BaseActivity {
     }
     public void getDepartmentDetailList() {
 
-        String url = HttpUtil.SEARCH_DEPART;
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_DEPART;
 
         url=url+"/name/"+name;
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
@@ -389,7 +389,7 @@ public class SearchAllActivity extends BaseActivity {
 
     }
     public void getPeopleList() {
-        String url = HttpUtil.SEARCH_USER;
+        String url =  HttpUtil.HOME_PATH + HttpUtil.SEARCH_USER;
 
 
         url=url+"/name/"+name;

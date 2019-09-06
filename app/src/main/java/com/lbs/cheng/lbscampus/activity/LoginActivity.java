@@ -137,7 +137,7 @@ public class LoginActivity extends BaseActivity {
         list.add(userId);
         list.add(passWord);
 
-        String address=HttpUtil.GetUrl(HttpUtil.LOG_IN,list);
+        String address=HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.LOG_IN,list);
 
         HttpUtil.sendOkHttpPostRequest(address, hashmap, new Callback() {
             @Override

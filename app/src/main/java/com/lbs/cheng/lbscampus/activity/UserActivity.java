@@ -190,7 +190,7 @@ public class UserActivity extends BaseActivity {
             headImg.setImageResource(R.mipmap.head_img);
 
         }else {
-            String path = HttpUtil.Image + userBean.getUserImage();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + userBean.getUserImage();
             //GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));
             GlideUtil.load(UserActivity.this, path, headImg, GlideUtil.REQUEST_OPTIONS);
         }
@@ -269,7 +269,7 @@ public class UserActivity extends BaseActivity {
                                 list1.add(userId);
                                 list1.add(nickname);
 
-                                String address=HttpUtil.GetUrl(HttpUtil.UPDATE_NICK_NAME,list1);
+                                String address=HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.UPDATE_NICK_NAME,list1);
                                 HttpUtil.sendOkHttpPostRequest(address, hash, new Callback() {
                                     @Override
                                     public void onFailure(Call call, IOException e) {
@@ -417,7 +417,7 @@ public class UserActivity extends BaseActivity {
                                 List<String> list1=new ArrayList<>();
                                 list1.add(userBean.getUserId());
                                 list1.add(input);
-                                String address=HttpUtil.GetUrl(HttpUtil.UPDATE_EMAIL,list1);
+                                String address=HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.UPDATE_EMAIL,list1);
                                 HttpUtil.sendOkHttpPostRequest(address, hash, new Callback() {
                                     @Override
                                     public void onFailure(Call call, IOException e) {
@@ -619,7 +619,7 @@ public class UserActivity extends BaseActivity {
                     String userId=DataSupport.findAll(UserBean.class).get(0).getUserId();
                     List<String> list1=new ArrayList<>();
                     list1.add(userId);
-                    String address=HttpUtil.GetUrl(HttpUtil.UPDATE_IMAGE,list1);
+                    String address=HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.UPDATE_IMAGE,list1);
                     String json="{\"data:image/png;base64,"+image+"\"}";
                     HttpUtil.upLoadImgsRequest(address, json, new Callback() {
                         @Override
@@ -645,7 +645,7 @@ public class UserActivity extends BaseActivity {
                                             UserBean userBean = DataSupport.findAll(UserBean.class).get(0);
                                             //保存本地图片头像的路径
                                             //PreferenceManager.getDefaultSharedPreferences(UserActivity.this).edit().putString(userBean.getUserId()+"",imagePath).commit();
-                                            String path = HttpUtil.Image + responseText;
+                                            String path = HttpUtil.HOME_PATH + HttpUtil.Image + responseText;
                                             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
                                             GlideUtil.load(UserActivity.this, path, headImg, GlideUtil.REQUEST_OPTIONS);
                                             progressBar.setVisibility(View.GONE);

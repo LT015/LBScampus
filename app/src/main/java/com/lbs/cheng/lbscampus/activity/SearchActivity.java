@@ -275,7 +275,7 @@ public class SearchActivity extends BaseActivity {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String url=HttpUtil.GET_NOTICE_BY_TITLE+"/type/"+ CommonUtils.noticeTypeId+"/status/2"+"/title/"+content;
+        String url= HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TITLE+"/type/"+ CommonUtils.noticeTypeId+"/status/2"+"/title/"+content;
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

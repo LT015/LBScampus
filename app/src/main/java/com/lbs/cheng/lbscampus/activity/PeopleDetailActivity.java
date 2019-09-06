@@ -114,7 +114,7 @@ public class PeopleDetailActivity extends BaseActivity {
     public void getPosition(){
         List<String> list=new ArrayList<>();
         list.add(userDetail.getUserId());
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.GET_POSITION, list, new Callback() {
+        HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.GET_POSITION, list, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
@@ -208,7 +208,7 @@ public class PeopleDetailActivity extends BaseActivity {
         userName.setText(userDetail.getUserName());
 
         if(userDetail.getUserImage() != null){
-            String path = HttpUtil.Image + userDetail.getUserImage();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + userDetail.getUserImage();
             //GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));
 
             GlideUtil.load(PeopleDetailActivity.this, path, userImage, GlideUtil.REQUEST_OPTIONS);

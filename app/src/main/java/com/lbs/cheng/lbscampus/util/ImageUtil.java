@@ -41,7 +41,7 @@ public class ImageUtil {
         List list=new ArrayList<>();
         list.add(key);
 
-        final String address= HttpUtil.GetUrl(HttpUtil.GET_IMAGE,list);
+        final String address= HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.GET_IMAGE,list);
 
 
         HttpUtil.getImage(address, new Callback() {

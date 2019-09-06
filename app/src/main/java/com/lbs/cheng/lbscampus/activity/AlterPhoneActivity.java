@@ -228,7 +228,7 @@ public class AlterPhoneActivity extends BaseActivity {
         HashMap<String,String> hash = new HashMap<>();
         hash.put("user_id",userId);
         hash.put("phone",newTelNumber);
-        String url=HttpUtil.UPDATE_TEL_NUM+"/"+userId+"/"+newTelNumber;
+        String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_TEL_NUM+"/"+userId+"/"+newTelNumber;
         HttpUtil.sendOkHttpPostRequest(url ,hash, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

@@ -154,7 +154,7 @@ public class AddNoticeActivity extends BaseActivity {
                 noticeDetail = new Gson().fromJson(json,NoticeDetailBean.class);
             }
             if(noticeDetail.getImageList().size()>0){
-                String url=HttpUtil.Image+noticeDetail.getImageList().get(0).getImagePath();
+                String url= HttpUtil.HOME_PATH + HttpUtil.Image+noticeDetail.getImageList().get(0).getImagePath();
                 GlideUtil.load(AddNoticeActivity.this,url , addImage, GlideUtil.REQUEST_OPTIONS);
             }
             noticeTitle.setText(noticeDetail.getTitle());
@@ -214,7 +214,7 @@ public class AddNoticeActivity extends BaseActivity {
     }
 
     public void getTagList(){
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.TAG_LIST, new ArrayList<String>(), new Callback() {
+        HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.TAG_LIST, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
@@ -376,7 +376,7 @@ public class AddNoticeActivity extends BaseActivity {
         notice.setPublishTime(publishTime);
         notice.setPublisher(userBean.getUserId());
         String json = new Gson().toJson(notice);
-        HttpUtil.sendOkHttpPutRequest(HttpUtil.CREATE_NOTICE, json, new Callback() {
+        HttpUtil.sendOkHttpPutRequest( HttpUtil.HOME_PATH + HttpUtil.CREATE_NOTICE, json, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 runOnUiThread(new Runnable() {
@@ -426,7 +426,7 @@ public class AddNoticeActivity extends BaseActivity {
     public void updateImage(){
         HashMap<String,String> hash = new HashMap<>();
         hash.put("notice_id",notice.getNoticeId());
-        String url=HttpUtil.UPDATE_NOTICE_IMAGE_LIST+"/"+notice.getNoticeId();
+        String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_NOTICE_IMAGE_LIST+"/"+notice.getNoticeId();
         String json = new Gson().toJson(imageJsonList);
         HttpUtil.upLoadImgsRequest(url, json, new Callback() {
             @Override

@@ -106,7 +106,7 @@ public class ReviewedFragment extends Fragment implements View.OnClickListener{
 //    }
     public void getNoticeData() {
         UserBean user = DataSupport.findLast(UserBean.class);
-        String url=HttpUtil.GET_MY_NOTICE+"/publisher/"+user.getUserId()+"/status/1";
+        String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/publisher/"+user.getUserId()+"/status/1";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

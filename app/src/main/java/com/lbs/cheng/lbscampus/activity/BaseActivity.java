@@ -247,7 +247,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                         position.setLongitude( location.getLongitude());
                         String json = new Gson().toJson(position);
 
-                        HttpUtil.sendOkHttpPutRequest(HttpUtil.UPDATE_POSITION, json, new okhttp3.Callback() {
+                        HttpUtil.sendOkHttpPutRequest( HttpUtil.HOME_PATH + HttpUtil.UPDATE_POSITION, json, new okhttp3.Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
                                 Log.d("location", "upadte location failed:");

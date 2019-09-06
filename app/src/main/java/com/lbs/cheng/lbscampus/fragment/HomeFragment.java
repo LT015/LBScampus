@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         List<String> list1 = new ArrayList<>();
         list1.add("0");
         list1.add("/status/2");
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
+        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 

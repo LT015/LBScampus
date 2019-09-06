@@ -34,7 +34,7 @@ public class BuildingAdapter extends BaseQuickAdapter<BuildingBean, BaseViewHold
         helper.addOnClickListener(R.id.item_building_go).addOnClickListener(R.id.building_item);
 
         if(item.getPicturePath() != null){
-            String path = HttpUtil.Image + item.getPicturePath();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + item.getPicturePath();
             RCImageView imageView = helper.getView(R.id.item_building_image);
             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
             GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);

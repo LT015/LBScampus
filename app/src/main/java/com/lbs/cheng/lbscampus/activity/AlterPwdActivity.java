@@ -111,7 +111,7 @@ public class AlterPwdActivity extends BaseActivity {
         HashMap<String,String> hash = new HashMap<>();
         hash.put("user_id",userId);
         hash.put("phone",newPwd);
-        String url= HttpUtil.UPDATE_PASSWORD+"/"+userId+"/"+newPwd+"/"+oldPwd;
+        String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_PASSWORD+"/"+userId+"/"+newPwd+"/"+oldPwd;
         HttpUtil.sendOkHttpPostRequest(url ,hash, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

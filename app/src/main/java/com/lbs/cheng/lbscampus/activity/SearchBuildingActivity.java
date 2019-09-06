@@ -241,7 +241,7 @@ public class SearchBuildingActivity extends BaseActivity {
 //
 //    }
     public void getBuildingData() {
-        String url = HttpUtil.SEARCH_BUILDING;
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_BUILDING;
 
         if(type != -1){
             url=url+"/type/+"+type;

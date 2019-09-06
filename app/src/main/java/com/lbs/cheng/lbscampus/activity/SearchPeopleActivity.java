@@ -349,7 +349,7 @@ public class SearchPeopleActivity extends BaseActivity {
 //
 //    }
     public void getPeopleList() {
-        String url = HttpUtil.SEARCH_USER;
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_USER;
 
         if(deptId == -1){
             if(type!=-1){

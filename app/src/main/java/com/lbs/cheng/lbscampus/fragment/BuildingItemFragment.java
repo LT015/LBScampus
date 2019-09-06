@@ -120,7 +120,7 @@ public class BuildingItemFragment extends Fragment {
     }
 
     public void getBuildingData() {
-        String url = HttpUtil.SEARCH_BUILDING+"/type/"+ CommonUtils.buildingTypeId;
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_BUILDING+"/type/"+ CommonUtils.buildingTypeId;
 
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
