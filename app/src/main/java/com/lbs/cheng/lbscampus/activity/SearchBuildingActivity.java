@@ -211,7 +211,7 @@ public class SearchBuildingActivity extends BaseActivity {
 
     private void initRecyclerView() {
 
-        adapter = new BuildingAdapter(R.layout.item_building,buildingList,SearchBuildingActivity.this);
+        adapter = new BuildingAdapter(R.layout.item_building,buildingList,0,SearchBuildingActivity.this);
         adapter.openLoadAnimation(ALPHAIN);
         adapter.isFirstOnly(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

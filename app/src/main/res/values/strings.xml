@@ -2,6 +2,7 @@
     <string name="app_name">LBS天财</string>
     <string name="bottom_tab_home">首页</string>
     <string name="bottom_tab_notice">公告</string>
+    <string name="bottom_tab_room">教室</string>
     <string name="bottom_tab_map">地图</string>
     <string name="bottom_tab_my">我的</string>
 
@@ -11,7 +12,8 @@
     <string name="head_icon_4">失物招领</string>
     <string name="head_icon_5">求助</string>
     <string name="head_icon_6">课表</string>
-    <string name="head_icon_7">更多功能</string>
+    <string name="head_icon_7">常用教室</string>
+    <string name="head_icon_8">更多功能</string>
 
     <string name="search">搜索</string>
     <string name="search_hint">搜索公告、活动</string>

@@ -2,6 +2,7 @@ package com.lbs.cheng.lbscampus.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -25,9 +26,11 @@ import static com.lbs.cheng.lbscampus.MyApplication.getContext;
 
 public class BuildingAdapter extends BaseQuickAdapter<BuildingBean, BaseViewHolder> {
     Context context;
-    public BuildingAdapter(int layoutResId, @Nullable List<BuildingBean> data, Context itemContext) {
+    int flag = 0;//0表示显示导航按钮
+    public BuildingAdapter(int layoutResId, @Nullable List<BuildingBean> data,int flag, Context itemContext) {
         super(layoutResId, data);
         context=itemContext;
+        this.flag = flag;
     }
     @Override
     protected void convert(BaseViewHolder helper, BuildingBean item) {
@@ -38,6 +41,11 @@ public class BuildingAdapter extends BaseQuickAdapter<BuildingBean, BaseViewHold
             RCImageView imageView = helper.getView(R.id.item_building_image);
             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
             GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);
+        }
+
+        if(flag == 1){
+            ImageView imageView = helper.getView(R.id.item_building_go);
+            imageView.setVisibility(View.GONE);
         }
 
         helper.setText(R.id.item_building_name,item.getName());

@@ -120,7 +120,8 @@
         <activity android:name=".activity.PeopleDetailActivity" />
         <activity android:name=".activity.DepartmentDetailActivity" />
         <activity android:name=".activity.HelpActivity" />
-        <activity android:name=".activity.VerifyActivity"></activity>
+        <activity android:name=".activity.VerifyActivity"/>
+        <activity android:name=".activity.IPActivity"/>
     </application>
 
 </manifest>

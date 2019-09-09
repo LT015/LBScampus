@@ -82,7 +82,7 @@ public class BuildingItemFragment extends Fragment {
     }
     private void initRecyclerView() {
 
-        BuildingAdapter adapter = new BuildingAdapter(R.layout.item_building,buildingList,getActivity());
+        BuildingAdapter adapter = new BuildingAdapter(R.layout.item_building,buildingList,0,getActivity());
         adapter.openLoadAnimation(ALPHAIN);
         adapter.isFirstOnly(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

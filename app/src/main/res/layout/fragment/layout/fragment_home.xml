@@ -199,7 +199,7 @@
                     <ImageView
                         android:layout_width="@dimen/space_80px"
                         android:layout_height="@dimen/space_80px"
-                        android:src="@drawable/more_function" />
+                        android:src="@drawable/classroom" />
 
                     <TextView
                         style="@style/head_icon_text_style"
@@ -207,7 +207,7 @@
 
                 </com.zhy.autolayout.AutoLinearLayout>
                 <com.zhy.autolayout.AutoLinearLayout
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     android:id="@+id/head_icon_8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
 
                     <TextView
                         style="@style/head_icon_text_style"
-                        android:text="@string/head_icon_6" />
+                        android:text="@string/head_icon_8" />
 
                 </com.zhy.autolayout.AutoLinearLayout>
             </com.zhy.autolayout.AutoLinearLayout>

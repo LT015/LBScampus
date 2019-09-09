@@ -244,6 +244,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.head_icon_7:
                 Toast.makeText(getContext(),"敬请期待",Toast.LENGTH_LONG).show();
                 break;
+            case R.id.head_icon_8:
+                Toast.makeText(getContext(),"敬请期待",Toast.LENGTH_LONG).show();
+                break;
         }
     }
 //    public void getNoticeData() {
