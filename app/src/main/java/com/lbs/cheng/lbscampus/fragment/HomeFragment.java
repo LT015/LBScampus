@@ -24,6 +24,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.activity.HelpActivity;
 import com.lbs.cheng.lbscampus.activity.LostPropertyActivity;
 import com.lbs.cheng.lbscampus.activity.NoticeActivity;
+import com.lbs.cheng.lbscampus.activity.RoomStateActivity;
 import com.lbs.cheng.lbscampus.activity.SearchBuildingActivity;
 import com.lbs.cheng.lbscampus.activity.SearchPeopleActivity;
 import com.lbs.cheng.lbscampus.activity.SearchDepartmentActivity;
@@ -242,7 +243,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 ARouter.getInstance().build("/course/main").navigation();
                 break;
             case R.id.head_icon_7:
-                Toast.makeText(getContext(),"敬请期待",Toast.LENGTH_LONG).show();
+                Intent intent =new Intent(getActivity(), RoomStateActivity.class);
+                startActivity(intent);
                 break;
             case R.id.head_icon_8:
                 Toast.makeText(getContext(),"敬请期待",Toast.LENGTH_LONG).show();

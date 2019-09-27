@@ -3,28 +3,20 @@
     xmlns:Android="http://schemas.android.com/apk/res-auto"
     package="com.lbs.cheng.lbscampus">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 允许程序打开网络套接字 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 允许程序设置内置sd卡的写权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 允许程序打开网络套接字 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 允许程序获取网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 允许程序访问WiFi网络信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 允许程序读写手机状态和身份 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 相机 -->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 允许程序获取网络状态 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许程序访问WiFi网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许程序读写手机状态和身份 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 相机 -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <!-- 获取CUID，用于鉴权，请求签名等 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" /> <!-- 获取CUID，用于鉴权，请求签名等 -->
     <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
@@ -40,20 +32,17 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activity.RoomStateActivity"></activity>
         <!-- 自适应布局 -->
         <meta-data
             android:name="design_width"
             android:value="720" />
         <meta-data
             android:name="design_height"
-            android:value="1280" />
-        <!-- 地图key -->
+            android:value="1280" /> <!-- 地图key -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="GBWC8Wj8ABBV3jO47vpEeAAI1eAcCkmv" />
-        <!-- 注册activity -->
-
+            android:value="GBWC8Wj8ABBV3jO47vpEeAAI1eAcCkmv" /> <!-- 注册activity -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -120,8 +109,8 @@
         <activity android:name=".activity.PeopleDetailActivity" />
         <activity android:name=".activity.DepartmentDetailActivity" />
         <activity android:name=".activity.HelpActivity" />
-        <activity android:name=".activity.VerifyActivity"/>
-        <activity android:name=".activity.IPActivity"/>
+        <activity android:name=".activity.VerifyActivity" />
+        <activity android:name=".activity.IPActivity" />
     </application>
 
 </manifest>

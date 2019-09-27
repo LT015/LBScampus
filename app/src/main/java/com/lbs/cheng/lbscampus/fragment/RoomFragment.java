@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.activity.BuildingDetailActivity;
+import com.lbs.cheng.lbscampus.activity.RoomStateActivity;
 import com.lbs.cheng.lbscampus.activity.SearchBuildingActivity;
 import com.lbs.cheng.lbscampus.adapter.BuildingAdapter;
 import com.lbs.cheng.lbscampus.bean.BuildingBean;
@@ -80,7 +81,8 @@ public class RoomFragment extends Fragment {
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 switch (view.getId()){
                     case R.id.building_item:
-                        Toast.makeText(getContext(),"建筑物",Toast.LENGTH_SHORT).show();
+                        Intent intent =new Intent(getActivity(), RoomStateActivity.class);
+                        startActivity(intent);
                 }
             }
         });
