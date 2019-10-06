@@ -240,10 +240,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent5);
                 break;
             case R.id.head_icon_6:
-                ARouter.getInstance().build("/course/main").navigation();
+                ARouter.getInstance().build("/course/main").withInt("key",1).withString("courseName","").navigation();
                 break;
             case R.id.head_icon_7:
                 Intent intent =new Intent(getActivity(), RoomStateActivity.class);
+                intent.putExtra("key",0);
                 startActivity(intent);
                 break;
             case R.id.head_icon_8:

@@ -3,12 +3,16 @@
     package="com.example.kcb">
 
     <application
-        >
-        <activity android:name=".MainActivity">
-        </activity>
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SelectClassActivity"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".AddCourseActivity" />
-
-        <activity  android:name=".AboutActivity" />
+        <activity android:name=".AboutActivity" />
     </application>
 
 </manifest>

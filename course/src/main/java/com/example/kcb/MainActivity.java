@@ -1,13 +1,17 @@
 package com.example.kcb;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +24,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lt.common.activity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Route(path = "/course/main")
 public class MainActivity extends BaseActivity {
@@ -34,18 +40,25 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout day;
     ImageView back;
     TextView titleName;
+    ImageView titleInfo;
+    TextView titleMore;
+    @Autowired
+    public int key;
+    @Autowired
+    public String courseName;
+
     //SQLite Helper类
     private DatabaseHelper databaseHelper = new DatabaseHelper
             (this, "database.db", null, 1);
 
     int currentCoursesNumber = 0;
-    int maxCoursesNumber = 0;
+    int maxCoursesNumber = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ARouter.getInstance().inject(this);
         //初始化数据
         initCourse();
         //从数据库读取数据
@@ -60,12 +73,29 @@ public class MainActivity extends BaseActivity {
 
     private void initTitle() {
         back = findViewById(R.id.title_back);
-        titleName=findViewById(R.id.title_name);
+        titleName = findViewById(R.id.title_name);
+        titleInfo = findViewById(R.id.title_info);
+        titleMore = findViewById(R.id.title_register);
         back.setOnClickListener(this);
-        titleName.setOnClickListener(this);
+        titleInfo.setOnClickListener(this);
+        titleMore.setOnClickListener(this);
         back.setVisibility(View.VISIBLE);
-        titleName.setText("课程表");
+        titleInfo.setVisibility(View.VISIBLE);
+        if(key == 1){//点击首页的课表进入
+            titleMore.setVisibility(View.VISIBLE);
+            titleMore.setText("更多");
+            titleName.setText("课程表");
+        }else if(key == 2){//从查看教室状态进入，此时可以添加为常用教室
+            titleMore.setVisibility(View.VISIBLE);
+            titleName.setText(courseName);
+            titleMore.setText("设为常用");
+        }else if(key == 0){//查看其他班级的课表
+            titleName.setText(courseName);
+        }
+
+
     }
+
     //从数据库加载数据
     private void loadData() {
         ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
@@ -85,8 +115,8 @@ public class MainActivity extends BaseActivity {
         cursor.close();
 
         //使用从数据库读取出来的课程信息来加载课程表视图
+        createLeftView();
         for (Course course : coursesList) {
-            createLeftView(course);
             createItemCourseView(course);
         }
     }
@@ -116,21 +146,21 @@ public class MainActivity extends BaseActivity {
     }
 
     //创建"第几节数"视图
-    private void createLeftView(Course course) {
-        int endNumber = course.getEnd();
-        if (endNumber > maxCoursesNumber) {
-            for (int i = 0; i < endNumber-maxCoursesNumber; i++) {
-                View view = LayoutInflater.from(this).inflate(R.layout.left_view, null);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(110,320);
-                view.setLayoutParams(params);
+    private void createLeftView() {
+        for (int i = 0; i < maxCoursesNumber; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.left_view, null);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,320);
+            view.setLayoutParams(params);
 
-                TextView text = view.findViewById(R.id.class_number_text);
-                text.setText(String.valueOf(++currentCoursesNumber));
+            TextView text = view.findViewById(R.id.class_number_text);
+            text.setText(String.valueOf(++currentCoursesNumber));
 
-                LinearLayout leftViewLayout = findViewById(R.id.left_view_layout);
-                leftViewLayout.addView(view);
-            }
-            maxCoursesNumber = endNumber;
+            View view1 = LayoutInflater.from(this).inflate(R.layout.views, null);
+
+
+            LinearLayout leftViewLayout = findViewById(R.id.left_view_layout);
+            leftViewLayout.addView(view1);
+            leftViewLayout.addView(view);
         }
     }
 
@@ -196,7 +226,7 @@ public class MainActivity extends BaseActivity {
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             Course course = (Course) data.getSerializableExtra("course");
             //创建课程表左边视图(节数)
-            createLeftView(course);
+//            createLeftView(course);
             //创建课程表视图
             createItemCourseView(course);
             //存储数据到数据库
@@ -207,8 +237,52 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if (v.getId() == R.id.title_back) {
+        int i = v.getId();
+        if (i == R.id.title_back) {
             finish();
+        } else if (i == R.id.title_info) {
+            getClassTime();
+        } else if (i == R.id.title_register) {
+            if(key == 1){
+                Intent intent = new Intent(MainActivity.this,SelectClassActivity.class);
+                startActivity(intent);
+            }else if(key == 2){
+                setUseClassroom();
+            }
+
         }
+
+    }
+    private void getClassTime(){
+        final View viewStatus = LayoutInflater.from(getApplicationContext()).inflate(R.layout.get_class_time,null);
+
+        new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme))
+                .setTitle(getResources().getString(R.string.class_time))
+                .setView(viewStatus)
+                .setPositiveButton(getResources().getString(R.string.class_time_ok), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .setNegativeButton("", null)
+                .show();
+    }
+    private void setUseClassroom(){
+        final View viewStatus = LayoutInflater.from(getApplicationContext()).inflate(R.layout.add_classroom,null);
+
+        new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme))
+                .setTitle(getResources().getString(R.string.add_classroom))
+                .setView(viewStatus)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
     }
 }

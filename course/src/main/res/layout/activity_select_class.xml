@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout
+    android:background="@color/white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.kcb.SelectClassActivity">
+
+    <include layout="@layout/title_bar"/>
+
+    <View
+        android:background="@color/grey_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_1px"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/calss_name_list"
+        android:verticalSpacing="@dimen/space_30px"
+        android:layout_marginRight="@dimen/space_10px"
+        android:layout_marginLeft="@dimen/space_10px"
+        android:scrollbars="none"
+        android:listSelector="#00000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.RecyclerView>
+
+
+</com.zhy.autolayout.AutoLinearLayout>

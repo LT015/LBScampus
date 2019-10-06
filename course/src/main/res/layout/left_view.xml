@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.zhy.autolayout.AutoRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="45dp"
-    android:layout_height="100dp"
-    android:background="@color/blue"
+    android:layout_width="match_parent"
+    android:layout_height="320px"
+    android:background="@color/grey_background"
     android:orientation="vertical">
 
     <TextView
@@ -28,10 +28,5 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#7fD5D5D5"
-        android:layout_alignParentBottom="true"/>
 
-</RelativeLayout>
+</com.zhy.autolayout.AutoRelativeLayout>

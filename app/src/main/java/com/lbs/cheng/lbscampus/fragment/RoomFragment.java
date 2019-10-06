@@ -82,6 +82,7 @@ public class RoomFragment extends Fragment {
                 switch (view.getId()){
                     case R.id.building_item:
                         Intent intent =new Intent(getActivity(), RoomStateActivity.class);
+                        intent.putExtra("key",1);
                         startActivity(intent);
                 }
             }

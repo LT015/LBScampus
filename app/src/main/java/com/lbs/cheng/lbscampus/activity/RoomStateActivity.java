@@ -1,5 +1,6 @@
 package com.lbs.cheng.lbscampus.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -55,6 +56,7 @@ public class RoomStateActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         initSpring();
+        initTitle();
     }
 
     private void initRecycleView(){
@@ -64,7 +66,7 @@ public class RoomStateActivity extends BaseActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ARouter.getInstance().build("/course/main").navigation();
+                ARouter.getInstance().build("/course/main").withInt("key",2).withString("courseName",list.get(position).getRoomName()).navigation();
 
 
             }
@@ -104,11 +106,18 @@ public class RoomStateActivity extends BaseActivity {
 
     }
     private void initTitle() {
+        Intent intent = getIntent();
+        int key = intent.getIntExtra("key",0);
         back = findViewById(R.id.title_back);
         titleName=findViewById(R.id.title_name);
         back.setOnClickListener(this);
         back.setVisibility(View.VISIBLE);
-        titleName.setText("教室状态");
+        if(key == 0){
+            titleName.setText("常用教室");
+        }else{
+            titleName.setText("教室状态");
+        }
+
     }
 
     private void getRoomsState(){
@@ -123,8 +132,15 @@ public class RoomStateActivity extends BaseActivity {
         list.get(3).setState(1);
 
         initRecycleView();
-
-
     }
 
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.title_back:
+                finish();
+                break;
+        }
+    }
 }

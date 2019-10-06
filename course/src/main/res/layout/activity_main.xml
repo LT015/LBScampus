@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-    android:background="@color/bg_blue"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:background="@color/blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
@@ -22,12 +19,12 @@
 
             <!--星期条-->
             <com.zhy.autolayout.AutoLinearLayout
-                android:background="@color/green"
+                android:background="@color/grey_background"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <TextView
-                    android:layout_width="110px"
+                    android:layout_width="100px"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="16dp"
@@ -74,41 +71,42 @@
                 android:layout_height="wrap_content">
 
                 <!--左侧"节数"布局-->
-                <LinearLayout
+                <com.zhy.autolayout.AutoLinearLayout
                     android:id="@+id/left_view_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100px"
                     android:layout_height="wrap_content"
+                    android:background="@color/grey_background"
                     android:orientation="vertical"/>
                 <!--星期一到星期天的布局-->
-                <RelativeLayout
+                <com.zhy.autolayout.AutoRelativeLayout
                     android:id="@+id/monday"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="1dp"/>
-                <RelativeLayout
+                <com.zhy.autolayout.AutoRelativeLayout
                     android:id="@+id/tuesday"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="1dp"/>
-                <RelativeLayout
+                <com.zhy.autolayout.AutoRelativeLayout
                     android:id="@+id/wednesday"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="1dp"/>
-                <RelativeLayout
+                <com.zhy.autolayout.AutoRelativeLayout
                     android:id="@+id/thursday"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:layout_margin="1dp"/>
-                <RelativeLayout
+                <com.zhy.autolayout.AutoRelativeLayout
                     android:id="@+id/friday"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

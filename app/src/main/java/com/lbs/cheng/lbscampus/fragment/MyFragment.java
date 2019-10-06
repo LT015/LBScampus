@@ -2,12 +2,10 @@ package com.lbs.cheng.lbscampus.fragment;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,13 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.ObjectKey;
-import com.google.gson.Gson;
 import com.lbs.cheng.lbscampus.R;
-import com.lbs.cheng.lbscampus.activity.AlterPwdActivity;
-import com.lbs.cheng.lbscampus.activity.ChoosePhoneActivity;
 import com.lbs.cheng.lbscampus.activity.CollectNoticeActivity;
 import com.lbs.cheng.lbscampus.activity.LoginActivity;
 import com.lbs.cheng.lbscampus.activity.MyNoticeActivity;
@@ -34,19 +26,13 @@ import com.lbs.cheng.lbscampus.activity.VerifyActivity;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
-import com.lbs.cheng.lbscampus.util.ImageUtil;
 import com.lbs.cheng.lbscampus.view.CircleImageView;
-import com.lbs.cheng.lbscampus.view.RCImageView;
 import com.zhy.autolayout.AutoLinearLayout;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +40,6 @@ import butterknife.Unbinder;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
-import static com.lbs.cheng.lbscampus.MyApplication.getContext;
 
 /**
  * Created by cheng on 2019/1/15.
@@ -236,7 +220,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         unbinder.unbind();
     }
     private void alterUserShareMode(){
-        final View viewStatus = LayoutInflater.from(getContext()).inflate(R.layout.alter_mode,null);
+        final View viewStatus = LayoutInflater.from(getContext()).inflate(R.layout.add_classroom,null);
         final RadioGroup selected = (RadioGroup) viewStatus.findViewById(R.id.radio_group);
         RadioButton hide = (RadioButton) viewStatus.findViewById(R.id.hide);
         RadioButton open = (RadioButton) viewStatus.findViewById(R.id.open);

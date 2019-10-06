@@ -16,12 +16,13 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_welcome);
+        ARouter.init(getApplication());
         initDelay();
 //        if (true) {
 //            ARouter.openLog();
 //            ARouter.openDebug();
 //        }
-        ARouter.init(getApplication());
+
     }
 
     private void initDelay() {
