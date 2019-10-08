@@ -374,7 +374,7 @@ public class AddNoticeActivity extends BaseActivity {
         long time=System.currentTimeMillis();//系统时间
         String publishTime = DateUtil.getDateToString(time,DateUtil.pattern);
         notice.setPublishTime(publishTime);
-        notice.setPublisher(userBean.getUserId());
+        notice.setPublisher(userBean);
         String json = new Gson().toJson(notice);
         HttpUtil.sendOkHttpPutRequest( HttpUtil.HOME_PATH + HttpUtil.CREATE_NOTICE, json, new Callback() {
             @Override

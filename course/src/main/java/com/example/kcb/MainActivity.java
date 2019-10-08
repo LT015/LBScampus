@@ -45,7 +45,10 @@ public class MainActivity extends BaseActivity {
     @Autowired
     public int key;
     @Autowired
+    public int tableflag;
+    @Autowired
     public String courseName;
+    ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
 
     //SQLite Helper类
     private DatabaseHelper databaseHelper = new DatabaseHelper
@@ -60,9 +63,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ARouter.getInstance().inject(this);
         //初始化数据
-        initCourse();
+//        initCourse();
         //从数据库读取数据
-        loadData();
+//        loadData();
+        getCourseList();
     }
 
     @Override
@@ -81,7 +85,7 @@ public class MainActivity extends BaseActivity {
         titleMore.setOnClickListener(this);
         back.setVisibility(View.VISIBLE);
         titleInfo.setVisibility(View.VISIBLE);
-        if(key == 1){//点击首页的课表进入
+        if(key == 1){//点击首页的课表进入 计科1901
             titleMore.setVisibility(View.VISIBLE);
             titleMore.setText("更多");
             titleName.setText("课程表");
@@ -89,7 +93,7 @@ public class MainActivity extends BaseActivity {
             titleMore.setVisibility(View.VISIBLE);
             titleName.setText(courseName);
             titleMore.setText("设为常用");
-        }else if(key == 0){//查看其他班级的课表
+        }else if(key == 0){//查看其他班级的课表 软件1901
             titleName.setText(courseName);
         }
 
@@ -98,21 +102,9 @@ public class MainActivity extends BaseActivity {
 
     //从数据库加载数据
     private void loadData() {
-        ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
-        SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("select * from courses", null);
-        if (cursor.moveToFirst()) {
-            do {
-                coursesList.add(new Course(
-                        cursor.getString(cursor.getColumnIndex("course_name")),
-                        cursor.getString(cursor.getColumnIndex("teacher")),
-                        cursor.getString(cursor.getColumnIndex("class_room")),
-                        cursor.getInt(cursor.getColumnIndex("day")),
-                        cursor.getInt(cursor.getColumnIndex("class_start")),
-                        cursor.getInt(cursor.getColumnIndex("class_end"))));
-            } while(cursor.moveToNext());
-        }
-        cursor.close();
+
+
+
 
         //使用从数据库读取出来的课程信息来加载课程表视图
         createLeftView();
@@ -121,16 +113,18 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    void initCourse(){
-            for (int i=0 ; i<5;i++){
-                Course course = new Course("数据结构", "严冬梅", "2307",
-                        Integer.valueOf(i), Integer.valueOf(i), Integer.valueOf(i));
-                saveData(course);
-            }
-            Course course = new Course("数据结构", "严冬梅", "2307",
-                    Integer.valueOf(3), Integer.valueOf(6), Integer.valueOf(6));
-            saveData(course);
-    }
+
+
+//    void initCourse(){
+//            for (int i=0 ; i<5;i++){
+//                Course course = new Course("数据结构", "严冬梅", "2307",
+//                        Integer.valueOf(i), Integer.valueOf(i), Integer.valueOf(i));
+//                saveData(course);
+//            }
+//            Course course = new Course("数据结构", "严冬梅", "2307",
+//                    Integer.valueOf(3), Integer.valueOf(6), Integer.valueOf(6));
+//            saveData(course);
+//    }
     //保存数据到数据库
     private void saveData(Course course) {
         SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
@@ -149,7 +143,7 @@ public class MainActivity extends BaseActivity {
     private void createLeftView() {
         for (int i = 0; i < maxCoursesNumber; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.left_view, null);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,320);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(90,320);
             view.setLayoutParams(params);
 
             TextView text = view.findViewById(R.id.class_number_text);
@@ -284,5 +278,65 @@ public class MainActivity extends BaseActivity {
                 })
                 .setNegativeButton("取消", null)
                 .show();
+    }
+
+    private void getCourseList(){
+        //String courseName, String teacher, String classRoom, int day, int classStart, int classEnd
+        if(tableflag == 1){//计科1901
+            Course course1 = new Course("程序设计基础",2,3,3,"严冬梅",""); coursesList.add(course1);
+            Course course2 = new Course("电路与电子技术",3,3,3,"张南南",""); coursesList.add(course2);
+            Course course3 = new Course("程序设计基础",3,4,4,"严冬梅",""); coursesList.add(course3);
+            Course course4 = new Course("电路与电子技术",4,4,4,"张南南",""); coursesList.add(course4);
+            Course course5 = new Course("高等数学Ⅰ",2,2,2,"王志芹",""); coursesList.add(course5);
+            Course course6 = new Course("应用文写作",2,5,5,"张胜珍",""); coursesList.add(course6);
+            Course course7 = new Course("高等数学Ⅰ",3,2,2,"王志芹",""); coursesList.add(course7);
+            Course course8 = new Course("高等数学Ⅰ",4,2,2,"王志芹",""); coursesList.add(course8);
+            Course course9 = new Course("中国近现代史纲要",4,5,5,	"葛亚坤",""); coursesList.add(course9);
+            Course course10 = new Course("高等数学Ⅰ",5,2,2,"王志芹",""); coursesList.add(course10);
+            Course course11 = new Course("中国近现代史纲要",5,5,5,"葛亚坤",""); coursesList.add(course11);
+            Course course12 = new Course("机器人创新实践",1,1,1,"吴诺",""); coursesList.add(course12);
+            Course course13 = new Course("程序设计基础实验",1,2,2,"严冬梅",""); coursesList.add(course13);
+            Course course14 = new Course("计算机科学导论",1,3,3,"华斌",""); coursesList.add(course14);
+            Course course15 = new Course("大学英语Ⅰ",1,4,4,"申彩红",""); coursesList.add(course15);
+            Course course16 = new Course("大学英语Ⅰ",1,4,4,"李军育",""); coursesList.add(course16);
+            Course course17 = new Course("大学英语Ⅰ",1,4,4,"杨祎",""); coursesList.add(course17);
+        }else if(tableflag == 2){//软件1901
+            Course course1 = new Course("大学英语Ⅰ",		1,	4,4	,"申彩红","F209"); coursesList.add(course1);
+            Course course2 = new Course("大学英语Ⅰ",		1,	4,4	,"李军育","C201"); coursesList.add(course2);
+            Course course3 = new Course("大学英语Ⅰ",		1,	4,4,"杨祎","M106"); coursesList.add(course3);
+            Course course4 = new Course("应用文写作",		6,	1,1	,"张胜珍","M钻"); coursesList.add(course4);
+            Course course5 = new Course("中国近现代史纲要",		4,	2,2	,"	葛亚坤","N2247"); coursesList.add(course5);
+            Course course6 = new Course("中国近现代史纲要",		5,	2,2	,"	葛亚坤","N2247"); coursesList.add(course6);
+            Course course7 = new Course("计算机科学导论",		1,	3,3	,"	华斌","N3101"); coursesList.add(course7);
+            Course course8 = new Course("程序设计基础",		1,	2,2	,"	董静","C201"); coursesList.add(course8);
+            Course course9 = new Course("程序设计基础",		4,	3,3	,"	董静","N2230"); coursesList.add(course9);
+            Course course10 = new Course("程序设计基础实验",		4,	1,1	,"	董静","2307"); coursesList.add(course10);
+            Course course11 = new Course("三维建模实验",		2,	1,1	,"王丽娟","A.B	"); coursesList.add(course11);
+            Course course12 = new Course("高等数学Ⅰ",		1,	1,1	,"王亚","M203"); coursesList.add(course12);
+            Course course13 = new Course("高等数学Ⅰ",		2,	2,2	,"王亚","M204"); coursesList.add(course13);
+            Course course14 = new Course("高等数学Ⅰ",		3,	2,2	,"王亚","M1梯形"); coursesList.add(course14);
+            Course course15 = new Course("高等数学Ⅰ",		5,	1,1	,"王亚","D213"); coursesList.add(course15);
+
+        }else if(tableflag == 3){ //2307
+            Course course1 = new Course("汇编程序设计"	,2	,3,3,"	王荃","计科1801"); coursesList.add(course1);
+            Course course2 = new Course("程序设计基础"	,	4,	4,4,"	邢恩军","计算1801"); coursesList.add(course2);
+            Course course3 = new Course("专业综合创新实践	",	2	,4,4,"	严冬梅","计科1601"); coursesList.add(course3);
+            Course course4 = new Course("数据结构实验"	,	1,	1	,1,"严冬梅","计科1801"); coursesList.add(course4);
+            Course course5 = new Course("数据结构实验	",	3,	4	,4,"何丽","软件1801"); coursesList.add(course5);
+            Course course6 = new Course("数据结构实验"		,3	,4,4,	"何丽","网络1801"); coursesList.add(course6);
+            Course course7 = new Course("数据库应用实践"		,4	,2	,2,"陈立君","计科1701"); coursesList.add(course7);
+            Course course8 = new Course("数据库应用实践",	4	,2,2,	"陈立君","软件1701"); coursesList.add(course8);
+            Course course9 = new Course("计算机网络技术实践"	,2,	1,1,"吕景刚","计科1701"); coursesList.add(course9);
+            Course course10 = new Course("程序设计基础实验	",4	,1,1,"		董静","软件1901"); coursesList.add(course10);
+            Course course11 = new Course("程序设计基础实验	",	4,	1	,1,"董静","软件1902"); coursesList.add(course11);
+            Course course12 = new Course("程序设计基础实验	",1	,2,2,"	严冬梅","计科1901"); coursesList.add(course12);
+
+        }
+
+        //使用从数据库读取出来的课程信息来加载课程表视图
+        createLeftView();
+        for (Course coursee : coursesList) {
+            createItemCourseView(coursee);
+        }
     }
 }

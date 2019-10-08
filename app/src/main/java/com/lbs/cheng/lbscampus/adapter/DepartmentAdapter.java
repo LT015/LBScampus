@@ -34,7 +34,7 @@ public class DepartmentAdapter extends BaseQuickAdapter<DepartmentDetailBean, Ba
         helper.addOnClickListener(R.id.item_department_layout);
 
         if(item.getPicturePath() != null){
-            String path = HttpUtil.HOME_PATH + HttpUtil.Image + item.getPicturePath();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image +"department/"+ item.getPicturePath();
             RCImageView imageView = helper.getView(R.id.item_department_image);
             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
             GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);

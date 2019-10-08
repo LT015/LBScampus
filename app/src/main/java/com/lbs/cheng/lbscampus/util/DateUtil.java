@@ -3,6 +3,7 @@ package com.lbs.cheng.lbscampus.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Created by LT on 2019/5/13.
@@ -64,6 +65,9 @@ public class DateUtil {
         date.setYear(2001);
         date.setMonth(11);
         date.setDate(11);
+        int hour = date.getHours();
+        date.setHours(hour-8);
+
         return date.getTime();
 
     }

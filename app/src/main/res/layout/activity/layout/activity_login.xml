@@ -22,7 +22,7 @@
     <EditText
         android:id="@+id/account"
         android:hint="请输入用户账号"
-        android:text="2016111001"
+        android:text="2019111001"
         android:layout_marginTop="@dimen/space_80px"
         android:layout_marginLeft="@dimen/space_72px"
         android:layout_marginRight="@dimen/space_72px"

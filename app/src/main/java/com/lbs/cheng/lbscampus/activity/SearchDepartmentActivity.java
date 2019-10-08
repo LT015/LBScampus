@@ -82,7 +82,7 @@ public class SearchDepartmentActivity extends BaseActivity {
     private LinearLayoutManager linearLayoutManager;
 
     private String name = null;//搜索框输的部门名字
-    private int type = -1;//选择的部门类型
+    private int type = 0;//选择的部门类型
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +106,13 @@ public class SearchDepartmentActivity extends BaseActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                type = i-1;
+
+                type = i;
+                if(type != 0){
+                    getDepartmentDetailList();
+                }
+
+
             }
 
             @Override
@@ -261,15 +267,19 @@ public class SearchDepartmentActivity extends BaseActivity {
 
         String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_DEPART;
 
-        if(type != -1){
-            url=url+"/type/+"+type;
+        if(type != 0){
+            url=url+"/higher/"+type;
         }
-        try {
-            name = URLEncoder.encode(name, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if(name != null){
+            try {
+                name = URLEncoder.encode(name, "utf-8");
+                url=url+"/name/"+name;
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
-        url=url+"/name/"+name;
+
+
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

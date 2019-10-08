@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="date">
+        <item>计科1901</item>
+        <item>软件1901</item>
+        <item>软件1902</item>
+        <item>计算1901</item>
+        <item>计科1801</item>
+        <item>软件1801</item>
+        <item>网络1801</item>
+        <item>计算1801</item>
+        <item>信工1801</item>
+        <item>数学1701</item>
+        <item>电子1701</item>
+        <item>计科1701</item>
+        <item>软件1701</item>
+        <item>计科1601</item>
+        <item>信管1601</item>
+    </string-array>
+
+</resources>

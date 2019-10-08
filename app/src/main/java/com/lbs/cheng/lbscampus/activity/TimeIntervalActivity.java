@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -99,6 +100,7 @@ public class TimeIntervalActivity extends BaseActivity{
 
     private void saveShareTime(){
         start = DateUtil.getStartAndEndTime(startTime);
+        Date s = new Date(start);
         end = DateUtil.getStartAndEndTime(endTime);
 
         String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_SHARE_TIME+"/"+user.getUserId()+"/"+start+"/"+end;

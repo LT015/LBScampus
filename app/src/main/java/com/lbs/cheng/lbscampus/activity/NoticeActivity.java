@@ -19,13 +19,16 @@ import com.baidu.mapapi.walknavi.adapter.IWRoutePlanListener;
 import com.baidu.mapapi.walknavi.model.WalkRoutePlanError;
 import com.baidu.mapapi.walknavi.params.WalkNaviLaunchParam;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.BuildingBean;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
+import com.lbs.cheng.lbscampus.bean.TagBean;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.LitePal;
@@ -58,7 +61,14 @@ public class NoticeActivity extends BaseActivity {
     ImageView collect;
     @BindView(R.id.notice_content)
     TextView noticeContent;
+    @BindView(R.id.notice_place)
+    TextView noticePlace;
+    @BindView(R.id.notice_place_tv)
+    TextView noticePlaveTv;
+    @BindView(R.id.notice_source)
+    TextView noticeSource;
 
+    public String buindingName;
 
 
     @Override
@@ -66,7 +76,7 @@ public class NoticeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice);
     }
-    private void initInfo() {
+    private void initTitle() {
         back = findViewById(R.id.title_back);
         titleName=findViewById(R.id.title_name);
         back.setOnClickListener(this);
@@ -88,19 +98,30 @@ public class NoticeActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        initTitle();
         collect.setOnClickListener(this);
         noticeTitle.setText(notice.getTitle());
         noticeContent.setText("  "+notice.getContent());
-//        Date date=notice.getPublishTime();
-//        SimpleDateFormat simleDateFormat=new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-//        String time=simleDateFormat.format(date);
-        publishTime.setText("2019.04.06");
+        Date date=notice.getPublishTime();
+        SimpleDateFormat simleDateFormat=new SimpleDateFormat("yyy-MM-dd HH:mm");
+        String time=simleDateFormat.format(date);
+        publishTime.setText(time);
         if(notice.getPublisher()!=null){
             publisher.setText("发布人："+notice.getPublisher().getUserName());
+            noticeSource.setVisibility(View.VISIBLE);
+            if(notice.getPublisher().getType() == 1){
+                noticeSource.setText("来源：学生个体");
+            }else if(notice.getPublisher().getType() == 1){
+                noticeSource.setText("来源：老师");
+            }
         }else{
             publisher.setText("发布人：");
-        }
 
+        }
+        if(notice.getBuildingId() != 0){
+            noticePlace.setVisibility(View.VISIBLE);
+            getBuildingName();
+        }
 
 
     }
@@ -159,5 +180,34 @@ public class NoticeActivity extends BaseActivity {
 //        });
 //
 //    }
+    private void getBuildingName(){
+        String url = HttpUtil.HOME_PATH + HttpUtil.GET_BUILDING_NAME + notice.getBuildingId();
+        HttpUtil.sendOkHttpGetRequest( url, new ArrayList<String>(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(NoticeActivity.this, "请求失败，请检查网络!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        buindingName = responseText;
+                        noticePlaveTv.setText(buindingName);
+                    }
+                });
+            }
+        });
+    }
 
 }

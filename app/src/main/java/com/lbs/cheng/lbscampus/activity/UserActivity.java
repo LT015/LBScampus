@@ -50,6 +50,7 @@ import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.lbs.cheng.lbscampus.R;
+import com.lbs.cheng.lbscampus.bean.StudentIdBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.Base64Util;
 import com.lbs.cheng.lbscampus.util.FileStorage;
@@ -180,17 +181,18 @@ public class UserActivity extends BaseActivity {
     }
     private void setUserInfo() {
         UserBean userBean= DataSupport.findAll(UserBean.class).get(0);
+        StudentIdBean studentId= DataSupport.findAll(StudentIdBean.class).get(0);
         //String nickName = new String(Base64.decode(userBean.getNickName().getBytes(), Base64.DEFAULT));
         userNameText.setText(userBean.getUserName());
         userNickNameText.setText(userBean.getNickName());
         userPhoneText.setText(userBean.getTelNumber());
-        userIdText.setText(userBean.getUserId());
+        userIdText.setText(studentId.getStudentId());
         userSexText.setText(userBean.getSex());
         if (userBean.getUserImage()==null){
             headImg.setImageResource(R.mipmap.head_img);
 
         }else {
-            String path = HttpUtil.HOME_PATH + HttpUtil.Image + userBean.getUserImage();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + "user/"+userBean.getUserImage();
             //GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));
             GlideUtil.load(UserActivity.this, path, headImg, GlideUtil.REQUEST_OPTIONS);
         }

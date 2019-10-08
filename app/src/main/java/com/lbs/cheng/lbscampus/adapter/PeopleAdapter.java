@@ -31,7 +31,7 @@ public class PeopleAdapter extends BaseQuickAdapter<UserDetailBean, BaseViewHold
         helper.addOnClickListener(R.id.item_people_layout);
 
         if(item.getUserImage() != null){
-            String path = HttpUtil.HOME_PATH + HttpUtil.Image + item.getUserImage();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + "user/"+item.getUserImage();
             RCImageView imageView = helper.getView(R.id.item_people_image);
             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
             GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);

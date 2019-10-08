@@ -105,7 +105,7 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onPageSelected(int position) {
-                CommonUtils.noticeTypeId=position;
+                CommonUtils.noticeTypeId = position + 1;
                 if(position == 0){
                     noticeFragment.getNoticeData();
                 }else if(position == 1){

@@ -38,6 +38,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.adapter.BuildingAdapter;
 import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.BuildingBean;
+import com.lbs.cheng.lbscampus.bean.BuildingTypeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
@@ -90,6 +91,7 @@ public class SearchBuildingActivity extends BaseActivity {
     private ArrayAdapter<String> arr_adapter;
     private List<String> data_list;
     private List<BuildingBean> buildingList=new ArrayList<>();
+    private List<BuildingTypeBean> buildingTypeList=new ArrayList<>();
     private TagAdapter<SearchHistoricalBean> mHistoryFlowLayoutAdapter;
     private List<String> mHotData;//热门推荐
     private List<SearchHistoricalBean> mHistoryData;
@@ -117,6 +119,7 @@ public class SearchBuildingActivity extends BaseActivity {
         mHotData.add("讲座");
 
         mHistoryData = DataSupport.order("time desc").find(SearchHistoricalBean.class);
+        getBuildingType();
     }
 
     @Override
@@ -175,9 +178,42 @@ public class SearchBuildingActivity extends BaseActivity {
         searchBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
         initRecyclerView();
-        initSpring();
     }
 
+    private void getBuildingType(){
+        String url = HttpUtil.HOME_PATH + HttpUtil.GET_BUILDING_TYPE;
+        HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(SearchBuildingActivity.this, "获取建筑物类别失败!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try{
+                            final JSONArray jsonArray = new JSONArray(responseText);
+                            buildingTypeList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<BuildingTypeBean>>(){}.getType());
+                            initSpring();
+                        }catch (JSONException e){
+                            Toast.makeText(SearchBuildingActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -244,14 +280,17 @@ public class SearchBuildingActivity extends BaseActivity {
         String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_BUILDING;
 
         if(type != -1){
-            url=url+"/type/+"+type;
+            url=url+"/type/"+type;
         }
-        try {
-            name = URLEncoder.encode(name, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        if(name != null){
+            try {
+                name = URLEncoder.encode(name, "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            url=url+"/name/"+name;
         }
-        url=url+"/name/"+name;
+
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -316,16 +355,14 @@ public class SearchBuildingActivity extends BaseActivity {
 
 
     void initSpring(){
+
+
         //数据
         data_list = new ArrayList<String>();
         data_list.add("所有建筑");
-        data_list.add("教学楼");
-        data_list.add("图书馆");
-        data_list.add("景区");
-        data_list.add("公寓");
-        data_list.add("超市");
-        data_list.add("食堂");
-        data_list.add("体育馆");
+        for(BuildingTypeBean bean : buildingTypeList){
+            data_list.add(bean.getBuildingTypeName());
+        }
 
 
         //适配器
@@ -337,7 +374,13 @@ public class SearchBuildingActivity extends BaseActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               type=i-1;
+                if(i != 0){
+                    type = buildingTypeList.get(i-1).getBuildingTypeId();
+                    getBuildingData();
+                }else{
+                    type = -1;
+                }
+
             }
 
             @Override

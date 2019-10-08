@@ -8,6 +8,11 @@ public class RoomStateBean {
     public RoomStateBean() {
     }
 
+    public RoomStateBean(String roomName, int state) {
+        this.roomName = roomName;
+        this.state = state;
+    }
+
     public String getRoomName() {
         return roomName;
     }

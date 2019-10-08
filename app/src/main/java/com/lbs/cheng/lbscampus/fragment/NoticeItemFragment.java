@@ -82,7 +82,14 @@ public class NoticeItemFragment extends Fragment{
             }
         });
     }
-//    public void getNoticeData() {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNoticeData();
+    }
+
+    //    public void getNoticeData() {
 //
 //        for(int i=0;i<20;i++){
 //            noticeList.add(new NoticeDetailBean());
@@ -133,7 +140,6 @@ public class NoticeItemFragment extends Fragment{
     }
     private void initData() {
         unbinder = ButterKnife.bind(this, view);
-        getNoticeData();
     }
 
     private void initView() {

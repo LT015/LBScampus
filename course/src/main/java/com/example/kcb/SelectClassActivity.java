@@ -6,16 +6,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.example.kcb.adapter.SortAdapter;
+import com.example.kcb.bean.SortModel;
+import com.example.kcb.util.PinyinComparator;
+import com.example.kcb.util.PinyinUtils;
+import com.example.kcb.view.ClearEditText;
+import com.example.kcb.view.SideBar;
 import com.google.gson.Gson;
 import com.lt.common.activity.BaseActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,67 +34,169 @@ import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 
 public class SelectClassActivity extends BaseActivity {
 
+
     ImageView back;
     TextView titleName;
     ImageView titleInfo;
-    RecyclerView recyclerView;
-    private ArrayList<String> list = new ArrayList<>();
+    TextView titleMore;
+    private RecyclerView mRecyclerView;
+    private SideBar sideBar;
+    private TextView dialog;
+    private SortAdapter adapter;
+    private ClearEditText mClearEditText;
+    LinearLayoutManager manager;
+
+    private List<SortModel> SourceDateList;
+
+    /**
+     * 根据拼音来排列RecyclerView里面的数据类
+     */
+    private PinyinComparator pinyinComparator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_class);
-        recyclerView = findViewById(R.id.calss_name_list);
     }
 
     @Override
     protected void initData() {
         super.initData();
-        getClassName();
     }
 
     @Override
     protected void initView() {
-        super.initView();
+
         initTitle();
-    }
+        pinyinComparator = new PinyinComparator();
 
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-        if (v.getId() == R.id.title_back) {
-            finish();
-        }
-    }
-    private void getClassName(){
-        for(int i = 0;i<10;i++){
-            list.add("计科1601");
-            list.add("信工1601");
-            list.add("网络1601");
-            list.add("软件1601");
-        }
+        sideBar = (SideBar) findViewById(R.id.sideBar);
+        dialog = (TextView) findViewById(R.id.dialog);
+        sideBar.setTextView(dialog);
 
-        initRecyclerView();
+        //设置右侧SideBar触摸监听
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
 
-    }
-    private void initRecyclerView() {
-        MyAdapter adapter = new MyAdapter(R.layout.item_class_name,list,SelectClassActivity.this);
-        adapter.openLoadAnimation(ALPHAIN);
-        adapter.isFirstOnly(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ARouter.getInstance().build("/course/main").withInt("key", 0).withString("courseName",list.get(position)).navigation();
+            public void onTouchingLetterChanged(String s) {
+                //该字母首次出现的位置
+                int position = adapter.getPositionForSection(s.charAt(0));
+                if (position != -1) {
+                    manager.scrollToPositionWithOffset(position, 0);
+                }
+
+            }
+        });
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        SourceDateList = filledData(getResources().getStringArray(R.array.date));
+
+        // 根据a-z进行排序源数据
+        Collections.sort(SourceDateList, pinyinComparator);
+        //RecyclerView社置manager
+        manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+        adapter = new SortAdapter(this, SourceDateList);
+        mRecyclerView.setAdapter(adapter);
+        //item点击事件
+        adapter.setOnItemClickListener(new SortAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ARouter.getInstance().build("/course/main").withInt("key",0).withInt("tableflag",2).withString("courseName",SourceDateList.get(position).getName()).navigation();
+
+            }
+        });
+        mClearEditText = (ClearEditText) findViewById(R.id.filter_edit);
+
+        //根据输入框输入值的改变来过滤搜索
+        mClearEditText.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
+                filterData(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
     }
     private void initTitle() {
         back = findViewById(R.id.title_back);
         titleName = findViewById(R.id.title_name);
+        titleInfo = findViewById(R.id.title_info);
         back.setOnClickListener(this);
+        titleInfo.setOnClickListener(this);
         back.setVisibility(View.VISIBLE);
+        titleInfo.setVisibility(View.VISIBLE);
         titleName.setText("选择班级");
+    }
+
+    /**
+     * 为RecyclerView填充数据
+     *
+     * @param date
+     * @return
+     */
+    private List<SortModel> filledData(String[] date) {
+        List<SortModel> mSortList = new ArrayList<>();
+
+        for (int i = 0; i < date.length; i++) {
+            SortModel sortModel = new SortModel();
+            sortModel.setName(date[i]);
+            //汉字转换成拼音
+            String pinyin = PinyinUtils.getPingYin(date[i]);
+            String sortString = pinyin.substring(0, 1).toUpperCase();
+
+            // 正则表达式，判断首字母是否是英文字母
+            if (sortString.matches("[A-Z]")) {
+                sortModel.setLetters(sortString.toUpperCase());
+            } else {
+                sortModel.setLetters("#");
+            }
+
+            mSortList.add(sortModel);
+        }
+        return mSortList;
+
+    }
+
+    /**
+     * 根据输入框中的值来过滤数据并更新RecyclerView
+     *
+     * @param filterStr
+     */
+    private void filterData(String filterStr) {
+        List<SortModel> filterDateList = new ArrayList<>();
+
+        if (TextUtils.isEmpty(filterStr)) {
+            filterDateList = SourceDateList;
+        } else {
+            filterDateList.clear();
+            for (SortModel sortModel : SourceDateList) {
+                String name = sortModel.getName();
+                if (name.indexOf(filterStr.toString()) != -1 ||
+                        PinyinUtils.getFirstSpell(name).startsWith(filterStr.toString())
+                        //不区分大小写
+                        || PinyinUtils.getFirstSpell(name).toLowerCase().startsWith(filterStr.toString())
+                        || PinyinUtils.getFirstSpell(name).toUpperCase().startsWith(filterStr.toString())
+                ) {
+                    filterDateList.add(sortModel);
+                }
+            }
+        }
+
+        // 根据a-z进行排序
+        Collections.sort(filterDateList, pinyinComparator);
+        adapter.updateList(filterDateList);
     }
 
 }

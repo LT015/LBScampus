@@ -155,6 +155,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
     BDAbstractLocationListener listener = new BDAbstractLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation location) {

@@ -16,8 +16,8 @@ public class CommonUtils {
         return Uuid;
     }
 
-    public static int noticeTypeId=0;
-    public static int buildingTypeId=0;
+    public static int noticeTypeId = 1;
+    public static int buildingTypeId = 0;
 
     public static int noticeEditType = 0;//0是创建公告  1是从草稿箱编辑
 

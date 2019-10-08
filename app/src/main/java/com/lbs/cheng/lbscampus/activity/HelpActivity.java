@@ -96,7 +96,7 @@ public class HelpActivity extends BaseActivity {
 
     public void getNoticeData() {
         List<String> list = new ArrayList<>();
-        list.add("3");
+        list.add("4");
         list.add("/status/2");
         HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
             @Override

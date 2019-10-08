@@ -73,7 +73,7 @@
                 <!--左侧"节数"布局-->
                 <com.zhy.autolayout.AutoLinearLayout
                     android:id="@+id/left_view_layout"
-                    android:layout_width="100px"
+                    android:layout_width="90px"
                     android:layout_height="wrap_content"
                     android:background="@color/grey_background"
                     android:orientation="vertical"/>

@@ -97,7 +97,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                 myImage.setImageResource(R.mipmap.head_img);
 
             }else{
-                String path = HttpUtil.HOME_PATH + HttpUtil.Image + userBean.getUserImage();
+                String path = HttpUtil.HOME_PATH + HttpUtil.Image + "user/"+userBean.getUserImage();
                 //GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名
                 GlideUtil.load(getContext(), path, myImage, GlideUtil.REQUEST_OPTIONS);
             }
@@ -105,7 +105,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
             myName.setText(userBean.getNickName());
             point.setVisibility(View.VISIBLE);
             //管理员权限
-            if (userBean.getUserId().equals("2016111001")){
+            if (userBean.getType() == 2){
                 verify.setVisibility(View.VISIBLE);
             }else{
                 verify.setVisibility(View.GONE);
@@ -220,8 +220,8 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         unbinder.unbind();
     }
     private void alterUserShareMode(){
-        final View viewStatus = LayoutInflater.from(getContext()).inflate(R.layout.add_classroom,null);
-        final RadioGroup selected = (RadioGroup) viewStatus.findViewById(R.id.radio_group);
+        final View viewStatus = LayoutInflater.from(getContext()).inflate(R.layout.alter_mode,null);
+        final RadioGroup selected = (RadioGroup) viewStatus.findViewById(R.id.radio_group_mode);
         RadioButton hide = (RadioButton) viewStatus.findViewById(R.id.hide);
         RadioButton open = (RadioButton) viewStatus.findViewById(R.id.open);
         UserBean user= DataSupport.findLast(UserBean.class);

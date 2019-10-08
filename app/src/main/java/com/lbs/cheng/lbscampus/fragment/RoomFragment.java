@@ -16,19 +16,30 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.activity.BuildingDetailActivity;
 import com.lbs.cheng.lbscampus.activity.RoomStateActivity;
 import com.lbs.cheng.lbscampus.activity.SearchBuildingActivity;
 import com.lbs.cheng.lbscampus.adapter.BuildingAdapter;
 import com.lbs.cheng.lbscampus.bean.BuildingBean;
+import com.lbs.cheng.lbscampus.util.HttpUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 
@@ -69,7 +80,6 @@ public class RoomFragment extends Fragment {
     }
     private void initRecyclerView() {
 
-        initBuildingList();
 
         adapter = new BuildingAdapter(R.layout.item_building,buildingList,1,getActivity());
         adapter.openLoadAnimation(ALPHAIN);
@@ -88,12 +98,58 @@ public class RoomFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBuildingData();
+    }
+
     private void initBuildingList(){
         BuildingBean building = new BuildingBean();
         building.setName("教学楼");
         for(int i = 0;i < 5;i++){
             buildingList.add(building);
         }
+
+    }
+    public void getBuildingData() {
+        String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_BUILDING+"/type/1";
+
+        HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "搜索失败!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try{
+                            final JSONArray jsonArray = new JSONArray(responseText);
+                            buildingList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<BuildingBean>>(){}.getType());
+                            if(buildingList.size()==0){
+                                Toast.makeText(getActivity(), "未找到教学楼", Toast.LENGTH_SHORT).show();
+                            }
+                            initRecyclerView();
+                        }catch (JSONException e){
+                            Toast.makeText(getActivity(), "搜索失败!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
 
     }
     @Override

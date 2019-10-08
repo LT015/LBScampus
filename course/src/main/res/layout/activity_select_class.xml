@@ -1,31 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.zhy.autolayout.AutoLinearLayout
-    android:background="@color/white"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kcb.SelectClassActivity">
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <include layout="@layout/title_bar"/>
+    <!--Toolbar-->
+    <include layout="@layout/title_bar" />
 
-    <View
-        android:background="@color/grey_divider"
+    <com.example.kcb.view.ClearEditText
+        android:id="@+id/filter_edit"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space_1px"/>
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/search_bar_icon_normal"
+        android:hint="请输入关键字"
+        android:maxLines="1"
+        android:textSize="15dp" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/calss_name_list"
-        android:verticalSpacing="@dimen/space_30px"
-        android:layout_marginRight="@dimen/space_10px"
-        android:layout_marginLeft="@dimen/space_10px"
-        android:scrollbars="none"
-        android:listSelector="#00000000"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent" >
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
-</com.zhy.autolayout.AutoLinearLayout>
+        <TextView
+            android:id="@+id/dialog"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="#9DDE76"
+            android:gravity="center"
+            android:textColor="#ffffffff"
+            android:textSize="30dp"
+            android:visibility="invisible" />
+
+        <com.example.kcb.view.SideBar
+            android:id="@+id/sideBar"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

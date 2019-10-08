@@ -12,7 +12,7 @@ public class Course implements Serializable {
     private int classStart;
     private int classEnd;
 
-    public Course(String courseName, String teacher, String classRoom, int day, int classStart, int classEnd) {
+    public Course(String courseName, int day, int classStart, int classEnd ,String teacher, String classRoom) {
         this.courseName = courseName;
         this.teacher = teacher;
         this.classRoom = classRoom;

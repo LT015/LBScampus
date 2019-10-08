@@ -97,7 +97,7 @@ public class LostPropertyActivity extends BaseActivity {
 
     public void getNoticeData() {
         List<String> list = new ArrayList<>();
-        list.add("2");
+        list.add("3");
         list.add("/status/2");
         HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
             @Override

@@ -66,7 +66,7 @@ public class RoomStateActivity extends BaseActivity {
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                ARouter.getInstance().build("/course/main").withInt("key",2).withString("courseName",list.get(position).getRoomName()).navigation();
+                ARouter.getInstance().build("/course/main").withInt("key",2).withInt("tableflag",3).withString("courseName",list.get(position).getRoomName()).navigation();
 
 
             }
@@ -123,13 +123,52 @@ public class RoomStateActivity extends BaseActivity {
     private void getRoomsState(){
 
         list = new ArrayList<>();
-        RoomStateBean building = new RoomStateBean();
-        building.setRoomName("C101");
-        building.setState(0);
-        for(int i = 0;i < 5;i++){
-            list.add(building);
-        }
-        list.get(3).setState(1);
+        RoomStateBean building1 = new RoomStateBean("2001",0);
+        list.add(building1);
+        RoomStateBean building2 = new RoomStateBean("2002",1);
+        list.add(building2);
+        RoomStateBean building3 = new RoomStateBean("2003",0);
+        list.add(building3);
+        RoomStateBean building4 = new RoomStateBean("2004",1);
+        list.add(building4);
+        RoomStateBean building5 = new RoomStateBean("2106",0);
+        list.add(building5);
+        RoomStateBean building6 = new RoomStateBean("2107",0);
+        list.add(building6);
+        RoomStateBean building7 = new RoomStateBean("2108",0);
+        list.add(building7);
+        RoomStateBean building8 = new RoomStateBean("2109",0);
+        list.add(building8);
+        RoomStateBean building9 = new RoomStateBean("2111",0);
+        list.add(building9);
+        RoomStateBean building10 = new RoomStateBean("2114",1);
+        list.add(building10);
+        RoomStateBean building11 = new RoomStateBean("2205",0);
+        list.add(building11);
+        RoomStateBean building12 = new RoomStateBean("2210",0);
+        list.add(building12);
+        RoomStateBean building13 = new RoomStateBean("2213",1);
+        list.add(building13);
+        RoomStateBean building14 = new RoomStateBean("2214",0);
+        list.add(building14);
+        RoomStateBean building15 = new RoomStateBean("2301",0);
+        list.add(building15);
+        RoomStateBean building16 = new RoomStateBean("2304",0);
+        list.add(building16);
+        RoomStateBean building17 = new RoomStateBean("2305",0);
+        list.add(building17);
+        RoomStateBean building18 = new RoomStateBean("2306",1);
+        list.add(building18);
+        RoomStateBean building19 = new RoomStateBean("2307",1);
+        list.add(building19);
+        RoomStateBean building20 = new RoomStateBean("2310",1);
+        list.add(building20);
+        RoomStateBean building21 = new RoomStateBean("2317",0);
+        list.add(building21);
+        RoomStateBean building22 = new RoomStateBean("2509",0);
+        list.add(building22);
+        RoomStateBean building23 = new RoomStateBean("2616",0);
+        list.add(building23);
 
         initRecycleView();
     }

@@ -170,7 +170,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public void getNoticeData() {
         List<String> list1 = new ArrayList<>();
-        list1.add("0");
+        list1.add("1");
         list1.add("/status/2");
         HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
             @Override
@@ -240,7 +240,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent5);
                 break;
             case R.id.head_icon_6:
-                ARouter.getInstance().build("/course/main").withInt("key",1).withString("courseName","").navigation();
+                ARouter.getInstance().build("/course/main").withInt("key",1).withInt("tableflag",1).withString("courseName","").navigation();
                 break;
             case R.id.head_icon_7:
                 Intent intent =new Intent(getActivity(), RoomStateActivity.class);

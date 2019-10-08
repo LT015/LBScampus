@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
+import com.lbs.cheng.lbscampus.bean.StudentIdBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
 
@@ -170,6 +171,13 @@ public class LoginActivity extends BaseActivity {
                                 if(!jsonObject.get("shareTime").toString().equals("null")){
                                     ShareTimeBean shareTime = new Gson().fromJson(jsonObject.getJSONObject("shareTime").toString(),ShareTimeBean.class);
                                     shareTime.saveThrows();
+
+                                }
+                                if(!jsonObject.get("studentId").toString().equals("null")){
+                                    String id = (String) jsonObject.get("studentId");
+                                    StudentIdBean studentId = new StudentIdBean();
+                                    studentId.setStudentId(id);
+                                    studentId.saveThrows();
 
                                 }
 
