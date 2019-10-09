@@ -4,44 +4,44 @@
     <!--  Tab 页签唯一标识-->
     <string-array name="bottom_tab_item_tags">
         <item>@string/tab_item_tag_home</item>
-        <item>@string/tab_item_tag_notice</item>
-        <item>@string/tab_item_tag_room</item>
         <item>@string/tab_item_tag_map</item>
+        <item>@string/tab_item_tag_room</item>
+        <item>@string/tab_item_tag_notice</item>
         <item>@string/tab_item_tag_my</item>
     </string-array>
 
     <!--  Tab 页签对应地址-->
     <string-array name="bottom_tab_item_fragment">
         <item>com.lbs.cheng.lbscampus.fragment.HomeFragment</item>
-        <item>com.lbs.cheng.lbscampus.fragment.NoticeFragment</item>
-        <item>com.lbs.cheng.lbscampus.fragment.RoomFragment</item>
         <item>com.lbs.cheng.lbscampus.fragment.MapFragment</item>
+        <item>com.lbs.cheng.lbscampus.fragment.RoomFragment</item>
+        <item>com.lbs.cheng.lbscampus.fragment.NoticeFragment</item>
         <item>com.lbs.cheng.lbscampus.fragment.MyFragment</item>
     </string-array>
 
     <!--  Tab 页签底部菜单显示名称 -->
     <string-array name="bottom_tab_item_names">
         <item>@string/bottom_tab_home</item>
-        <item>@string/bottom_tab_notice</item>
-        <item>@string/bottom_tab_room</item>
         <item>@string/bottom_tab_map</item>
+        <item>@string/bottom_tab_room</item>
+        <item>@string/bottom_tab_notice</item>
         <item>@string/bottom_tab_my</item>
     </string-array>
 
     <!--  Tab 页签底部菜单图片资源-->
     <string-array name="bottom_tab_item_drawables">
         <item>@drawable/selector_bottom_tab_home</item>
-        <item>@drawable/selector_bottom_tab_notice</item>
-        <item>@drawable/selector_bottom_tab_room</item>
         <item>@drawable/selector_bottom_tab_map</item>
+        <item>@drawable/selector_bottom_tab_room</item>
+        <item>@drawable/selector_bottom_tab_notice</item>
         <item>@drawable/selector_bottom_tab_my</item>
     </string-array>
 
 
     <string name="tab_item_tag_home">home</string>
-    <string name="tab_item_tag_notice">notice</string>
-    <string name="tab_item_tag_room">room</string>
     <string name="tab_item_tag_map">map</string>
+    <string name="tab_item_tag_room">room</string>
+    <string name="tab_item_tag_notice">notice</string>
     <string name="tab_item_tag_my">my</string>
 
 </resources>

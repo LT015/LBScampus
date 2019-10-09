@@ -39,7 +39,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/notice_publisher"
-                android:layout_marginLeft="@dimen/space_100px"
+                android:layout_marginLeft="@dimen/space_40px"
                 android:layout_gravity="center_vertical"
                 android:text="发布人：小白城"
                 android:layout_weight="1"
@@ -49,7 +49,7 @@
                 android:id="@+id/publish_time"
                 android:gravity="center"
                 android:text="发布时间：4天前"
-                android:layout_marginRight="@dimen/space_100px"
+                android:layout_marginRight="@dimen/space_50px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -68,7 +68,7 @@
                 android:id="@+id/notice_place"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100px"
+                android:layout_marginLeft="@dimen/space_40px"
                 android:visibility="invisible"
                 android:text="地点："/>
 
@@ -117,7 +117,7 @@
         <TextView
             android:layout_marginBottom="@dimen/space_20px"
             android:gravity="center"
-            android:textSize="@dimen/space_20px"
+            android:textSize="11sp"
             android:text="天津财经大学出版"
             android:layout_marginTop="@dimen/space_10px"
             android:layout_width="match_parent"
@@ -125,7 +125,8 @@
 
 
         <ImageView
-            android:layout_marginBottom="@dimen/space_40px"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/space_20px"
             android:scaleType="fitXY"
             android:src="@mipmap/b1"
             android:layout_width="match_parent"

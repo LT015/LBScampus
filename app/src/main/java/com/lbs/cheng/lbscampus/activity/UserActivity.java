@@ -50,9 +50,11 @@ import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.lbs.cheng.lbscampus.R;
-import com.lbs.cheng.lbscampus.bean.StudentIdBean;
+import com.lbs.cheng.lbscampus.bean.Staff;
+import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.Base64Util;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lbs.cheng.lbscampus.util.FileStorage;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
@@ -132,6 +134,8 @@ public class UserActivity extends BaseActivity {
     AutoLinearLayout userSetUp;
     @BindView(R.id.user_nick_name_text)
     TextView userNickNameText;
+    @BindView(R.id.user_type)
+    TextView userType;
     @BindView(R.id.user_num_text)
     TextView userIdText;
     @BindView(R.id.user_phone_text)
@@ -180,13 +184,23 @@ public class UserActivity extends BaseActivity {
         initTitle();
     }
     private void setUserInfo() {
+        String userNumId = null;
         UserBean userBean= DataSupport.findAll(UserBean.class).get(0);
-        StudentIdBean studentId= DataSupport.findAll(StudentIdBean.class).get(0);
+        if(userBean.getType() == 1){
+            Student student= DataSupport.findAll(Student.class).get(0);
+            userNumId = student.getStudentId();
+            userType.setText("学号");
+        }else if(userBean.getType() == 2){
+            userType.setText("职工号");
+            Staff staff= DataSupport.findAll(Staff.class).get(0);
+            userNumId = staff.getStaffId();
+        }
+
         //String nickName = new String(Base64.decode(userBean.getNickName().getBytes(), Base64.DEFAULT));
         userNameText.setText(userBean.getUserName());
         userNickNameText.setText(userBean.getNickName());
         userPhoneText.setText(userBean.getTelNumber());
-        userIdText.setText(studentId.getStudentId());
+        userIdText.setText(userNumId);
         userSexText.setText(userBean.getSex());
         if (userBean.getUserImage()==null){
             headImg.setImageResource(R.mipmap.head_img);
@@ -647,7 +661,7 @@ public class UserActivity extends BaseActivity {
                                             UserBean userBean = DataSupport.findAll(UserBean.class).get(0);
                                             //保存本地图片头像的路径
                                             //PreferenceManager.getDefaultSharedPreferences(UserActivity.this).edit().putString(userBean.getUserId()+"",imagePath).commit();
-                                            String path = HttpUtil.HOME_PATH + HttpUtil.Image + responseText;
+                                            String path = HttpUtil.HOME_PATH + HttpUtil.Image + "user/"+ responseText;
                                             GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
                                             GlideUtil.load(UserActivity.this, path, headImg, GlideUtil.REQUEST_OPTIONS);
                                             progressBar.setVisibility(View.GONE);

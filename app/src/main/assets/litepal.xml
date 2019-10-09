@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="LBS"></dbname>
-    <version value = "10"></version>
+    <version value = "11"></version>
     <list>
         <!--模型类映射，一定要使用完整的类名-->
         <mapping class="com.lbs.cheng.lbscampus.bean.UserBean"></mapping>
         <mapping class="com.lbs.cheng.lbscampus.bean.SearchHistoricalBean"></mapping>
         <mapping class="com.lbs.cheng.lbscampus.bean.ShareTimeBean"></mapping>
-        <mapping class="com.lbs.cheng.lbscampus.bean.StudentIdBean"></mapping>
+        <mapping class="com.lbs.cheng.lbscampus.bean.Student"></mapping>
+        <mapping class="com.lbs.cheng.lbscampus.bean.Staff"></mapping>
     </list>
 </litepal>

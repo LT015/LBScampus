@@ -108,6 +108,7 @@ public class HttpUtil {
     public static final String DELETE_TAG="/LBS/tag";//DELETE   tagId:.+}
     //User
     public static final String LOG_IN="/LBS/user/logIn";//{userId:.+}/{password:.+}
+    public static final String GET_USER_INFO="/LBS/user/info";
     public static final String USER_QUERY="/LBS/user/userId";//{userId:.+}"  得到用户详情信息
     public static final String REGISTER="/LBS/user/register";//
     public static final String SEARCH_USER="/LBS/user";//

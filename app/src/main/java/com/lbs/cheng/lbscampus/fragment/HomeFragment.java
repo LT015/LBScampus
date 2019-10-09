@@ -92,7 +92,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             initView();
         }
         return view;
-    }
+    }//5B:A0:5D:C7:D1:A7:3C:E5:CF:E4:A9:5C:68:DD:F3:55:A8:BD:2B:BA 发布版SH1
+    //9F:B2:D4:45:E4:C8:06:51:D6:24:A5:24:E8:B9:40:99:B4:38:EC:0F 开发版SH1
 
 
     private void initData() {
@@ -171,7 +172,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void getNoticeData() {
         List<String> list1 = new ArrayList<>();
         list1.add("1");
-        list1.add("/status/2");
+        list1.add("status/2");
         HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

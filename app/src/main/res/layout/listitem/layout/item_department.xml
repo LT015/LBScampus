@@ -37,9 +37,9 @@
                 android:layout_height="match_parent" />
             <TextView
                 android:layout_marginTop="@dimen/space_4px"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:text="简介：暂无"
-                android:layout_marginBottom="@dimen/space_35px"
+                android:layout_marginBottom="@dimen/space_10px"
                 android:id="@+id/item_department_description"
                 android:textSize="13sp"
                 android:layout_width="match_parent"

@@ -153,6 +153,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/user_type"
                         android:textSize="15sp"
                         android:layout_centerVertical="true"
                         android:textColor="@color/black"

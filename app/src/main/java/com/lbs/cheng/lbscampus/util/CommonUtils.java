@@ -19,6 +19,8 @@ public class CommonUtils {
     public static int noticeTypeId = 1;
     public static int buildingTypeId = 0;
 
+    public static int userType = 1;//用户身份  1是学生 2是教师 3是其他
+
     public static int noticeEditType = 0;//0是创建公告  1是从草稿箱编辑
 
     public static  List<Integer> tagList;

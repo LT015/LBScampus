@@ -20,8 +20,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
-import com.lbs.cheng.lbscampus.bean.StudentIdBean;
+import com.lbs.cheng.lbscampus.bean.Staff;
+import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
 
 import org.json.JSONException;
@@ -173,11 +175,17 @@ public class LoginActivity extends BaseActivity {
                                     shareTime.saveThrows();
 
                                 }
-                                if(!jsonObject.get("studentId").toString().equals("null")){
-                                    String id = (String) jsonObject.get("studentId");
-                                    StudentIdBean studentId = new StudentIdBean();
-                                    studentId.setStudentId(id);
-                                    studentId.saveThrows();
+                                if(userBean.getType() == 1){
+                                    if(!jsonObject.get("student").toString().equals("null")){
+                                        Student student = new Gson().fromJson(jsonObject.getJSONObject("student").toString(),Student.class);
+                                        student.saveThrows();
+                                    }
+
+                                }else if(userBean.getType() == 2){
+                                    if(!jsonObject.get("staff").toString().equals("null")){
+                                        Staff staff = new Gson().fromJson(jsonObject.getJSONObject("staff").toString(),Staff.class);
+                                        staff.saveThrows();
+                                    }
 
                                 }
 
@@ -219,4 +227,7 @@ public class LoginActivity extends BaseActivity {
         password.setTransformationMethod(PasswordTransformationMethod.getInstance());
         identifyOrPassword.setText("手机验证码登录");
     }
+
+
+
 }
