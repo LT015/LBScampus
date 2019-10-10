@@ -25,7 +25,7 @@ import com.lbs.cheng.lbscampus.bean.BuildingBean;
 import com.lbs.cheng.lbscampus.bean.Room;
 import com.lbs.cheng.lbscampus.bean.RoomStateBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lt.common.activity.BaseActivity;
 
 import org.json.JSONArray;

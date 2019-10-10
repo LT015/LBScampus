@@ -30,7 +30,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;

@@ -28,7 +28,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.adapter.DepartmentAdapter;
 import com.lbs.cheng.lbscampus.bean.DepartmentDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 

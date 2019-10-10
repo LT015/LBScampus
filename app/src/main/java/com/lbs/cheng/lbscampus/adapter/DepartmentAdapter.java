@@ -12,7 +12,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.DepartmentDetailBean;
 import com.lbs.cheng.lbscampus.bean.SectionBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.RCImageView;
 
 import java.util.List;

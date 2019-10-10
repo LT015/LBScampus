@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.UserBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import org.json.JSONException;

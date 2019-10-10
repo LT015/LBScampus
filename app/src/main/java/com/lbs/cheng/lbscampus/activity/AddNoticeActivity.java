@@ -50,7 +50,7 @@ import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lbs.cheng.lbscampus.util.DateUtil;
 import com.lbs.cheng.lbscampus.util.FileStorage;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.MyGridView;
 
 import org.json.JSONArray;

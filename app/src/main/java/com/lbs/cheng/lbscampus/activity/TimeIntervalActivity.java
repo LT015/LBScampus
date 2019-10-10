@@ -14,7 +14,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.DateUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.CustomDatePicker;
 import com.lbs.cheng.lbscampus.view.DateFormatUtils;
 

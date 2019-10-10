@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.UserDetailBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.RCImageView;
 
 import java.util.List;

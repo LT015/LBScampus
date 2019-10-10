@@ -37,7 +37,7 @@ import com.lbs.cheng.lbscampus.bean.LocationBean;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.StartptBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 import com.lbs.cheng.lbscampus.view.PullToRefreshView;
 

@@ -30,7 +30,7 @@ import com.lbs.cheng.lbscampus.activity.SearchPeopleActivity;
 import com.lbs.cheng.lbscampus.activity.SearchDepartmentActivity;
 import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.PullToRefreshView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;

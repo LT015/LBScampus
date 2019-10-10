@@ -19,7 +19,7 @@ import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;

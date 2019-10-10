@@ -57,7 +57,7 @@ import com.lbs.cheng.lbscampus.util.Base64Util;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lbs.cheng.lbscampus.util.FileStorage;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.Permission.PermissionListener;
 import com.lbs.cheng.lbscampus.util.Permission.PermissionUtil;
 import com.lbs.cheng.lbscampus.view.CircleImageView;

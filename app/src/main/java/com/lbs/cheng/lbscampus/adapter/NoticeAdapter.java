@@ -12,7 +12,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.RCImageView;
 import com.zhy.autolayout.AutoLinearLayout;
 

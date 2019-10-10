@@ -23,7 +23,7 @@ import com.lbs.cheng.lbscampus.activity.RoomStateActivity;
 import com.lbs.cheng.lbscampus.activity.SearchBuildingActivity;
 import com.lbs.cheng.lbscampus.adapter.BuildingAdapter;
 import com.lbs.cheng.lbscampus.bean.BuildingBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;

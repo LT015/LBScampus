@@ -39,7 +39,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.UserDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
 import com.lbs.cheng.lbscampus.bean.SectionBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 import com.lbs.cheng.lbscampus.util.SearchItem;
 import com.zhy.view.flowlayout.TagAdapter;

@@ -20,7 +20,7 @@ import com.lbs.cheng.lbscampus.adapter.TagAdapter;
 import com.lbs.cheng.lbscampus.bean.TagBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import android.view.ViewGroup;
 import android.widget.Toast;

@@ -26,7 +26,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.TagBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 
 import org.json.JSONArray;

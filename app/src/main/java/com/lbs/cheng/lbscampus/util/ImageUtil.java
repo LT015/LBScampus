@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.baidu.mapapi.http.HttpClient;
 import com.lbs.cheng.lbscampus.activity.UserActivity;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;

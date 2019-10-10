@@ -33,7 +33,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.PositionBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.fragment.MapFragment;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationService;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 import com.lbs.cheng.lbscampus.util.Utils;

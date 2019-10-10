@@ -28,7 +28,7 @@ import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.CircleImageView;
 import com.zhy.autolayout.AutoLinearLayout;
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.UserBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import java.io.IOException;
 

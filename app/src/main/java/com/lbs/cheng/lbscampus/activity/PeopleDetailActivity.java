@@ -21,7 +21,7 @@ import com.lbs.cheng.lbscampus.bean.BuildingBean;
 import com.lbs.cheng.lbscampus.bean.PositionBean;
 import com.lbs.cheng.lbscampus.bean.UserDetailBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 
 import org.json.JSONException;

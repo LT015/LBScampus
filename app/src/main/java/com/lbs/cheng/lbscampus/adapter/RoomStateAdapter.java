@@ -11,7 +11,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.RoomStateBean;
 import com.lbs.cheng.lbscampus.bean.TagBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import java.util.List;
 

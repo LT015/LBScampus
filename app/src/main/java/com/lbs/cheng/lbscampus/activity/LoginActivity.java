@@ -19,7 +19,7 @@ import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
-import com.lbs.cheng.lbscampus.util.HttpUtil;
+import com.lt.common.util.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
