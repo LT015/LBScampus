@@ -1,5 +1,6 @@
 package com.lbs.cheng.lbscampus.util;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,16 +61,12 @@ public class DateUtil {
         return date.getTime();
     }
 
-    public static long getStartAndEndTime( long time){
-        Date date = new Date(time);
-        date.setYear(2001);
-        date.setMonth(11);
-        date.setDate(11);
-        int hour = date.getHours();
-        date.setHours(hour-8);
-
-        return date.getTime();
-
-    }
+//    public static Time getStartAndEndTime(long date){
+//        date.setYear(2001);
+//        date.setMonth(11);
+//        date.setDate(11);
+//
+//        return date;
+//    }
 
 }

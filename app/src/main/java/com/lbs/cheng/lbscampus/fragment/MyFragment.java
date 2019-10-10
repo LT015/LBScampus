@@ -23,6 +23,9 @@ import com.lbs.cheng.lbscampus.activity.SelectInterstActivity;
 import com.lbs.cheng.lbscampus.activity.TimeIntervalActivity;
 import com.lbs.cheng.lbscampus.activity.UserActivity;
 import com.lbs.cheng.lbscampus.activity.VerifyActivity;
+import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
+import com.lbs.cheng.lbscampus.bean.Staff;
+import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.GlideUtil;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
@@ -171,6 +174,9 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                             myName.setText("点击登录");
                             point.setVisibility(View.INVISIBLE);
                             DataSupport.deleteAll(UserBean.class);
+                            DataSupport.deleteAll(ShareTimeBean.class);
+                            DataSupport.deleteAll(Student.class);
+                            DataSupport.deleteAll(Staff.class);
                             Toast.makeText(getContext(),"成功退出",Toast.LENGTH_SHORT).show();;
                         }
                     });

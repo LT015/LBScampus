@@ -211,7 +211,7 @@ public class NoticeActivity extends BaseActivity {
         list1.add(String.valueOf(notice.getNoticeId()));
         list1.add("status");
         list1.add(String.valueOf(status));
-        String url = HttpUtil.HOME_PATH + HttpUtil.GET_USER_NOTICE_STATUS;
+        String url = HttpUtil.HOME_PATH + HttpUtil.COLLECT_NOTICE;
         HttpUtil.sendOkHttpGetRequest( url, list1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

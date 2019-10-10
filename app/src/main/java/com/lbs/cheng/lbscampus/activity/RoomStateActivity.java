@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,16 +16,30 @@ import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.adapter.RoomStateAdapter;
 import com.lbs.cheng.lbscampus.adapter.TagAdapter;
+import com.lbs.cheng.lbscampus.bean.BuildingBean;
+import com.lbs.cheng.lbscampus.bean.Room;
 import com.lbs.cheng.lbscampus.bean.RoomStateBean;
+import com.lbs.cheng.lbscampus.bean.UserBean;
+import com.lbs.cheng.lbscampus.util.HttpUtil;
 import com.lt.common.activity.BaseActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.litepal.crud.DataSupport;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class RoomStateActivity extends BaseActivity {
 
@@ -38,8 +53,10 @@ public class RoomStateActivity extends BaseActivity {
     private ArrayAdapter<String> arr_adapter;
     private List<String> data_list;
     private int time = 0;
-    ArrayList<RoomStateBean> list;
-    int key;
+    private ArrayList<RoomStateBean> list;
+    private ArrayList<Room> roomList;
+    private int key;//key等于0 表示查看常用教室 1表示教学楼的教室
+    private int buildingId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +127,9 @@ public class RoomStateActivity extends BaseActivity {
     private void initTitle() {
         Intent intent = getIntent();
         key = intent.getIntExtra("key",0);
+        if(key == 1){
+            buildingId = intent.getIntExtra("buildingId",0);
+        }
         back = findViewById(R.id.title_back);
         titleName=findViewById(R.id.title_name);
         back.setOnClickListener(this);
@@ -185,6 +205,50 @@ public class RoomStateActivity extends BaseActivity {
         initRecycleView();
     }
 
+    private void getRoomList(){
+        UserBean user = DataSupport.findLast(UserBean.class);
+        List<String> list = new ArrayList<>();
+        list.add("id");
+        if(key == 0){
+            list.add(user.getUserId());
+        }else if(key == 1){
+            list.add(String.valueOf(buildingId));
+        }
+        list.add("type");
+        list.add(String.valueOf(key));
+        String url = HttpUtil.HOME_PATH + HttpUtil.GET_ROOMS;
+        HttpUtil.sendOkHttpGetRequest( url, list, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(RoomStateActivity.this, "请求失败，请检查网络!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            final JSONArray jsonArray = new JSONArray(responseText);
+                            roomList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<Room>>(){}.getType());
+
+                        }catch (JSONException e){
+                            Log.d("LoginActivity",e.toString());
+                            Toast.makeText(RoomStateActivity.this, "获取信息失败!", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);

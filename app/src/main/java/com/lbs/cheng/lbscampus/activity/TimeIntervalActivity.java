@@ -23,6 +23,7 @@ import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -36,8 +37,8 @@ public class TimeIntervalActivity extends BaseActivity{
     TextView titleName;
     @BindView(R.id.time_interval_finish)
     TextView finish;
-    private long startTime,endTime;//从时间选择器获取的时间
-    private long start,end;//要上传的时间  保证了年月日相同
+    private String startTime,endTime;//从时间选择器获取的时间
+    private String start,end;//要上传的时间  保证了年月日相同
     private TextView tvStartTime, tvEndTime;
     private CustomDatePicker startTimePicker, endTimePicker;
     private UserBean user;
@@ -99,9 +100,6 @@ public class TimeIntervalActivity extends BaseActivity{
     }
 
     private void saveShareTime(){
-        start = DateUtil.getStartAndEndTime(startTime);
-        Date s = new Date(start);
-        end = DateUtil.getStartAndEndTime(endTime);
 
         String url= HttpUtil.HOME_PATH + HttpUtil.UPDATE_SHARE_TIME+"/"+user.getUserId()+"/"+start+"/"+end;
         HashMap<String,String> hash=new HashMap<>();
@@ -117,8 +115,6 @@ public class TimeIntervalActivity extends BaseActivity{
                     }
                 });
             }
-//60966172800000 60966154800000
-//
             @Override
             public void onResponse(Call call, Response response) throws IOException {
 
@@ -138,7 +134,6 @@ public class TimeIntervalActivity extends BaseActivity{
                                 shareTimeBean.saveThrows();
                                 Toast.makeText(TimeIntervalActivity.this, "修改成功!", Toast.LENGTH_SHORT).show();
                             }else{
-
                                 shareTime.setStartTime(start);
                                 shareTime.setEndTime(end);
                                 shareTime.saveThrows();
@@ -162,8 +157,8 @@ public class TimeIntervalActivity extends BaseActivity{
         ShareTimeBean shareTime= DataSupport.findLast(ShareTimeBean.class);
         if(shareTime != null){
             startTime = shareTime.getStartTime();
-            endTime = shareTime.getEndTime();
-            tvStartTime.setText(DateFormatUtils.long2Str(shareTime.getStartTime(), false));
+            start = startTime;
+            tvStartTime.setText(DateFormatUtils.getRightText(startTime));//显示的开始时间
         }else{
             tvStartTime.setText(DateFormatUtils.long2Str(endTimestamp, false));
         }
@@ -173,8 +168,9 @@ public class TimeIntervalActivity extends BaseActivity{
         startTimePicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
-                startTime=timestamp;
-                tvStartTime.setText(DateFormatUtils.long2Str(timestamp, false));
+                startTime = DateFormatUtils.long2String(timestamp);
+                start = startTime;
+                tvStartTime.setText(DateFormatUtils.long2Str(timestamp,false));
             }
         }, beginTimestamp, endTimestamp);
         // 允许点击屏幕或物理返回键关闭
@@ -192,7 +188,9 @@ public class TimeIntervalActivity extends BaseActivity{
         long endTimestamp = System.currentTimeMillis();
         ShareTimeBean shareTime= DataSupport.findLast(ShareTimeBean.class);
         if(shareTime != null){
-            tvEndTime.setText(DateFormatUtils.long2Str(shareTime.getEndTime(), false));
+            endTime = shareTime.getEndTime();
+            end = endTime;
+            tvEndTime.setText(DateFormatUtils.getRightText(endTime));//显示的结束时间
         }else{
             tvEndTime.setText(DateFormatUtils.long2Str(endTimestamp, false));
         }
@@ -202,8 +200,9 @@ public class TimeIntervalActivity extends BaseActivity{
         endTimePicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
-                endTime=timestamp;
-                tvEndTime.setText(DateFormatUtils.long2Str(timestamp, false));
+                endTime = DateFormatUtils.long2String(timestamp);
+                end = endTime;
+                tvEndTime.setText(DateFormatUtils.long2Str(timestamp,false));
             }
         }, beginTimestamp, endTimestamp);
 

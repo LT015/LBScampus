@@ -2,12 +2,9 @@ package com.lbs.cheng.lbscampus.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
@@ -17,13 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
-import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
 
 import org.json.JSONException;
@@ -31,7 +26,11 @@ import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -173,7 +172,8 @@ public class LoginActivity extends BaseActivity {
                                 if(!jsonObject.get("shareTime").toString().equals("null")){
                                     ShareTimeBean shareTime = new Gson().fromJson(jsonObject.getJSONObject("shareTime").toString(),ShareTimeBean.class);
                                     shareTime.saveThrows();
-
+                                    ShareTimeBean shareTime1= DataSupport.findLast(ShareTimeBean.class);
+                                    Log.d("login", "run: ");
                                 }
                                 if(userBean.getType() == 1){
                                     if(!jsonObject.get("student").toString().equals("null")){

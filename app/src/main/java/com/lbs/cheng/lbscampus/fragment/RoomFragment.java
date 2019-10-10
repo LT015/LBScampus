@@ -93,6 +93,7 @@ public class RoomFragment extends Fragment {
                     case R.id.building_item:
                         Intent intent =new Intent(getActivity(), RoomStateActivity.class);
                         intent.putExtra("key",1);
+                        intent.putExtra("buildingId",buildingList.get(position).getBuildingId());
                         startActivity(intent);
                 }
             }
@@ -105,14 +106,6 @@ public class RoomFragment extends Fragment {
         getBuildingData();
     }
 
-    private void initBuildingList(){
-        BuildingBean building = new BuildingBean();
-        building.setName("教学楼");
-        for(int i = 0;i < 5;i++){
-            buildingList.add(building);
-        }
-
-    }
     public void getBuildingData() {
         String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_BUILDING+"/type/1";
 

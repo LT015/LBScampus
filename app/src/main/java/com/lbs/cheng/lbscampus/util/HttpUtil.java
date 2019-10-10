@@ -32,8 +32,8 @@ public class HttpUtil {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static final String SERVER_HOST = "server_host";
-    public static String HOME_PATH = "http://192.168.0.172:8080";
-//    public static String HOME_PATH = "http://47.95.212.222:8080";
+      public static String HOME_PATH = "http://192.168.0.172:8080";
+    //   public static String HOME_PATH = "http://47.95.212.222:8080";
     public static String Banner = "/banner/";
     public static String Image = "/images/";
     private static final MediaType MEDIA_TYPE_IMAGE = MediaType.parse("image/*");
@@ -62,7 +62,7 @@ public class HttpUtil {
     public static final String UPDATE_ROLE="/LBS/admin/update";//"/update/{adminId:.+}/role/{role:.+}
     //Building
     public static final String GET_BUILDING_TYPE="/LBS/building/getbuildtype";
-    public static final String GET_BUILDING_NAME="/LBS/building/getname/";
+    public static final String GET_BUILDING_NAME="/LBS/building/getname/";//
     public static final String CREATE_BUILDING="/LBS/building";
     public static final String DELETE_BUILDING="/LBS/building";///{buildingId:.+}
     public static final String SEARCH_BUILDING="/LBS/building";///type/{type:.+}/name/{name:.+}
@@ -83,7 +83,7 @@ public class HttpUtil {
     //notice
     public static final String GET_NOTICE_LIST="/LBS/notice/list";//得到所有notice  get请求
     public static final String GET_NOTICE_BY_ID="/LBS/notice/id";  //get请求
-    public static final String GET_USER_NOTICE_STATUS="/LBS/notice";  //get请
+    public static final String COLLECT_NOTICE="/LBS/notice";  //get请
     //public static final String GET_BOTICE_WITH_PAGER="/LBS/notice/list/pager";///{userId:.+}
     public static final String GET_NOTICE_BY_TYPE="/LBS/notice/type";  //get请求 //type/{type:.+}/status/{status:.+}
     public static final String GET_NOTICE_BY_TITLE="/LBS/notice";  //get请求 /type/{type:.+}/title/{title:.+}
@@ -124,6 +124,10 @@ public class HttpUtil {
     public static final String UPDATE_USER_STATUS="/LBS/user/update/status";//{userId:.+}/{status:.+}
     public static final String UPDATE_PASSWORD="/LBS/user/update/password";//{userId:.+}/{password:.+}/{oldPassword:.+}
     public static final String UPDATE_HOBBY="/LBS/user/update/hobby";//{userId:.+}
+    //Room
+    public static final String GET_ROOMS="/LBS/room";//{userId:.+}/{status:.+}
+    public static final String GET_BUILDING_ROOMS="/LBS/user/update/password";//{userId:.+}/{password:.+}/{oldPassword:.+}
+    public static final String COLLECT_ROOM="/LBS/room/update/hobby";//{userId:.+}
 
 
     //image

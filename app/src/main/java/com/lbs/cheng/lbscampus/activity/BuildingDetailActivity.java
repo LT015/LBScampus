@@ -72,7 +72,7 @@ public class BuildingDetailActivity extends BaseActivity {
         initListener();
         initTitle();
         //buildingImage.setImageResource();
-        String imagePath= HttpUtil.HOME_PATH + HttpUtil.Image+building.getPicturePath();
+        String imagePath= HttpUtil.HOME_PATH + HttpUtil.Image + "building/" + building.getPicturePath();
         if(imagePath != null){
             GlideUtil.load(BuildingDetailActivity.this, imagePath, buildingImage, GlideUtil.REQUEST_OPTIONS);
         }

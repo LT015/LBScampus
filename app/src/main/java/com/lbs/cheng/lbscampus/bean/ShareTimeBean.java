@@ -2,6 +2,9 @@ package com.lbs.cheng.lbscampus.bean;
 
 import org.litepal.crud.DataSupport;
 
+import java.sql.Time;
+import java.util.Date;
+
 /**
  * Created by LT on 2019/5/12.
  */
@@ -11,9 +14,9 @@ public class ShareTimeBean extends DataSupport {
 
     private String userId;
 
-    private long startTime;
+    private String startTime;
 
-    private long endTime;
+    private String endTime;
 
     public int getId() {
         return id;
@@ -31,19 +34,19 @@ public class ShareTimeBean extends DataSupport {
         this.userId = userId;
     }
 
-    public long getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(long startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public long getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(long endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }
