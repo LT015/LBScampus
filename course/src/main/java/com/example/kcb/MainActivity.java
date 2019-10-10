@@ -283,23 +283,21 @@ public class MainActivity extends BaseActivity {
     private void getCourseList(){
         //String courseName, String teacher, String classRoom, int day, int classStart, int classEnd
         if(tableflag == 1){//计科1901
-            Course course1 = new Course("程序设计基础",2,3,3,"严冬梅",""); coursesList.add(course1);
-            Course course2 = new Course("电路与电子技术",3,3,3,"张南南",""); coursesList.add(course2);
-            Course course3 = new Course("程序设计基础",3,4,4,"严冬梅",""); coursesList.add(course3);
-            Course course4 = new Course("电路与电子技术",4,4,4,"张南南",""); coursesList.add(course4);
-            Course course5 = new Course("高等数学Ⅰ",2,2,2,"王志芹",""); coursesList.add(course5);
-            Course course6 = new Course("应用文写作",2,5,5,"张胜珍",""); coursesList.add(course6);
-            Course course7 = new Course("高等数学Ⅰ",3,2,2,"王志芹",""); coursesList.add(course7);
-            Course course8 = new Course("高等数学Ⅰ",4,2,2,"王志芹",""); coursesList.add(course8);
-            Course course9 = new Course("中国近现代史纲要",4,5,5,	"葛亚坤",""); coursesList.add(course9);
-            Course course10 = new Course("高等数学Ⅰ",5,2,2,"王志芹",""); coursesList.add(course10);
-            Course course11 = new Course("中国近现代史纲要",5,5,5,"葛亚坤",""); coursesList.add(course11);
-            Course course12 = new Course("机器人创新实践",1,1,1,"吴诺",""); coursesList.add(course12);
-            Course course13 = new Course("程序设计基础实验",1,2,2,"严冬梅",""); coursesList.add(course13);
-            Course course14 = new Course("计算机科学导论",1,3,3,"华斌",""); coursesList.add(course14);
-            Course course15 = new Course("大学英语Ⅰ",1,4,4,"申彩红",""); coursesList.add(course15);
-            Course course16 = new Course("大学英语Ⅰ",1,4,4,"李军育",""); coursesList.add(course16);
-            Course course17 = new Course("大学英语Ⅰ",1,4,4,"杨祎",""); coursesList.add(course17);
+            Course course1 = new Course("程序设计基础",2,3,3,"严冬梅","E304"); coursesList.add(course1);
+            Course course2 = new Course("电路与电子技术",3,3,3,"张南南","C302"); coursesList.add(course2);
+            Course course3 = new Course("程序设计基础",3,4,4,"严冬梅","E111"); coursesList.add(course3);
+
+            Course course6 = new Course("应用文写作",2,5,5,"张胜珍","M钻"); coursesList.add(course6);
+            Course course7 = new Course("高等数学Ⅰ",3,2,2,"王志芹","N3102"); coursesList.add(course7);
+            Course course8 = new Course("高等数学Ⅰ",4,2,2,"王志芹","N3202"); coursesList.add(course8);
+            Course course4 = new Course("电路与电子技术",4,4,4,"张南南","C302"); coursesList.add(course4);
+            Course course9 = new Course("中国近现代史纲要",4,5,5,	"葛亚坤","N2247"); coursesList.add(course9);
+            Course course10 = new Course("高等数学Ⅰ",5,2,2,"王志芹","N3202"); coursesList.add(course10);
+            Course course11 = new Course("中国近现代史纲要",5,5,5,"葛亚坤","N2247"); coursesList.add(course11);
+            Course course12 = new Course("机器人创新实践",1,1,1,"吴诺","K104"); coursesList.add(course12);
+            Course course13 = new Course("程序设计基础实验",1,2,2,"严冬梅","2307"); coursesList.add(course13);
+            Course course14 = new Course("计算机科学导论",1,3,3,"华斌","N3101"); coursesList.add(course14);
+            Course course17 = new Course("大学英语Ⅰ",1,4,4,"杨祎","N3101"); coursesList.add(course17);
         }else if(tableflag == 2){//软件1901
             Course course1 = new Course("大学英语Ⅰ",		1,	4,4	,"申彩红","F209"); coursesList.add(course1);
             Course course2 = new Course("大学英语Ⅰ",		1,	4,4	,"李军育","C201"); coursesList.add(course2);

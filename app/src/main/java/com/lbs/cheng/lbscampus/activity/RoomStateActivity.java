@@ -50,7 +50,7 @@ public class RoomStateActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        getRoomsState();
+
     }
 
     @Override
@@ -58,6 +58,7 @@ public class RoomStateActivity extends BaseActivity {
         super.initView();
         initSpring();
         initTitle();
+        getRoomsState();
     }
 
     private void initRecycleView(){
@@ -132,7 +133,7 @@ public class RoomStateActivity extends BaseActivity {
             list.add(building14);
             RoomStateBean building13 = new RoomStateBean("E101",1);
             list.add(building13);
-        }else{
+        }else if(key == 1){
             RoomStateBean building1 = new RoomStateBean("2001",0);
             list.add(building1);
             RoomStateBean building2 = new RoomStateBean("2002",1);

@@ -208,7 +208,7 @@ public class PeopleDetailActivity extends BaseActivity {
         userName.setText(userDetail.getUserName());
 
         if(userDetail.getUserImage() != null){
-            String path = HttpUtil.HOME_PATH + HttpUtil.Image + userDetail.getUserImage();
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image + "user/"+userDetail.getUserImage();
             //GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));
 
             GlideUtil.load(PeopleDetailActivity.this, path, userImage, GlideUtil.REQUEST_OPTIONS);

@@ -365,8 +365,6 @@ public class SearchPeopleActivity extends BaseActivity {
 
             }
         }
-
-
         try {
             name = URLEncoder.encode(name, "utf-8");
         } catch (UnsupportedEncodingException e) {

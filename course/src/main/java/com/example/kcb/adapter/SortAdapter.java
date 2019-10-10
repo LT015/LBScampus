@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.example.kcb.R;
 import com.example.kcb.bean.SortModel;
 
@@ -64,6 +65,8 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
         holder.tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ARouter.getInstance().build("/course/main").withInt("key",0).withInt("tableflag",2).withString("courseName",mData.get(position).getName()).navigation();
+
                 Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
             }
         });

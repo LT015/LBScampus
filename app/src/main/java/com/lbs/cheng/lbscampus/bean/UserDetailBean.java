@@ -37,9 +37,7 @@ public class UserDetailBean {
 
     private String majorName;
 
-    private String DeptName;
-
-    private String departmentName;
+    private String deptName;
 
     private int departmentId;
 
@@ -156,19 +154,11 @@ public class UserDetailBean {
     }
 
     public String getDeptName() {
-        return DeptName;
+        return deptName;
     }
 
     public void setDeptName(String deptName) {
-        DeptName = deptName;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+        this.deptName = deptName;
     }
 
     public int getDepartmentId() {

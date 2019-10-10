@@ -33,7 +33,7 @@ public class HttpUtil {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static final String SERVER_HOST = "server_host";
     public static String HOME_PATH = "http://192.168.0.172:8080";
-//    public static String HOME_PATH = "http://39.106.220.192:8765";
+//    public static String HOME_PATH = "http://47.95.212.222:8080";
     public static String Banner = "/banner/";
     public static String Image = "/images/";
     private static final MediaType MEDIA_TYPE_IMAGE = MediaType.parse("image/*");
@@ -83,9 +83,11 @@ public class HttpUtil {
     //notice
     public static final String GET_NOTICE_LIST="/LBS/notice/list";//得到所有notice  get请求
     public static final String GET_NOTICE_BY_ID="/LBS/notice/id";  //get请求
+    public static final String GET_USER_NOTICE_STATUS="/LBS/notice";  //get请
     //public static final String GET_BOTICE_WITH_PAGER="/LBS/notice/list/pager";///{userId:.+}
     public static final String GET_NOTICE_BY_TYPE="/LBS/notice/type";  //get请求 //type/{type:.+}/status/{status:.+}
     public static final String GET_NOTICE_BY_TITLE="/LBS/notice";  //get请求 /type/{type:.+}/title/{title:.+}
+    public static final String GET_USER_NOTICE="/LBS/notice";//我的收藏
     public static final String CREATE_NOTICE="/LBS/notice";//PUT
     public static final String GET_MY_NOTICE="/LBS/notice";///publisher/{publisher:.+}/status/{status:.+}
     public static final String UPDATE_NOTICE_TITLE="/LBS/notice/update/title";//{id:.+}/{title:.+}

@@ -31,7 +31,7 @@ public class WelcomeActivity extends AppCompatActivity {
             public void run() {
                 try {
                     Thread.sleep(2000);
-                    startActivity(new Intent(WelcomeActivity.this,IPActivity.class));
+                    startActivity(new Intent(WelcomeActivity.this,HomeActivity.class));
                     finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();

@@ -25,6 +25,7 @@ import com.lbs.cheng.lbscampus.bean.BuildingBean;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.TagBean;
+import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 
@@ -32,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.litepal.LitePal;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -69,6 +71,7 @@ public class NoticeActivity extends BaseActivity {
     TextView noticeSource;
 
     public String buindingName;
+    private int status = 2;//status为2时表示查看当前notice是否被该用户收藏   收藏为1，未收藏为0
 
 
     @Override
@@ -122,6 +125,7 @@ public class NoticeActivity extends BaseActivity {
             noticePlace.setVisibility(View.VISIBLE);
             getBuildingName();
         }
+        getUserNoticeStatus();
 
 
     }
@@ -131,17 +135,7 @@ public class NoticeActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()){
             case R.id.notice_collection:
-                if(isCollected == 0){
-                    isCollected = 1;
-                    collect.setImageResource(R.mipmap.ic_collect);
-                    Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
-                }else{
-                    isCollected =0;
-                    collect.setImageResource(R.mipmap.ic_uncollect);
-                    Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show();
-                }
-
-
+                getUserNoticeStatus();
                 break;
             case R.id.title_back:
                 finish();
@@ -192,9 +186,7 @@ public class NoticeActivity extends BaseActivity {
                         // progressBar.setVisibility(View.GONE);
                     }
                 });
-
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
@@ -204,6 +196,58 @@ public class NoticeActivity extends BaseActivity {
 
                         buindingName = responseText;
                         noticePlaveTv.setText(buindingName);
+                    }
+                });
+            }
+        });
+    }
+
+    private void getUserNoticeStatus(){//
+        UserBean user= DataSupport.findLast(UserBean.class);
+        List<String> list1 = new ArrayList<>();
+        list1.add("user");
+        list1.add(user.getUserId());
+        list1.add("notice");
+        list1.add(String.valueOf(notice.getNoticeId()));
+        list1.add("status");
+        list1.add(String.valueOf(status));
+        String url = HttpUtil.HOME_PATH + HttpUtil.GET_USER_NOTICE_STATUS;
+        HttpUtil.sendOkHttpGetRequest( url, list1, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(NoticeActivity.this, "请求失败，请检查网络!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int flag = 0;//用来判断要不要弹toast
+                        if(status == 2){
+                            flag = 1;
+                        }
+                        status = Integer.valueOf(responseText);
+                        if(status == 0){
+                            isCollected = 1;
+                            collect.setImageResource(R.mipmap.ic_uncollect);
+                            if(flag == 0){
+                                Toast.makeText(NoticeActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                            }
+                        }else if(status == 1){
+                            isCollected =0;
+                            collect.setImageResource(R.mipmap.ic_collect);
+                            if(flag == 0){
+                                Toast.makeText(NoticeActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
                     }
                 });
             }

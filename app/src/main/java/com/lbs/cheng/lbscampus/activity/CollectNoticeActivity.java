@@ -16,10 +16,12 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
+import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.HttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,10 +82,8 @@ public class CollectNoticeActivity extends BaseActivity {
     }
 
     public void getNoticeData() {
-        List<String> list1 = new ArrayList<>();
-        list1.add("1");
-        list1.add("status/2");
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
+        UserBean user= DataSupport.findLast(UserBean.class);
+        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_USER_NOTICE+"/user/"+user.getUserId(), new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 

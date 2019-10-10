@@ -103,7 +103,6 @@ public class SelectClassActivity extends BaseActivity {
         adapter.setOnItemClickListener(new SortAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                ARouter.getInstance().build("/course/main").withInt("key",0).withInt("tableflag",2).withString("courseName",SourceDateList.get(position).getName()).navigation();
 
             }
         });
