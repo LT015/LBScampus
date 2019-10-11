@@ -129,7 +129,7 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
         if(staff.getRole().equals("2")){//2只有活动
             type = 5;//type为5表示能审核type为2 3 4的公告
         }else if(staff.getRole().equals("3")){
-            type = 4;//type为5表示能审核type为1 2的公告
+            type = 6;//type为5表示能审核type为1 2的公告
         }
         String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/type/"+type+"/status/1";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {

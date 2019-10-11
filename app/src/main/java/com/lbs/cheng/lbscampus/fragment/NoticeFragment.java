@@ -84,7 +84,7 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
         fragments.add(lpFragment);
         fragments.add(helpFragment);
         strings=new ArrayList<>();
-        strings.add("通告");
+        strings.add("通知");
         strings.add("活动");
         strings.add("失物招领");
         strings.add("求助");

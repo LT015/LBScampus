@@ -115,7 +115,7 @@ public class FinishFragment extends Fragment implements View.OnClickListener{
         if(staff.getRole().equals("2")){//2只有活动
             type = 5;
         }else if(staff.getRole().equals("3")){
-            type = 4;
+            type = 6;
         }
         String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/type/"+type+"/status/2";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
