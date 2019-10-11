@@ -238,13 +238,13 @@ public class NoticeActivity extends BaseActivity {
                             isCollected = 1;
                             collect.setImageResource(R.mipmap.ic_uncollect);
                             if(flag == 0){
-                                Toast.makeText(NoticeActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NoticeActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
                             }
                         }else if(status == 1){
                             isCollected =0;
                             collect.setImageResource(R.mipmap.ic_collect);
                             if(flag == 0){
-                                Toast.makeText(NoticeActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NoticeActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                             }
                         }
 

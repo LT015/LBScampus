@@ -124,7 +124,7 @@ public class HttpUtil {
     //Room
     public static final String GET_ROOMS="/LBS/room";//{userId:.+}/{status:.+}
     public static final String GET_BUILDING_ROOMS="/LBS/user/update/password";//{userId:.+}/{password:.+}/{oldPassword:.+}
-    public static final String COLLECT_ROOM="/LBS/room/update/hobby";//{userId:.+}
+    public static final String COLLECT_ROOM="/LBS/room";//{userId:.+}
 
 
     //image

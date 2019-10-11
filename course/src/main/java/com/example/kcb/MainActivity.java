@@ -28,10 +28,20 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.lt.common.activity.BaseActivity;
+import com.lt.common.bean.UserBean;
 import com.lt.common.util.HttpUtil;
 
+import org.litepal.crud.DataSupport;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 @Route(path = "/course/main")
@@ -50,6 +60,7 @@ public class MainActivity extends BaseActivity {
     @Autowired
     public String courseName;
     ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
+    private int status = 2;//status为2时表示查看当前room是否被该用户收藏   收藏为1，未收藏为0
 
     //SQLite Helper类
     private DatabaseHelper databaseHelper = new DatabaseHelper
@@ -93,7 +104,7 @@ public class MainActivity extends BaseActivity {
         }else if(key == 2){//从查看教室状态进入，此时可以添加为常用教室
             titleMore.setVisibility(View.VISIBLE);
             titleName.setText(courseName);
-            titleMore.setText("设为常用");
+            getUserRoomStatus();
         }else if(key == 0){//查看其他班级的课表 软件1901
             titleName.setText(courseName);
         }
@@ -266,13 +277,19 @@ public class MainActivity extends BaseActivity {
     }
     private void setUseClassroom(){
         final View viewStatus = LayoutInflater.from(getApplicationContext()).inflate(R.layout.add_classroom,null);
+        String title = "设为常用教室？";
+        if(status ==  1){
+            title = "取消关注？";
+        }
+
+
 
         new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AppTheme))
-                .setTitle(getResources().getString(R.string.add_classroom))
+                .setTitle(title)
                 .setView(viewStatus)
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
+                        getUserRoomStatus();
                         dialog.dismiss();
 
                     }
@@ -339,7 +356,59 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void getUserRoomStatus(){
+    private void getUserRoomStatus() {//
+        UserBean user= DataSupport.findLast(UserBean.class);
+        List<String> list1 = new ArrayList<>();
+        list1.add("userId");
+        list1.add(user.getUserId());
+        list1.add("roomName");
+        String roomName = null;
+        try {
+            roomName = URLEncoder.encode(courseName,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        list1.add(roomName);
+        list1.add("status");
+        list1.add(String.valueOf(status));
+        String url = HttpUtil.HOME_PATH + HttpUtil.COLLECT_ROOM;
+        HttpUtil.sendOkHttpGetRequest( url, list1, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "请求失败，请检查网络!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int flag = 0;//用来判断要不要弹toast
+                        if(status == 2){
+                            flag = 1;
+                        }
+                        status = Integer.valueOf(responseText);
+                        if(status == 0){
+                            titleMore.setText("设为常用");
+                            if(flag == 0){
+                                Toast.makeText(MainActivity.this, "取消关注", Toast.LENGTH_SHORT).show();
+                            }
+                        }else if(status == 1){
+                            titleMore.setText("已关注");
+                            if(flag == 0){
+                                Toast.makeText(MainActivity.this, "已关注", Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
+                    }
+                });
+            }
+        });
     }
 }
