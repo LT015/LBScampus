@@ -4,64 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.zhy.autolayout.AutoLinearLayout
-        android:id="@+id/title"
-        android:background="@color/bg_blue"
-        android:paddingTop="@dimen/space_30px"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.zhy.autolayout.AutoRelativeLayout
+    <include layout="@layout/title_bar"
+        android:id="@+id/title_verify"/>
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:focusable="true"
-            android:focusableInTouchMode="true">
-
-            <ImageView
-                android:id="@+id/title_back"
-                android:layout_width="@dimen/space_60px"
-                android:layout_height="@dimen/space_60px"
-                android:layout_below="@+id/title_padding"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/space_20px"
-                android:src="@mipmap/back"
-                android:visibility="invisible" />
-
-            <TextView
-                android:id="@+id/title_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/title_padding"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/space_20px"
-                android:layout_marginTop="@dimen/space_30px"
-                android:text="欢迎"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-            <TextView
-                android:id="@+id/title_register"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/title_padding"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="@dimen/space_20px"
-                android:layout_marginTop="@dimen/space_30px"
-                android:paddingLeft="@dimen/space_20px"
-                android:paddingRight="@dimen/space_20px"
-                android:text="注册"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:visibility="invisible" />
-
-
-        </com.zhy.autolayout.AutoRelativeLayout>
-    </com.zhy.autolayout.AutoLinearLayout>
     <android.support.design.widget.TabLayout
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/title_verify"
         app:tabMaxWidth="0dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_verify_title"

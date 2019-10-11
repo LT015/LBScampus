@@ -47,6 +47,8 @@ public class VerifyActivity extends BaseActivity {
     TabLayout title;
     @BindView(R.id.fragment_verify_viewpager)
     ViewPager viewPager;
+    private int role;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,8 @@ public class VerifyActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        Intent intent = getIntent();
+        role = intent.getIntExtra("role",0);
     }
 
     @Override

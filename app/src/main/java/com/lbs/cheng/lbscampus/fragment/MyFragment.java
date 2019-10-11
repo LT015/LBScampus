@@ -72,7 +72,9 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.share_time)
     AutoLinearLayout shareTime;//共享时段
     @BindView(R.id.verify)
-    AutoLinearLayout verify;//审核公告
+    AutoLinearLayout verify;//审核通知
+    @BindView(R.id.verify_activity)
+    AutoLinearLayout verifyActivity;//审核活动
     @BindView(R.id.drop_out)
     TextView dropOut;//
 
@@ -108,10 +110,21 @@ public class MyFragment extends Fragment implements View.OnClickListener{
             myName.setText(userBean.getNickName());
             point.setVisibility(View.VISIBLE);
             //管理员权限
-            if (userBean.getType() == 2){
-                verify.setVisibility(View.VISIBLE);
+            if (userBean.getType() != 1){
+                Staff staff = DataSupport.findLast(Staff.class);
+                if(staff != null){
+                    if(staff.getRole().equals("2")){
+                        verifyActivity.setVisibility(View.VISIBLE);
+                        verify.setVisibility(View.GONE);
+                    }else if(staff.getRole().equals("3")){
+                        verifyActivity.setVisibility(View.VISIBLE);
+                        verify.setVisibility(View.VISIBLE);
+                    }
+                }
+
             }else{
                 verify.setVisibility(View.GONE);
+                verifyActivity.setVisibility(View.GONE);
             }
         }else{
             myImage.setImageResource(R.mipmap.no_image);
@@ -125,7 +138,6 @@ public class MyFragment extends Fragment implements View.OnClickListener{
     private void initView() {
         title=view.findViewById(R.id.title_name);
         title.setText("我的");
-        initUser();
     }
 
     private void initListener() {
@@ -136,6 +148,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
         shareMode.setOnClickListener(this);
         shareTime.setOnClickListener(this);
         verify.setOnClickListener(this);
+        verifyActivity.setOnClickListener(this);
         dropOut.setOnClickListener(this);
     }
 
@@ -207,7 +220,13 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                     break;
                 case R.id.verify:
                     Intent verify = new Intent(getActivity(), VerifyActivity.class);
+                    verify.putExtra("role",3);
                     startActivity(verify);
+                    break;
+                case R.id.verify_activity:
+                    Intent verifyActivity = new Intent(getActivity(), VerifyActivity.class);
+                    verifyActivity.putExtra("role",2);
+                    startActivity(verifyActivity);
                     break;
             }
         }

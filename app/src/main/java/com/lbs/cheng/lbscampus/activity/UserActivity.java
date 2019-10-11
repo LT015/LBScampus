@@ -142,6 +142,8 @@ public class UserActivity extends BaseActivity {
     TextView userPhoneText;
     @BindView(R.id.user_sex_text)
     TextView userSexText;
+    @BindView(R.id.user_email_text)
+    TextView userEmailText;
     @BindView(R.id.sv)
     NestedScrollView sv;
     @BindView(R.id.ll)//整个布局
@@ -202,6 +204,10 @@ public class UserActivity extends BaseActivity {
         userPhoneText.setText(userBean.getTelNumber());
         userIdText.setText(userNumId);
         userSexText.setText(userBean.getSex());
+        if(userBean.getEmail() != null){
+            userEmailText.setText(userBean.getEmail());
+        }
+
         if (userBean.getUserImage()==null){
             headImg.setImageResource(R.mipmap.head_img);
 

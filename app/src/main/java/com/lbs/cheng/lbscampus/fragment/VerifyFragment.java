@@ -27,6 +27,7 @@ import com.lbs.cheng.lbscampus.activity.VerifyActivity;
 import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
+import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lt.common.util.HttpUtil;
 
@@ -123,8 +124,14 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
     }
 
     public void getNoticeData() {
-        UserBean user = DataSupport.findLast(UserBean.class);
-        String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/publisher/"+user.getUserId()+"/status/1";
+        Staff  staff = DataSupport.findLast(Staff.class);
+        int type = 2;
+        if(staff.getRole().equals("2")){//2只有活动
+            type = 5;//type为5表示能审核type为2 3 4的公告
+        }else if(staff.getRole().equals("3")){
+            type = 4;//type为5表示能审核type为1 2的公告
+        }
+        String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/type/"+type+"/status/1";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

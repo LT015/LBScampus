@@ -32,6 +32,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.UserDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lt.common.util.HttpUtil;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -87,6 +88,8 @@ public class SearchPeopleActivity extends BaseActivity {
     private List<SearchHistoricalBean> mHistoryData;
 
     List<UserDetailBean> peopleList=new ArrayList<>();
+    private List<String> type1 = new ArrayList<>();
+    private List<String> type2 = new ArrayList<>();
 
     private String name = null;//搜索框输的学生名字
     private int type = -1;//查找人的类型 -1是所有 0是学生 1是教职工
@@ -124,37 +127,20 @@ public class SearchPeopleActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i){
                     case 0:
-                        type = -1;
-                        data_list_type2=getDataAll();
-                        arr_adapter_type2= new ArrayAdapter<String>(SearchPeopleActivity.this, android.R.layout.simple_spinner_item, data_list_type2);
-                        //设置样式
-                        arr_adapter_type2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerType2.setAdapter(arr_adapter_type2);
+                        getData(0);
                         break;
                     case 1:
-                        type = 0;
-                        data_list_type2=getDataStudent();
-                        arr_adapter_type2= new ArrayAdapter<String>(SearchPeopleActivity.this, android.R.layout.simple_spinner_item, data_list_type2);
-                        //设置样式
-                        arr_adapter_type2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerType2.setAdapter(arr_adapter_type2);
+                        getData(1);
                         break;
                     case 2:
-                        type = 1;
-                        data_list_type2=getDataTeacher();
-                        arr_adapter_type2= new ArrayAdapter<String>(SearchPeopleActivity.this, android.R.layout.simple_spinner_item, data_list_type2);
-                        //设置样式
-                        arr_adapter_type2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerType2.setAdapter(arr_adapter_type2);
+                        getData(2);
                         break;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                data_list_type2=getDataAll();
-                arr_adapter_type2.notifyDataSetChanged();
-                spinnerType2.setAdapter(arr_adapter_type2);
+                getData(0);
             }
 
         });
@@ -162,15 +148,7 @@ public class SearchPeopleActivity extends BaseActivity {
 
 
 
-        data_list_type2 = new ArrayList<String>();
-        data_list_type2=getDataAll();
-
-        //适配器
-        arr_adapter_type2= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data_list_type2);
-        //设置样式
-        arr_adapter_type2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //加载适配器
-        spinnerType2.setAdapter(arr_adapter_type2);
+        getData(0);
         spinnerType2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -184,51 +162,47 @@ public class SearchPeopleActivity extends BaseActivity {
         });
 
     }
-    List<String> getDataAll(){
-        data_list_type2.clear();
-        List<String> data = new ArrayList<>();
-        data.add("所在单位");
-        data.add("计算机学院");
-        data.add("统计学院");
-        data.add("金融学院");
-        data.add("会计系");
-        data.add("外语系");
-        data.add("法律学院");
-        data.add("财政部门");
-        data.add("教育部门");
-        data.add("管理部门");
-        data.add("食堂部门");
-        data.add("环境部门");
-        data.add("行政部门");
-        return data;
 
-    }
-    List<String> getDataTeacher(){
-        data_list_type2.clear();
-        List<String> data = new ArrayList<>();
-        data.add("全部");
-        data.add("财政部门");
-        data.add("教育部门");
-        data.add("管理部门");
-        data.add("食堂部门");
-        data.add("环境部门");
-        data.add("行政部门");
-        return data;
+    private void getData(int type){// 0 是所有 1是学生 2是老师
 
-    }
-    List<String> getDataStudent(){
-        data_list_type2.clear();
-        List<String> data = new ArrayList<>();
-        data.add("全部");
-        data.add("计算机学院");
-        data.add("统计学院");
-        data.add("金融学院");
-        data.add("会计系");
-        data.add("外语系");
-        data.add("法律学院");
-        return data;
+        String url = HttpUtil.HOME_PATH + HttpUtil.GET_DEPARTMENT_NAME + "/" + type;
 
+        HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try{
+                            List<String> list2 = new ArrayList<>();
+                            data_list_type2 = new ArrayList<>();
+                            data_list_type2.add("全体部门");
+                            final JSONArray jsonArray = new JSONArray(responseText);
+                            list2 = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<String>>(){}.getType());
+                            data_list_type2.addAll(list2);
+                            setAdapter2();
+                        }catch (JSONException e){
+                            Toast.makeText(SearchPeopleActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
+    private void setAdapter2(){
+        arr_adapter_type2= new ArrayAdapter<String>(SearchPeopleActivity.this, android.R.layout.simple_spinner_item, data_list_type2);
+        //设置样式
+        arr_adapter_type2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType2.setAdapter(arr_adapter_type2);
+    }
+
     @Override
     protected void initView() {
         super.initView();
@@ -351,20 +325,20 @@ public class SearchPeopleActivity extends BaseActivity {
     public void getPeopleList() {
         String url = HttpUtil.HOME_PATH + HttpUtil.SEARCH_USER;
 
-        if(deptId == -1){
-            if(type!=-1){
-                url=url+"/type/"+type;
-            }
-
-        }else{
-            if(type == 0){
-                url = url+"/student/dept"+deptId;
-
-            }else if(type == 1){
-                url = url+"/staff/dept"+deptId;
-
-            }
-        }
+//        if(deptId == -1){
+//            if(type!=-1){
+//                url=url+"/type/"+type;
+//            }
+//
+//        }else{
+//            if(type == 0){
+//                url = url+"/student/dept"+deptId;
+//
+//            }else if(type == 1){
+//                url = url+"/staff/dept"+deptId;
+//
+//            }
+//        }
         try {
             name = URLEncoder.encode(name, "utf-8");
         } catch (UnsupportedEncodingException e) {

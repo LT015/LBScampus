@@ -92,7 +92,7 @@ public class SearchDepartmentActivity extends BaseActivity {
         //数据
         data_list = new ArrayList<String>();
         data_list.add("所有部门");
-        data_list.add("常用部门");
+        data_list.add("教学系部");
         data_list.add("学校部门");
         data_list.add("其他部门");
 

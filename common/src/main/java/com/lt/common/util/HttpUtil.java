@@ -29,8 +29,8 @@ public class HttpUtil {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static final String SERVER_HOST = "server_host";
-    public static String HOME_PATH = "http://192.168.0.172:8080";
-    //   public static String HOME_PATH = "http://47.95.212.222:8080";
+    //public static String HOME_PATH = "http://192.168.0.172:8080";
+    public static String HOME_PATH = "http://47.95.212.222:8080";
     public static String Banner = "/banner/";
     public static String Image = "/images/";
     private static final MediaType MEDIA_TYPE_IMAGE = MediaType.parse("image/*");
@@ -77,6 +77,7 @@ public class HttpUtil {
     public static final String UPDATE_DEPART_DESCRIPTION="/LBS/department/update/description";//{id:.+}/{description:.+}
     public static final String UPDATE_DEPART_NAME="/LBS/department/update/name";//{id:.+}/{name:.+}
     public static final String UPDATE_BUILDING_ID="/LBS/department/update/buildingId";//{id:.+}/{buildingId:.+}
+    public static final String GET_DEPARTMENT_NAME="/LBS/department/deptType";//{id:.+}/{buildingId:.+}
     //notice
     public static final String GET_NOTICE_LIST="/LBS/notice/list";//得到所有notice  get请求
     public static final String GET_NOTICE_BY_ID="/LBS/notice/id";  //get请求

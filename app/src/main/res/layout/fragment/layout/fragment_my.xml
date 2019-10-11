@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:textColor="@color/black"
-                    android:text="审核公告"
+                    android:text="审核通知"
                     android:textSize="18sp"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
@@ -255,7 +255,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_1px"/>
 
+            <com.zhy.autolayout.AutoLinearLayout
+                android:visibility="gone"
+                android:id="@+id/verify_activity"
+                android:paddingLeft="@dimen/space_32px"
+                android:paddingRight="@dimen/space_32px"
+                android:background="@drawable/touch_bg"
+                android:clickable="true"
+                android:paddingBottom="@dimen/space_40px"
+                android:paddingTop="@dimen/space_40px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/black"
+                    android:text="审核活动"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:src="@mipmap/right_arrow_gray"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="@dimen/space_24px"
+                    android:layout_height="@dimen/space_60px" />
 
+            </com.zhy.autolayout.AutoLinearLayout>
+            <View
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
             <TextView
                 android:id="@+id/drop_out"
                 android:background="@drawable/touch_drop_out"

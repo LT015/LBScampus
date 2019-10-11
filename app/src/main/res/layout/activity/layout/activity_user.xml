@@ -132,7 +132,7 @@
                         android:drawableRight="@mipmap/icon_right"
                         android:layout_toLeftOf="@+id/right"
                         android:text="帅气小白城"
-                        android:textColor="@color/color_999"
+                        android:textColor="@color/color_111"
                         android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -229,7 +229,7 @@
                         android:layout_alignParentRight="true"
                         android:drawableRight="@mipmap/icon_right"
                         android:text="136****9395"
-                        android:textColor="@color/color_999"
+                        android:textColor="@color/color_111"
                         android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -259,7 +259,7 @@
                         android:layout_alignParentRight="true"
                         android:drawableRight="@mipmap/icon_right"
                         android:text="136****9395@qq.com"
-                        android:textColor="@color/color_999"
+                        android:textColor="@color/color_111"
                         android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -359,7 +359,7 @@
                         android:drawableRight="@mipmap/icon_right"
                         android:layout_toLeftOf="@+id/right"
                         android:text="@string/alter"
-                        android:textColor="@color/color_999"
+                        android:textColor="@color/color_111"
                         android:textSize="15sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

@@ -30,6 +30,7 @@ import com.lbs.cheng.lbscampus.activity.SearchPeopleActivity;
 import com.lbs.cheng.lbscampus.activity.SearchDepartmentActivity;
 import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
+import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.PullToRefreshView;
 import com.youth.banner.Banner;
@@ -39,6 +40,7 @@ import com.zhy.autolayout.AutoLinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -241,12 +243,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent5);
                 break;
             case R.id.head_icon_6:
-                ARouter.getInstance().build("/course/main").withInt("key",1).withInt("tableflag",1).withString("courseName","").navigation();
+                UserBean userBean = DataSupport.findLast(UserBean.class);
+                if(userBean.getType() == 1){
+                    ARouter.getInstance().build("/course/main").withInt("key",1).withInt("tableflag",1).withString("courseName","").navigation();
+                }else{
+                    ARouter.getInstance().build("/course/selectroom").navigation();
+                }
                 break;
             case R.id.head_icon_7:
-                Intent intent =new Intent(getActivity(), RoomStateActivity.class);
-                intent.putExtra("key",0);
-                startActivity(intent);
+                UserBean user = DataSupport.findLast(UserBean.class);
+                if(user.getType() == 1){
+                    Intent intent =new Intent(getActivity(), RoomStateActivity.class);
+                    intent.putExtra("key",0);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(),"无常用教室",Toast.LENGTH_LONG).show();
+                }
+
                 break;
             case R.id.head_icon_8:
                 Toast.makeText(getContext(),"敬请期待",Toast.LENGTH_LONG).show();

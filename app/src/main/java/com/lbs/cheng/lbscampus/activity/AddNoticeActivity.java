@@ -43,6 +43,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.adapter.TagAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
+import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.TagBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.Base64Util;
@@ -258,6 +259,7 @@ public class AddNoticeActivity extends BaseActivity {
         super.initView();
         initTitle();
         initListener();
+        initRadioButton();
         radioGroup.setOnCheckedChangeListener(mChangeRadio);
 
 
@@ -290,6 +292,24 @@ public class AddNoticeActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void initRadioButton(){
+        if (userBean.getType() != 1){
+            Staff staff = DataSupport.findLast(Staff.class);
+            if(staff != null){
+                if(staff.getRole().equals("2")){
+                    radio0.setVisibility(View.GONE);
+                }else if(staff.getRole().equals("3")){
+
+                }
+            }
+
+        }else{
+            radio0.setVisibility(View.GONE);
+            radio1.setVisibility(View.GONE);
+        }
+    }
+
     private void showShadow(String content) {
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View vPopupWindow = inflater.inflate(R.layout.popup_add, null, false);//引入弹窗布局

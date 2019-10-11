@@ -181,10 +181,12 @@ public class LoginActivity extends BaseActivity {
                                         student.saveThrows();
                                     }
 
-                                }else if(userBean.getType() == 2){
+                                }else{
                                     if(!jsonObject.get("staff").toString().equals("null")){
                                         Staff staff = new Gson().fromJson(jsonObject.getJSONObject("staff").toString(),Staff.class);
                                         staff.saveThrows();
+                                        Staff staff1 = DataSupport.findLast(Staff.class);
+                                        Log.d("", "run: ");
                                     }
 
                                 }
