@@ -94,6 +94,7 @@ public class RoomFragment extends Fragment {
                         Intent intent =new Intent(getActivity(), RoomStateActivity.class);
                         intent.putExtra("key",1);
                         intent.putExtra("buildingId",buildingList.get(position).getBuildingId());
+                        intent.putExtra("buildingName",buildingList.get(position).getName());
                         startActivity(intent);
                 }
             }
