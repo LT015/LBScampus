@@ -61,6 +61,7 @@ public class RoomStateActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_state);
+        time = 1;
     }
 
     @Override
@@ -74,7 +75,6 @@ public class RoomStateActivity extends BaseActivity {
         super.initView();
         initSpring();
         initTitle();
-        getRoomList();
     }
 
     private void initRecycleView(){
@@ -197,5 +197,11 @@ public class RoomStateActivity extends BaseActivity {
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getRoomList();
     }
 }
