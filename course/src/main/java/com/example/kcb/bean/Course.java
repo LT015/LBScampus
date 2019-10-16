@@ -1,4 +1,4 @@
-package com.example.kcb;
+package com.example.kcb.bean;
 
 
 import java.io.Serializable;

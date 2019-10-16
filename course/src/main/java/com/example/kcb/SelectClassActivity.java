@@ -9,27 +9,39 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.kcb.adapter.SortAdapter;
+import com.example.kcb.bean.ClassBean;
 import com.example.kcb.bean.SortModel;
 import com.example.kcb.util.PinyinComparator;
 import com.example.kcb.util.PinyinUtils;
 import com.example.kcb.view.ClearEditText;
 import com.example.kcb.view.SideBar;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lt.common.activity.BaseActivity;
+import com.lt.common.util.HttpUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 @Route(path = "/course/selectroom")
@@ -45,6 +57,7 @@ public class SelectClassActivity extends BaseActivity {
     private TextView dialog;
     private SortAdapter adapter;
     private ClearEditText mClearEditText;
+    private ArrayList<ClassBean> courseList = new ArrayList<>();
     LinearLayoutManager manager;
 
     private List<SortModel> SourceDateList;
@@ -67,8 +80,22 @@ public class SelectClassActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
         initTitle();
+        getClassList();
+
+    }
+    private void initTitle() {
+        back = findViewById(R.id.title_back);
+        titleName = findViewById(R.id.title_name);
+        titleInfo = findViewById(R.id.title_info);
+        back.setOnClickListener(this);
+        titleInfo.setOnClickListener(this);
+        back.setVisibility(View.VISIBLE);
+        titleInfo.setVisibility(View.VISIBLE);
+        titleName.setText("选择班级");
+    }
+
+    private void initRecycleView(){
         pinyinComparator = new PinyinComparator();
 
         sideBar = (SideBar) findViewById(R.id.sideBar);
@@ -90,7 +117,7 @@ public class SelectClassActivity extends BaseActivity {
         });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        SourceDateList = filledData(getResources().getStringArray(R.array.date));
+        SourceDateList = filledData(courseList);
 
         // 根据a-z进行排序源数据
         Collections.sort(SourceDateList, pinyinComparator);
@@ -129,31 +156,30 @@ public class SelectClassActivity extends BaseActivity {
             }
         });
     }
-    private void initTitle() {
-        back = findViewById(R.id.title_back);
-        titleName = findViewById(R.id.title_name);
-        titleInfo = findViewById(R.id.title_info);
-        back.setOnClickListener(this);
-        titleInfo.setOnClickListener(this);
-        back.setVisibility(View.VISIBLE);
-        titleInfo.setVisibility(View.VISIBLE);
-        titleName.setText("选择班级");
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        if (v.getId() == R.id.title_back) {
+            finish();
+        }
     }
 
     /**
      * 为RecyclerView填充数据
      *
-     * @param date
      * @return
      */
-    private List<SortModel> filledData(String[] date) {
+    private List<SortModel> filledData(ArrayList<ClassBean> list) {
+
         List<SortModel> mSortList = new ArrayList<>();
 
-        for (int i = 0; i < date.length; i++) {
+        for (int i = 0; i < list.size(); i++) {
             SortModel sortModel = new SortModel();
-            sortModel.setName(date[i]);
+            sortModel.setId(list.get(i).getClassId());
+            sortModel.setName(list.get(i).getClassName());
             //汉字转换成拼音
-            String pinyin = PinyinUtils.getPingYin(date[i]);
+            String pinyin = PinyinUtils.getPingYin(list.get(i).getClassName());
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母
@@ -197,6 +223,41 @@ public class SelectClassActivity extends BaseActivity {
         // 根据a-z进行排序
         Collections.sort(filterDateList, pinyinComparator);
         adapter.updateList(filterDateList);
+    }
+    public void getClassList(){  //通过网络请求得到所有标签
+        HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.GET_CLASS_LIST, new ArrayList<String>(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(SelectClassActivity.this, "请求失败，请检查网络!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try{
+                            final JSONArray jsonArray = new JSONArray(responseText);
+                            courseList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<ClassBean>>(){}.getType());
+                            initRecycleView();
+
+                        }catch (JSONException e){
+                            Log.d("LoginActivity",e.toString());
+                            Toast.makeText(SelectClassActivity.this, "获取信息失败!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
 }

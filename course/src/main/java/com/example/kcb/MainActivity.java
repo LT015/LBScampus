@@ -3,15 +3,10 @@ package com.example.kcb;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,10 +22,15 @@ import android.widget.Toast;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.kcb.bean.Course;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lt.common.activity.BaseActivity;
 import com.lt.common.bean.UserBean;
 import com.lt.common.util.HttpUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
@@ -54,11 +54,11 @@ public class MainActivity extends BaseActivity {
     ImageView titleInfo;
     TextView titleMore;
     @Autowired
-    public int key;
+    public int key; //1是本班课表 2是教室课表 3是其他班课表
     @Autowired
-    public int tableflag;
+    public int classId;//key为1或3时有值
     @Autowired
-    public String courseName;
+    public String courseName;// key 为2时，为教室名 key为3时为班级名
     ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
     private int status = 2;//status为2时表示查看当前room是否被该用户收藏   收藏为1，未收藏为0
 
@@ -78,13 +78,13 @@ public class MainActivity extends BaseActivity {
 //        initCourse();
         //从数据库读取数据
 //        loadData();
-        getCourseList();
     }
 
     @Override
     protected void initView() {
         super.initView();
         initTitle();
+        getCourseList();
     }
 
     private void initTitle() {
@@ -105,19 +105,15 @@ public class MainActivity extends BaseActivity {
             titleMore.setVisibility(View.VISIBLE);
             titleName.setText(courseName);
             getUserRoomStatus();
-        }else if(key == 0){//查看其他班级的课表 软件1901
+        }else if(key == 3){//查看其他班级的课表 软件1901
             titleName.setText(courseName);
         }
 
 
     }
 
-    //从数据库加载数据
+    //装载数据
     private void loadData() {
-
-
-
-
         //使用从数据库读取出来的课程信息来加载课程表视图
         createLeftView();
         for (Course course : coursesList) {
@@ -298,62 +294,67 @@ public class MainActivity extends BaseActivity {
                 .show();
     }
 
-    private void getCourseList(){
-        //String courseName, String teacher, String classRoom, int day, int classStart, int classEnd
-        if(tableflag == 1){//计科1901
-            Course course1 = new Course("程序设计基础",2,3,3,"严冬梅","E304"); coursesList.add(course1);
-            Course course2 = new Course("电路与电子技术",3,3,3,"张南南","C302"); coursesList.add(course2);
-            Course course3 = new Course("程序设计基础",3,4,4,"严冬梅","E111"); coursesList.add(course3);
-
-            Course course6 = new Course("应用文写作",2,5,5,"张胜珍","M钻"); coursesList.add(course6);
-            Course course7 = new Course("高等数学Ⅰ",3,2,2,"王志芹","N3102"); coursesList.add(course7);
-            Course course8 = new Course("高等数学Ⅰ",4,2,2,"王志芹","N3202"); coursesList.add(course8);
-            Course course4 = new Course("电路与电子技术",4,4,4,"张南南","C302"); coursesList.add(course4);
-            Course course9 = new Course("中国近现代史纲要",4,5,5,	"葛亚坤","N2247"); coursesList.add(course9);
-            Course course10 = new Course("高等数学Ⅰ",5,2,2,"王志芹","N3202"); coursesList.add(course10);
-            Course course11 = new Course("中国近现代史纲要",5,5,5,"葛亚坤","N2247"); coursesList.add(course11);
-            Course course12 = new Course("机器人创新实践",1,1,1,"吴诺","K104"); coursesList.add(course12);
-            Course course13 = new Course("程序设计基础实验",1,2,2,"严冬梅","2307"); coursesList.add(course13);
-            Course course14 = new Course("计算机科学导论",1,3,3,"华斌","N3101"); coursesList.add(course14);
-            Course course17 = new Course("大学英语Ⅰ",1,4,4,"杨祎","N3101"); coursesList.add(course17);
-        }else if(tableflag == 2){//软件1901
-            Course course1 = new Course("大学英语Ⅰ",		1,	4,4	,"申彩红","F209"); coursesList.add(course1);
-            Course course2 = new Course("大学英语Ⅰ",		1,	4,4	,"李军育","C201"); coursesList.add(course2);
-            Course course3 = new Course("大学英语Ⅰ",		1,	4,4,"杨祎","M106"); coursesList.add(course3);
-            Course course4 = new Course("应用文写作",		6,	1,1	,"张胜珍","M钻"); coursesList.add(course4);
-            Course course5 = new Course("中国近现代史纲要",		4,	2,2	,"	葛亚坤","N2247"); coursesList.add(course5);
-            Course course6 = new Course("中国近现代史纲要",		5,	2,2	,"	葛亚坤","N2247"); coursesList.add(course6);
-            Course course7 = new Course("计算机科学导论",		1,	3,3	,"	华斌","N3101"); coursesList.add(course7);
-            Course course8 = new Course("程序设计基础",		1,	2,2	,"	董静","C201"); coursesList.add(course8);
-            Course course9 = new Course("程序设计基础",		4,	3,3	,"	董静","N2230"); coursesList.add(course9);
-            Course course10 = new Course("程序设计基础实验",		4,	1,1	,"	董静","2307"); coursesList.add(course10);
-            Course course11 = new Course("三维建模实验",		2,	1,1	,"王丽娟","A.B	"); coursesList.add(course11);
-            Course course12 = new Course("高等数学Ⅰ",		1,	1,1	,"王亚","M203"); coursesList.add(course12);
-            Course course13 = new Course("高等数学Ⅰ",		2,	2,2	,"王亚","M204"); coursesList.add(course13);
-            Course course14 = new Course("高等数学Ⅰ",		3,	2,2	,"王亚","M1梯形"); coursesList.add(course14);
-            Course course15 = new Course("高等数学Ⅰ",		5,	1,1	,"王亚","D213"); coursesList.add(course15);
-
-        }else if(tableflag == 3){ //2307
-            Course course1 = new Course("汇编程序设计"	,2	,3,3,"	王荃","计科1801"); coursesList.add(course1);
-            Course course2 = new Course("程序设计基础"	,	4,	4,4,"	邢恩军","计算1801"); coursesList.add(course2);
-            Course course3 = new Course("专业综合创新实践	",	2	,4,4,"	严冬梅","计科1601"); coursesList.add(course3);
-            Course course4 = new Course("数据结构实验"	,	1,	1	,1,"严冬梅","计科1801"); coursesList.add(course4);
-            Course course5 = new Course("数据结构实验	",	3,	4	,4,"何丽","软件1801"); coursesList.add(course5);
-            Course course6 = new Course("数据结构实验"		,3	,4,4,	"何丽","网络1801"); coursesList.add(course6);
-            Course course7 = new Course("数据库应用实践"		,4	,2	,2,"陈立君","计科1701"); coursesList.add(course7);
-            Course course8 = new Course("数据库应用实践",	4	,2,2,	"陈立君","软件1701"); coursesList.add(course8);
-            Course course9 = new Course("计算机网络技术实践"	,2,	1,1,"吕景刚","计科1701"); coursesList.add(course9);
-            Course course10 = new Course("程序设计基础实验	",4	,1,1,"		董静","软件1901"); coursesList.add(course10);
-            Course course11 = new Course("程序设计基础实验	",	4,	1	,1,"董静","软件1902"); coursesList.add(course11);
-            Course course12 = new Course("程序设计基础实验	",1	,2,2,"	严冬梅","计科1901"); coursesList.add(course12);
-
+    private void getCourseList() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("name");
+        if(key == 2){
+            String name = null;
+            try {
+                name = URLEncoder.encode(courseName,"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            list.add(name);
+            list.add("type");
+            list.add("2");
+        }else{
+            String name = null;
+            try {
+                name = URLEncoder.encode(String.valueOf(classId),"utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            list.add(String.valueOf(name));
+            list.add("type");
+            list.add("1");
         }
+        HttpUtil.sendOkHttpGetRequest( HttpUtil.HOME_PATH + HttpUtil.GET_TIMETABLE,list, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "请求失败，请检查网络!", Toast.LENGTH_SHORT).show();
+                        // progressBar.setVisibility(View.GONE);
+                    }
+                });
 
-        //使用从数据库读取出来的课程信息来加载课程表视图
-        createLeftView();
-        for (Course coursee : coursesList) {
-            createItemCourseView(coursee);
-        }
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try{
+                            final JSONArray jsonArray = new JSONArray(responseText);
+                            coursesList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<Course>>(){}.getType());
+                            loadData();
+                        }catch (JSONException e){
+                            Log.d("LoginActivity",e.toString());
+                            Toast.makeText(MainActivity.this, "获取信息失败!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+
+
+
+
     }
 
     private void getUserRoomStatus() {//

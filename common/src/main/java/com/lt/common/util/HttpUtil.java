@@ -29,8 +29,8 @@ public class HttpUtil {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static final String SERVER_HOST = "server_host";
-    //public static String HOME_PATH = "http://192.168.0.172:8080";
-    public static String HOME_PATH = "http://47.95.212.222:8080";
+    public static String HOME_PATH = "http://192.168.0.172:8080";
+    //public static String HOME_PATH = "http://47.95.212.222:8080";
     public static String Banner = "/banner/";
     public static String Image = "/images/";
     private static final MediaType MEDIA_TYPE_IMAGE = MediaType.parse("image/*");
@@ -126,6 +126,10 @@ public class HttpUtil {
     public static final String GET_ROOMS="/LBS/room";//{userId:.+}/{status:.+}
     public static final String GET_BUILDING_ROOMS="/LBS/user/update/password";//{userId:.+}/{password:.+}/{oldPassword:.+}
     public static final String COLLECT_ROOM="/LBS/room";//{userId:.+}
+    //Class
+    public static final String GET_CLASS_LIST="/LBS/timetable";
+    //TimeTable
+    public static final String GET_TIMETABLE="/LBS/timetable";//{name:.+}//type name为classId或place
 
 
     //image

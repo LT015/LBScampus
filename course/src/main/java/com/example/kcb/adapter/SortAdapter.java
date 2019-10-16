@@ -65,7 +65,7 @@ public class SortAdapter extends RecyclerView.Adapter<SortAdapter.ViewHolder> {
         holder.tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ARouter.getInstance().build("/course/main").withInt("key",0).withInt("tableflag",2).withString("courseName",mData.get(position).getName()).navigation();
+                ARouter.getInstance().build("/course/main").withInt("key",3).withInt("classId",mData.get(position).getId()).withString("courseName",mData.get(position).getName()).navigation();
 
                 Toast.makeText(mContext, mData.get(position).getName(),Toast.LENGTH_SHORT).show();
             }

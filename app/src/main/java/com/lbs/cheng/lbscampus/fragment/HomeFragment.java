@@ -1,6 +1,7 @@
 package com.lbs.cheng.lbscampus.fragment;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,6 +31,7 @@ import com.lbs.cheng.lbscampus.activity.SearchPeopleActivity;
 import com.lbs.cheng.lbscampus.activity.SearchDepartmentActivity;
 import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
+import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.PullToRefreshView;
@@ -245,7 +247,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.head_icon_6:
                 UserBean userBean = DataSupport.findLast(UserBean.class);
                 if(userBean.getType() == 1){
-                    ARouter.getInstance().build("/course/main").withInt("key",1).withInt("tableflag",1).withString("courseName","").navigation();
+                    Student student = DataSupport.findLast(Student.class);
+                    ARouter.getInstance().build("/course/main").withInt("key",1).withInt("classId",student.getClassId()).withString("courseName","").navigation();
                 }else{
                     ARouter.getInstance().build("/course/selectroom").navigation();
                 }
