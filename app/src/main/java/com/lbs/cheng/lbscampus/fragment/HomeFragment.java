@@ -257,13 +257,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.head_icon_7:
                 UserBean user = DataSupport.findLast(UserBean.class);
-                if(user.getType() == 1){
-                    Intent intent =new Intent(getActivity(), RoomStateActivity.class);
-                    intent.putExtra("key",0);
-                    startActivity(intent);
+                if(user != null){
+                    if(user.getType() == 1){
+                        Intent intent =new Intent(getActivity(), RoomStateActivity.class);
+                        intent.putExtra("key",0);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(getContext(),"无常用教室",Toast.LENGTH_LONG).show();
+                    }
                 }else{
-                    Toast.makeText(getContext(),"无常用教室",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"登录后查看",Toast.LENGTH_LONG).show();
                 }
+
 
                 break;
             case R.id.head_icon_8:

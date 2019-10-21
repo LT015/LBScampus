@@ -34,6 +34,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        initUser();
     }
 
     @Override
@@ -45,13 +46,13 @@ public class HomeActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         initBottomTabHost();
-        initUser();
+
     }
 
     public void initUser(){
         UserBean user = DataSupport.findLast(UserBean.class);
         if(user!=null){
-            Log.d("HomeActivity", "登陆成功: ");
+            Log.d("HomeActivity", "登录成功: ");
         }
         else{
             Intent intent =new Intent(HomeActivity.this,LoginActivity.class);
