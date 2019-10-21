@@ -29,10 +29,10 @@
             android:layout_centerInParent="true"
             android:layout_marginBottom="@dimen/space_20px"
             android:layout_marginTop="@dimen/space_30px"
-            android:maxEms="16"
+            android:maxEms="6"
             android:maxLines="1"
             android:ellipsize="end"
-            android:text="欢迎"
+            android:text="欢迎欢迎"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
