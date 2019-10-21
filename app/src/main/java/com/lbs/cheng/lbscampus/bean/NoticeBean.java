@@ -17,9 +17,9 @@ public class NoticeBean {
 
     private String content;
 
-    private UserBean publisher;
+    private String publisher;
 
-    private UserBean assessor;
+    private String assessor;
 
     private String publishTime;
 
@@ -68,19 +68,19 @@ public class NoticeBean {
         this.content = content;
     }
 
-    public UserBean getPublisher() {
+    public String getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(UserBean publisher) {
+    public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-    public UserBean getAssessor() {
+    public String getAssessor() {
         return assessor;
     }
 
-    public void setAssessor(UserBean assessor) {
+    public void setAssessor(String assessor) {
         this.assessor = assessor;
     }
 

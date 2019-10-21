@@ -163,7 +163,7 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
 
     public void deleteNotice(){
 
-        int id=noticeList.get(noticePosition).getNoticeId();
+        int id = noticeList.get(noticePosition).getNoticeId();
 
         HttpUtil.sendOkHttpDeleteRequest( HttpUtil.HOME_PATH + HttpUtil.DELETE_NOTICE + "/" + id, ""+id, new Callback() {
             @Override

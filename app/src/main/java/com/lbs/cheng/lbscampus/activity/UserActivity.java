@@ -192,7 +192,7 @@ public class UserActivity extends BaseActivity {
             Student student= DataSupport.findAll(Student.class).get(0);
             userNumId = student.getStudentId();
             userType.setText("学号");
-        }else if(userBean.getType() == 2){
+        }else{
             userType.setText("职工号");
             Staff staff= DataSupport.findAll(Staff.class).get(0);
             userNumId = staff.getStaffId();
@@ -457,8 +457,7 @@ public class UserActivity extends BaseActivity {
                                             @Override
                                             public void run() {
                                                 progressBar.setVisibility(View.GONE);
-
-                                                userNickNameText.setText(input);
+                                                userEmailText.setText(input);
                                                 //将更改保存到本地数据库
                                                 UserBean userBean = list.get(0);
                                                 userBean.setEmail(input);

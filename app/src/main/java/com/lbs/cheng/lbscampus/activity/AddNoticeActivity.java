@@ -155,7 +155,7 @@ public class AddNoticeActivity extends BaseActivity {
                 noticeDetail = new Gson().fromJson(json,NoticeDetailBean.class);
             }
             if(noticeDetail.getImageList().size()>0){
-                String url= HttpUtil.HOME_PATH + HttpUtil.Image+noticeDetail.getImageList().get(0).getImagePath();
+                String url= HttpUtil.HOME_PATH + HttpUtil.Image + "notice/" + noticeDetail.getPicturePath();
                 GlideUtil.load(AddNoticeActivity.this,url , addImage, GlideUtil.REQUEST_OPTIONS);
             }
             noticeTitle.setText(noticeDetail.getTitle());
@@ -168,16 +168,16 @@ public class AddNoticeActivity extends BaseActivity {
             }
             noticeType = noticeDetail.getType();
             switch (noticeType){
-                case 0:
+                case 1:
                     radio0.setChecked(true);
                     break;
-                case 1:
+                case 2:
                     radio1.setChecked(true);
                     break;
-                case 2:
+                case 3:
                     radio2.setChecked(true);
                     break;
-                case 3:
+                case 4:
                     radio3.setChecked(true);
                     break;
             }
@@ -242,7 +242,7 @@ public class AddNoticeActivity extends BaseActivity {
 
                         }catch (JSONException e){
                             Log.d("LoginActivity",e.toString());
-                            Toast.makeText(AddNoticeActivity.this, "获取信息失败!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddNoticeActivity.this, "获取标签失败!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -394,7 +394,7 @@ public class AddNoticeActivity extends BaseActivity {
         long time=System.currentTimeMillis();//系统时间
         String publishTime = DateUtil.getDateToString(time,DateUtil.pattern);
         notice.setPublishTime(publishTime);
-        notice.setPublisher(userBean);
+        notice.setPublisher(userBean.getUserId());
         String json = new Gson().toJson(notice);
         HttpUtil.sendOkHttpPutRequest( HttpUtil.HOME_PATH + HttpUtil.CREATE_NOTICE, json, new Callback() {
             @Override
@@ -416,20 +416,24 @@ public class AddNoticeActivity extends BaseActivity {
                     public void run() {
                         try{
                             final JSONObject jsonObject = new JSONObject(responseText);
-                            notice = new Gson().fromJson(jsonObject.toString(),NoticeBean.class);
+                            if(jsonObject.isNull("error")){
+                                notice = new Gson().fromJson(jsonObject.toString(),NoticeBean.class);
 
-                            if(imageJsonList.size()>0){
-                                updateImage();
-                            }
-                            else{
-                                if(saveType == 1){
-                                    Toast.makeText(AddNoticeActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    Toast.makeText(AddNoticeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                                if(imageJsonList.size()>0){
+                                    updateImage();
+                                } else{
+                                    if(saveType == 1){
+                                        Toast.makeText(AddNoticeActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(AddNoticeActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    finish();
                                 }
-
-                                finish();
+                            }else{
+                                Toast.makeText(AddNoticeActivity.this, "创建失败", Toast.LENGTH_SHORT).show();
                             }
+
 
                         }catch (JSONException e){
                             Log.d("LoginActivity",e.toString());
@@ -495,16 +499,16 @@ public class AddNoticeActivity extends BaseActivity {
         public void onCheckedChanged(RadioGroup group, int checkedId) {
 
             if (checkedId == radio0.getId()) {
-                noticeType = 0;
-            }
-            if (checkedId == radio1.getId()) {
                 noticeType = 1;
             }
-            if (checkedId == radio2.getId()) {
+            if (checkedId == radio1.getId()) {
                 noticeType = 2;
             }
-            if (checkedId == radio3.getId()) {
+            if (checkedId == radio2.getId()) {
                 noticeType = 3;
+            }
+            if (checkedId == radio3.getId()) {
+                noticeType = 4;
             }
         }
     };
