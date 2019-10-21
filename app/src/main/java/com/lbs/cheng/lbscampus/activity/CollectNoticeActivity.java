@@ -56,7 +56,7 @@ public class CollectNoticeActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        getNoticeData();
+
     }
 
     @Override
@@ -120,4 +120,11 @@ public class CollectNoticeActivity extends BaseActivity {
                 break;
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNoticeData();
+    }
+
 }

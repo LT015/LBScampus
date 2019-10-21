@@ -23,6 +23,7 @@ import com.lbs.cheng.lbscampus.activity.SelectInterstActivity;
 import com.lbs.cheng.lbscampus.activity.TimeIntervalActivity;
 import com.lbs.cheng.lbscampus.activity.UserActivity;
 import com.lbs.cheng.lbscampus.activity.VerifyActivity;
+import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
@@ -190,6 +191,7 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                             DataSupport.deleteAll(ShareTimeBean.class);
                             DataSupport.deleteAll(Student.class);
                             DataSupport.deleteAll(Staff.class);
+                            DataSupport.deleteAll(SearchHistoricalBean.class);
                             Toast.makeText(getContext(),"成功退出",Toast.LENGTH_SHORT).show();;
                         }
                     });

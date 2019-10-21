@@ -39,6 +39,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+
 public class LoginActivity extends BaseActivity {
     ImageView back;
     TextView titleName;
@@ -196,7 +198,9 @@ public class LoginActivity extends BaseActivity {
                                 if(list.size()!=0){
                                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                                 }
-                                finish();
+                                Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
+                                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
                             }else{
                                 Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                             }
