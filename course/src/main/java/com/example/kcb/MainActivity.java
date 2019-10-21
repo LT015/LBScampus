@@ -103,9 +103,14 @@ public class MainActivity extends BaseActivity {
             titleMore.setText("更多");
             titleName.setText("课程表");
         }else if(key == 2){//从查看教室状态进入，此时可以添加为常用教室
-            titleMore.setVisibility(View.VISIBLE);
             titleName.setText(courseName);
-            getUserRoomStatus();
+            UserBean user = DataSupport.findLast(UserBean.class);
+            if(user.getType() == 1){
+                titleMore.setVisibility(View.VISIBLE);
+                getUserRoomStatus();
+            }else{
+                titleMore.setVisibility(View.INVISIBLE);
+            }
         }else if(key == 3){//查看其他班级的课表 软件1901
             titleName.setText(courseName);
         }
@@ -242,7 +247,7 @@ public class MainActivity extends BaseActivity {
         int i = v.getId();
         if (i == R.id.title_back) {
             finish();
-        } else if (i == R.id.title_info) {
+        } else if (i == R.id.title_info) {//显示上课时间
             getClassTime();
         } else if (i == R.id.title_register) {
             if(key == 1){

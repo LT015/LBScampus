@@ -16,7 +16,7 @@ public class Staff extends DataSupport implements Serializable {
 
     private String title;
 
-    private String role;
+    private String role;// 1是普通职工  2是管理员 3是超级管理员 
 
     private int isValid;
 

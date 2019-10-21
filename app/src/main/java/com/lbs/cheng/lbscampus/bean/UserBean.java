@@ -22,7 +22,7 @@ public class UserBean extends DataSupport implements Serializable{
 
     private int status;
 
-    private int type;
+    private int type;//1是学生 2是教职工
 
     private String sex;
 

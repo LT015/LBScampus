@@ -246,9 +246,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.head_icon_6:
                 UserBean userBean = DataSupport.findLast(UserBean.class);
-                if(userBean.getType() == 1){
-                    Student student = DataSupport.findLast(Student.class);
-                    ARouter.getInstance().build("/course/main").withInt("key",1).withInt("classId",student.getClassId()).withString("courseName","").navigation();
+                if(userBean != null){
+                    if(userBean.getType() == 1){
+                        Student student = DataSupport.findLast(Student.class);
+                        ARouter.getInstance().build("/course/main").withInt("key",1).withInt("classId",student.getClassId()).withString("courseName","").navigation();
+                    }
                 }else{
                     ARouter.getInstance().build("/course/selectroom").navigation();
                 }
