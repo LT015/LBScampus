@@ -125,7 +125,11 @@ public class NoticeActivity extends BaseActivity {
             noticePlace.setVisibility(View.VISIBLE);
             getBuildingName();
         }
-        getUserNoticeStatus();
+        UserBean user = DataSupport.findLast(UserBean.class);
+        if(user != null){
+            getUserNoticeStatus();
+        }
+
 
 
     }
@@ -135,7 +139,12 @@ public class NoticeActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()){
             case R.id.notice_collection:
-                getUserNoticeStatus();
+                UserBean user = DataSupport.findLast(UserBean.class);
+                if(user != null){
+                    getUserNoticeStatus();
+                }else{
+                    Toast.makeText(this, "登录后收藏", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.title_back:
                 finish();

@@ -86,7 +86,6 @@ public class NoticeItemFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        getNoticeData();
     }
 
     //    public void getNoticeData() {
@@ -171,5 +170,12 @@ public class NoticeItemFragment extends Fragment{
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            getNoticeData();
+        }
     }
 }

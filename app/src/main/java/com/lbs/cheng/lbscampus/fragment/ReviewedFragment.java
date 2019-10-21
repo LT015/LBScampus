@@ -69,7 +69,6 @@ public class ReviewedFragment extends Fragment implements View.OnClickListener{
 
     private void initData() {
         unbinder = ButterKnife.bind(this, view);
-        getNoticeData();
 
     }
 
@@ -149,5 +148,12 @@ public class ReviewedFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            getNoticeData();
+        }
     }
 }

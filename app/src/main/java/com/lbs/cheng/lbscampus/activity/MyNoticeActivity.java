@@ -126,20 +126,20 @@ public class MyNoticeActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                buildingTypeId=position;
-                switch (position){
-                    case 0:
-                        draftFragment.getNoticeData();
-                        break;
-                    case 1:
-                        reviewedFragment.getNoticeData();
-                        break;
-                    case 2:
-                        publishedFragment.getNoticeData();
-                        break;
-
-
-                }
+//                CommonUtils.myNoticeTypeId = position;
+//                switch (position){
+//                    case 0:
+//                        draftFragment.getNoticeData();
+//                        break;
+//                    case 1:
+//                        reviewedFragment.getNoticeData();
+//                        break;
+//                    case 2:
+//                        publishedFragment.getNoticeData();
+//                        break;
+//
+//
+//                }
             }
 
             @Override

@@ -33,6 +33,8 @@ public class BuildingActivity extends BaseActivity {
     BuildingItemFragment fragment4 = new BuildingItemFragment();
     BuildingItemFragment fragment5 = new BuildingItemFragment();
     BuildingItemFragment fragment6 = new BuildingItemFragment();
+    BuildingItemFragment fragment7 = new BuildingItemFragment();
+    BuildingItemFragment fragment8 = new BuildingItemFragment();
 
     @BindView(R.id.activity_building_title)
     TabLayout title;
@@ -82,15 +84,19 @@ public class BuildingActivity extends BaseActivity {
         fragments.add(fragment4);
         fragments.add(fragment5);
         fragments.add(fragment6);
+        fragments.add(fragment7);
+        fragments.add(fragment8);
 
         strings=new ArrayList<>();
         strings.add("教学楼");
-        strings.add("图书馆");
-        strings.add("景区");
-        strings.add("公寓");
-        strings.add("超市");
         strings.add("食堂");
-        strings.add("体育馆");
+        strings.add("图书馆");
+        strings.add("超市");
+        strings.add("公寓楼");
+        strings.add("体育场馆");
+        strings.add("行政管理");
+        strings.add("景区");
+        strings.add("出入口");
         //添加导航栏文字
         for (String str : strings) {
             title.addTab(title.newTab().setText(str));
@@ -108,31 +114,37 @@ public class BuildingActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                buildingTypeId=position;
-                switch (position){
-                    case 0:
-                        fragment0.getBuildingData();
-                        break;
-                    case 1:
-                        fragment1.getBuildingData();
-                        break;
-                    case 2:
-                        fragment2.getBuildingData();
-                        break;
-                    case 3:
-                        fragment3.getBuildingData();
-                        break;
-                    case 4:
-                        fragment4.getBuildingData();
-                        break;
-                    case 5:
-                        fragment5.getBuildingData();
-                        break;
-                    case 6:
-                        fragment6.getBuildingData();
-                        break;
-
-                }
+                buildingTypeId = position+1;
+//                switch (position){
+//                    case 0:
+//                        fragment0.getBuildingData();
+//                        break;
+//                    case 1:
+//                        fragment1.getBuildingData();
+//                        break;
+//                    case 2:
+//                        fragment2.getBuildingData();
+//                        break;
+//                    case 3:
+//                        fragment3.getBuildingData();
+//                        break;
+//                    case 4:
+//                        fragment4.getBuildingData();
+//                        break;
+//                    case 5:
+//                        fragment5.getBuildingData();
+//                        break;
+//                    case 6:
+//                        fragment6.getBuildingData();
+//                        break;
+//                    case 7:
+//                        fragment7.getBuildingData();
+//                        break;
+//                    case 8:
+//                        fragment8.getBuildingData();
+//                        break;
+//
+//                }
             }
 
             @Override

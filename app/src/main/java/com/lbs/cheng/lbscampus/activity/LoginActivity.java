@@ -19,6 +19,7 @@ import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lt.common.util.HttpUtil;
 
 import org.json.JSONException;
@@ -66,8 +67,18 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
         initTitle();
         initListener();
+        account.setText(CommonUtils.userID);
+        password.setText(CommonUtils.password);
+        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+        identifyOrPassword.setText("手机验证码登录");
     }
 
     private void initTitle() {
@@ -131,9 +142,9 @@ public class LoginActivity extends BaseActivity {
         }
     }
     public void initUser(){
-        String userId=account.getText().toString();
-        String passWord=password.getText().toString();
-        HashMap hashmap=new HashMap();
+        String userId = account.getText().toString();
+        String passWord = password.getText().toString();
+        HashMap hashmap = new HashMap();
         hashmap.put("userId",userId);
         hashmap.put("password",passWord);
 
@@ -170,25 +181,26 @@ public class LoginActivity extends BaseActivity {
                             if (state == 1){
                                 UserBean userBean = new Gson().fromJson(jsonObject.getJSONObject("user").toString(),UserBean.class);
                                 userBean.saveThrows();
+                                CommonUtils.password = userBean.getPassword();
                                 List<UserBean> list= DataSupport.findAll(UserBean.class);
                                 if(!jsonObject.get("shareTime").toString().equals("null")){
                                     ShareTimeBean shareTime = new Gson().fromJson(jsonObject.getJSONObject("shareTime").toString(),ShareTimeBean.class);
                                     shareTime.saveThrows();
-                                    ShareTimeBean shareTime1= DataSupport.findLast(ShareTimeBean.class);
-                                    Log.d("login", "run: ");
+
                                 }
                                 if(userBean.getType() == 1){
                                     if(!jsonObject.get("student").toString().equals("null")){
                                         Student student = new Gson().fromJson(jsonObject.getJSONObject("student").toString(),Student.class);
                                         student.saveThrows();
+                                        CommonUtils.userID = student.getStudentId();
                                     }
 
                                 }else{
                                     if(!jsonObject.get("staff").toString().equals("null")){
                                         Staff staff = new Gson().fromJson(jsonObject.getJSONObject("staff").toString(),Staff.class);
                                         staff.saveThrows();
-                                        Staff staff1 = DataSupport.findLast(Staff.class);
-                                        Log.d("", "run: ");
+                                        CommonUtils.userID = staff.getStaffId();
+
                                     }
 
                                 }
@@ -227,12 +239,7 @@ public class LoginActivity extends BaseActivity {
 //        user.save();
 //    }
 
-    @Override
-    protected void initView() {
-        super.initView();
-        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        identifyOrPassword.setText("手机验证码登录");
-    }
+
 
 
 

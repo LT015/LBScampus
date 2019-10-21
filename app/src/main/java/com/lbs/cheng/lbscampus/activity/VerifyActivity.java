@@ -25,6 +25,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.fragment.FinishFragment;
 import com.lbs.cheng.lbscampus.fragment.NoticeItemFragment;
 import com.lbs.cheng.lbscampus.fragment.VerifyFragment;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,18 +111,18 @@ public class VerifyActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                buildingTypeId=position;
-                switch (position){
-                    case 0:
-                        verifyFragment.getNoticeData();
-                        break;
-                    case 1:
-                        finishFragment.getNoticeData();
-                        break;
-
-
-
-                }
+//                CommonUtils.verifyNoticeTypeId = position;
+//                switch (position){
+////                    case 0:
+////                        verifyFragment.getNoticeData();
+////                        break;
+////                    case 1:
+////                        finishFragment.getNoticeData();
+////                        break;
+//
+//
+//
+//                }
             }
 
             @Override

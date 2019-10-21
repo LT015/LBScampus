@@ -75,7 +75,6 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
 
     private void initData() {
         unbinder = ButterKnife.bind(this, view);
-        getNoticeData();
 
     }
 
@@ -260,6 +259,13 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
 
+    }
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            getNoticeData();
+        }
     }
 }
 

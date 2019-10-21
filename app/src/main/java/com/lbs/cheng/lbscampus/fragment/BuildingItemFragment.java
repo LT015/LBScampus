@@ -103,7 +103,16 @@ public class BuildingItemFragment extends Fragment {
             }
         });
     }
-//    public void getBuildingData() {
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+            getBuildingData();
+        }
+    }
+
+    //    public void getBuildingData() {
 //
 //        for(int i=0;i<20;i++){
 //            buildingList.add(new BuildingBean());
