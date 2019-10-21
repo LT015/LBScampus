@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         initTitle();
+        createLeftView();
         getCourseList();
     }
 
@@ -115,7 +116,6 @@ public class MainActivity extends BaseActivity {
     //装载数据
     private void loadData() {
         //使用从数据库读取出来的课程信息来加载课程表视图
-        createLeftView();
         for (Course course : coursesList) {
             createItemCourseView(course);
         }
