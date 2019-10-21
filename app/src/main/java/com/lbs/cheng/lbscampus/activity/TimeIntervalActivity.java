@@ -48,12 +48,6 @@ public class TimeIntervalActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_interval);
 
-        findViewById(R.id.start_time).setOnClickListener(this);
-        tvStartTime = findViewById(R.id.tv_start_time);
-        initStartTimePicker();
-        findViewById(R.id.end_time).setOnClickListener(this);
-        tvEndTime = findViewById(R.id.tv_end_time);
-        initEndTimerPicker();
     }
     private void initTitle() {
         back = findViewById(R.id.title_back);
@@ -89,14 +83,26 @@ public class TimeIntervalActivity extends BaseActivity{
     @Override
     protected void initData() {
         super.initData();
-        initTitle();
         user=DataSupport.findLast(UserBean.class);
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
+        initTitle();
+        findViewById(R.id.start_time).setOnClickListener(this);
+        tvStartTime = findViewById(R.id.tv_start_time);
+        initStartTimePicker();
+        findViewById(R.id.end_time).setOnClickListener(this);
+        tvEndTime = findViewById(R.id.tv_end_time);
+        initEndTimerPicker();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         startTimePicker.onDestroy();
+        endTimePicker.onDestroy();
     }
 
     private void saveShareTime(){
