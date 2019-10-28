@@ -2,6 +2,7 @@ package com.lbs.cheng.lbscampus.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -58,6 +59,11 @@ public class LoginActivity extends BaseActivity {
     TextView identifyOrPassword;
     @BindView(R.id.password_not)
     TextView passwordNot;
+    @BindView(R.id.login_identify_code)
+    TextView identifyCode;
+    private int loginType = 1;//1是学号登录 2是手机号登录
+    private int a = 1000000000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,11 +114,18 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.login:
-                initUser();
-                List<UserBean> list= DataSupport.findAll(UserBean.class);
-                Log.d("login success", "onClick: ");
-                if(list.size()!=0){
-                    finish();
+                if(loginType == 1){
+                    initUser();
+                }else if(loginType == 2){
+                    if (Integer.parseInt(passwordNot.getText().toString()) == a) {
+                        Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
+                        intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                        Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+                        startActivity(intent);
+
+                    }else{
+                        Toast.makeText(this, "验证码错误", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
             case R.id.title_register:
@@ -122,9 +135,13 @@ public class LoginActivity extends BaseActivity {
             case R.id.identify_or_password:
                 if(identifyOrPassword.getText()=="手机验证码登录"){
                     getIdentifyCode.setVisibility(View.VISIBLE);
+                    account.setHint("请输入手机号");
+                    loginType = 2;
                     identifyOrPassword.setText("密码登录");
                 }else{
+                    account.setHint("请输入学号或职工号");
                     getIdentifyCode.setVisibility(View.GONE);
+                    loginType = 1;
                     identifyOrPassword.setText("手机验证码登录");
                 }
                 break;
@@ -136,21 +153,27 @@ public class LoginActivity extends BaseActivity {
                         .create();
                 builder.show();
                 break;
-
+            case R.id.get_identify_code:
+                initUser();
+                break;
 
 
         }
     }
     public void initUser(){
-        String userId = account.getText().toString();
-        String passWord = password.getText().toString();
-        HashMap hashmap = new HashMap();
-        hashmap.put("userId",userId);
-        hashmap.put("password",passWord);
 
         List<String> list=new ArrayList<>();
-        list.add(userId);
-        list.add(passWord);
+        if(loginType == 1){
+            String userId = account.getText().toString();
+            String passWord = password.getText().toString();
+            list.add(userId);
+            list.add(passWord);
+        }else if(loginType == 2){
+            String telNum = account.getText().toString();
+            list.add(telNum);
+        }
+
+        HashMap hashmap = new HashMap();
 
         String address=HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.LOG_IN,list);
 
@@ -210,11 +233,19 @@ public class LoginActivity extends BaseActivity {
                                 if(list.size()!=0){
                                     Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                                 }
-                                Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
-                                intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
+
+                                if(loginType == 1){
+                                    Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
+                                    intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }else if(loginType == 2){
+                                    setCountDownTimer();
+                                }
+
+                            }else if(state == 2){
+                                Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                             }else{
-                                Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
                             }
                         }catch (JSONException e){
                             Log.d("LoginActivity",e.toString());
@@ -239,7 +270,28 @@ public class LoginActivity extends BaseActivity {
 //        user.save();
 //    }
 
+    private void setCountDownTimer() {
+        identifyCode.setVisibility(View.VISIBLE);
+        a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;//产生1000-9999的随机数
+        identifyCode.setText("验证码为:" + a);
+        getIdentifyCode.setEnabled(false);
+        getIdentifyCode.setTextColor(getResources().getColor(R.color.text_color_grey));
+        new CountDownTimer(59000 + 50, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                getIdentifyCode.setText("已发送(" + millisUntilFinished / 1000 + "秒)");
+            }
 
+            @Override
+            public void onFinish() {
+                if (account.getText().toString().length() == 11) {
+                    getIdentifyCode.setEnabled(true);
+                    getIdentifyCode.setTextColor(getResources().getColor(R.color.bottom_tab_text_selected_color));
+                }
+                getIdentifyCode.setText("获取验证码");
+            }
+        }.start();
+    }
 
 
 
