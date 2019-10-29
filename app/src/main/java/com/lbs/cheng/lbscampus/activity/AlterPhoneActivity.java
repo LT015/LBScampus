@@ -35,38 +35,42 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class AlterPhoneActivity extends BaseActivity {
-    @BindView(R.id.title_back)
-    ImageView backBtn;
-    @BindView(R.id.title_name)
-    TextView title;
-    @BindView(R.id.phone)
-    TextView phone;
-    @BindView(R.id.get_identify_code)
-    TextView getIdentify;
-    @BindView(R.id.identify_code)
-    TextView identifyCode;
-    @BindView(R.id.alter_identify_code)
-    EditText alterIdentifyCode;
+    //标题栏
+    ImageView back;
+    TextView titleName;
+    //旧手机号
+    @BindView(R.id.old_phone_ll)
+    AutoLinearLayout oldPhoneLayout;
+    @BindView(R.id.old_phone_tv)
+    TextView oldPhone;
+    @BindView(R.id.get_old_identify_code)
+    TextView getOldIdentify;
+    @BindView(R.id.old_identify_code)
+    EditText oldIdentifyCode;
+    //新手机号
+    @BindView(R.id.new_phone_ll)
+    AutoLinearLayout newPhoneLayout;
+    @BindView(R.id.get_new_identify_code)
+    TextView getNewIdentify;
+    @BindView(R.id.new_phone_et)
+    EditText newPhoneEt;
+    @BindView(R.id.new_identify_code)
+    EditText newIdentifyCode;
+
     @BindView(R.id.identify_btn)
     Button identifyBtn;
     @BindView(R.id.confirm_btn)
     Button confirmBtn;
-    @BindView(R.id.new_phone_code_ll)
-    AutoLinearLayout newPhoneLl;
-    @BindView(R.id.new_phone)
-    EditText newPhoneEt;
-    @BindView(R.id.new_phone_get_identify_code)
-    TextView newPhoneGetIdentifyCode;
-    @BindView(R.id.new_phone_alter_identify_code)
-    EditText newPhoneAlterIdentifyCode;
-    @BindView(R.id.login_by_identify_code_ll)
-    AutoLinearLayout identifyCodeLl;
+
+    @BindView(R.id.identify_code)
+    TextView identifyCode;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     private String newTelNumber=null;
     private int a;
-    private int pageId = 0;
-    CountDownTimer countDownTimer;
+    private int b;
+    CountDownTimer oldCountDownTimer;
+    CountDownTimer newCountDownTimer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,16 +81,14 @@ public class AlterPhoneActivity extends BaseActivity {
     @Override
     protected void initView() {
         Log.d("AlterPhone", "initView: ");
-        title.setText("换绑手机");
-        phone.setText(getIntent().getStringExtra("phone"));
-        backBtn.setOnClickListener(this);
-        getIdentify.setOnClickListener(this);
+        initTitle();
+        oldPhone.setText(getIntent().getStringExtra("phone"));
+        getOldIdentify.setOnClickListener(this);
         identifyBtn.setOnClickListener(this);
-        newPhoneGetIdentifyCode.setOnClickListener(this);
+        getNewIdentify.setOnClickListener(this);
         confirmBtn.setOnClickListener(this);
-        backBtn.setVisibility(View.VISIBLE);
 
-        alterIdentifyCode.addTextChangedListener(new TextWatcher() {
+        oldIdentifyCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -94,7 +96,7 @@ public class AlterPhoneActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!alterIdentifyCode.getText().toString().equals("")) {
+                if (!oldIdentifyCode.getText().toString().equals("")) {
                     identifyBtn.setEnabled(true);
                     identifyBtn.setBackground(getResources().getDrawable(R.drawable.border_blue));
                 }else{
@@ -117,7 +119,7 @@ public class AlterPhoneActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!newPhoneEt.getText().toString().equals("") && !newPhoneAlterIdentifyCode.getText().toString().equals("")){
+                if (!newPhoneEt.getText().toString().equals("") && !newIdentifyCode.getText().toString().equals("")){
                     confirmBtn.setEnabled(true);
                     confirmBtn.setBackground(getResources().getDrawable(R.drawable.border_blue));
                 }else{
@@ -128,17 +130,17 @@ public class AlterPhoneActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (newPhoneEt.getText().toString().length() == 11 && newPhoneGetIdentifyCode.getText().toString().equals("获取验证码")) {
-                    newPhoneGetIdentifyCode.setTextColor(getResources().getColor(R.color.text_select_color));
-                    newPhoneGetIdentifyCode.setEnabled(true);
+                if (newPhoneEt.getText().toString().length() == 11 && getNewIdentify.getText().toString().equals("获取验证码")) {
+                    getNewIdentify.setTextColor(getResources().getColor(R.color.bg_blue));
+                    getNewIdentify.setEnabled(true);
                 } else {
-                    newPhoneGetIdentifyCode.setEnabled(false);
-                    newPhoneGetIdentifyCode.setTextColor(getResources().getColor(R.color.text_color_grey));
+                    getNewIdentify.setEnabled(false);
+                    getNewIdentify.setTextColor(getResources().getColor(R.color.text_color_grey));
                 }
             }
         });
 
-        newPhoneAlterIdentifyCode.addTextChangedListener(new TextWatcher() {
+        newIdentifyCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -146,7 +148,7 @@ public class AlterPhoneActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!newPhoneEt.getText().toString().equals("") && !newPhoneAlterIdentifyCode.getText().toString().equals("")){
+                if (!newPhoneEt.getText().toString().equals("") && !newIdentifyCode.getText().toString().equals("")){
                     confirmBtn.setEnabled(true);
                     confirmBtn.setBackground(getResources().getDrawable(R.drawable.border_blue));
                 }else{
@@ -162,7 +164,14 @@ public class AlterPhoneActivity extends BaseActivity {
         });
     }
 
-
+    private void initTitle() {
+        back = findViewById(R.id.title_back);
+        titleName=findViewById(R.id.title_name);
+        back.setOnClickListener(this);
+        titleName.setOnClickListener(this);
+        back.setVisibility(View.VISIBLE);
+        titleName.setText("换绑手机");
+    }
 
 
     @Override
@@ -170,48 +179,45 @@ public class AlterPhoneActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()){
             case R.id.title_back:
-                Log.d("AlterPhone", "back: ");
-                if(pageId == 1){
-                    newPhoneLl.setVisibility(View.GONE);
-                    confirmBtn.setVisibility(View.GONE);
-                    identifyCodeLl.setVisibility(View.VISIBLE);
-                    identifyBtn.setVisibility(View.VISIBLE);
-                    identifyCode.setVisibility(View.GONE);
-                    pageId--;
-                }else{
-                    identifyCode.setVisibility(View.GONE);
-                    pageId=-1;
-                    countDownTimer.cancel();
-
+                if(oldPhoneLayout.getVisibility() == View.VISIBLE){
+                    if(oldCountDownTimer != null){
+                        oldCountDownTimer.cancel();
+                    }
                     finish();
+                }else{
+                    if(newCountDownTimer != null){
+                        newCountDownTimer.cancel();
+                    }
+                    oldPhoneLayout.setVisibility(View.VISIBLE);
+                    newPhoneLayout.setVisibility(View.GONE);
+                    identifyCode.setVisibility(View.GONE);
+                    identifyBtn.setVisibility(View.VISIBLE);
+                    confirmBtn.setVisibility(View.GONE);
                 }
-
-                Log.d("AlterPhone", "back: ");
                 break;
-            case R.id.get_identify_code:
-                setCountDownTimer();
+            case R.id.get_old_identify_code://获取旧手机的验证码
+                setOldCountDownTimer();
                 break;
-            case R.id.new_phone_get_identify_code:
+            case R.id.get_new_identify_code://获取新手机的验证码
                 if (newPhoneEt.getText().toString().equals(DataSupport.findAll(UserBean.class).get(0).getTelNumber())){
                     Toast.makeText(this, "新手机号不能与老手机号相同!", Toast.LENGTH_SHORT).show();
                 }else{
-                    setCountDownTimer();
+                    setNewCountDownTimer();
                 }
                 break;
             case R.id.identify_btn://验证后绑定新手机号
-                if (Integer.parseInt(alterIdentifyCode.getText().toString()) == a){
-                    pageId++;
-                    newPhoneLl.setVisibility(View.VISIBLE);
-                    confirmBtn.setVisibility(View.VISIBLE);
-                    identifyCodeLl.setVisibility(View.GONE);
-                    identifyBtn.setVisibility(View.GONE);
-                    identifyCode.setVisibility(View.GONE);
+                if (Integer.parseInt(oldIdentifyCode.getText().toString()) == a){
+                   oldPhoneLayout.setVisibility(View.GONE);
+                   identifyCode.setVisibility(View.GONE);
+                   newPhoneLayout.setVisibility(View.VISIBLE);
+                   identifyBtn.setVisibility(View.GONE);
+                   confirmBtn.setVisibility(View.VISIBLE);
                 }else{
                     Toast.makeText(this, "验证码错误!", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.confirm_btn:
-                if (Integer.parseInt(newPhoneAlterIdentifyCode.getText().toString()) == a){
+                if (Integer.parseInt(newIdentifyCode.getText().toString()) == b){
                     changePhone();
                 }else{
                     Toast.makeText(this, "验证码错误!", Toast.LENGTH_SHORT).show();
@@ -224,7 +230,7 @@ public class AlterPhoneActivity extends BaseActivity {
         progressBar.setVisibility(View.VISIBLE);
         UserBean user=DataSupport.findLast(UserBean.class);
         String userId = user.getUserId();
-        newTelNumber=newPhoneEt.getText().toString();
+        newTelNumber = newPhoneEt.getText().toString();
         HashMap<String,String> hash = new HashMap<>();
         hash.put("user_id",userId);
         hash.put("phone",newTelNumber);
@@ -270,46 +276,93 @@ public class AlterPhoneActivity extends BaseActivity {
 
     }
 
-    private void setCountDownTimer() {
+    private void setOldCountDownTimer() {
         identifyCode.setVisibility(View.VISIBLE);
         a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;//产生1000-9999的随机数
         identifyCode.setText("验证码为:" + a);
-        getIdentify.setEnabled(false);
-        getIdentify.setTextColor(getResources().getColor(R.color.text_color_grey));
-        countDownTimer=new CountDownTimer(59000 + 50, 1000) {
+        getOldIdentify.setEnabled(false);
+        getOldIdentify.setTextColor(getResources().getColor(R.color.text_color_grey));
+        oldCountDownTimer = new CountDownTimer(59000 + 50, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                if(pageId!=-1){
-                    getIdentify.setText("已发送(" + millisUntilFinished / 1000 + "秒)");
+                if(!AlterPhoneActivity.this.isFinishing()){
+                    if(oldPhoneLayout.getVisibility() == View.VISIBLE){
+                        getOldIdentify.setText("已发送(" + millisUntilFinished / 1000 + "秒)");
+                    }
                 }
-
             }
-
             @Override
             public void onFinish() {
-                getIdentify.setTextColor(getResources().getColor(R.color.text_select_color));
-                getIdentify.setText("获取验证码");
-                getIdentify.setEnabled(true);
+                if(!AlterPhoneActivity.this.isFinishing()){
+                    if(oldPhoneLayout.getVisibility() == View.VISIBLE){
+                        getOldIdentify.setTextColor(getResources().getColor(R.color.text_select_color));
+                        getOldIdentify.setText("获取验证码");
+                        getOldIdentify.setEnabled(true);
+                    }
+                }
+
             }
         }.start();
     }
 
+    private void setNewCountDownTimer() {
+        identifyCode.setVisibility(View.VISIBLE);
+        b = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;//产生1000-9999的随机数
+        identifyCode.setText("验证码为:" + b);
+        getNewIdentify.setEnabled(false);
+        getNewIdentify.setTextColor(getResources().getColor(R.color.text_color_grey));
+        newCountDownTimer = new CountDownTimer(59000 + 50, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(!AlterPhoneActivity.this.isFinishing()){
+                    if(newPhoneLayout.getVisibility() == View.VISIBLE){
+                        getNewIdentify.setText("已发送(" + millisUntilFinished / 1000 + "秒)");
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                if(!AlterPhoneActivity.this.isFinishing()){
+                    if(newPhoneLayout.getVisibility() == View.VISIBLE){
+                        getNewIdentify.setTextColor(getResources().getColor(R.color.text_select_color));
+                        getNewIdentify.setText("获取验证码");
+                        getNewIdentify.setEnabled(true);
+                    }
+                }
+
+            }
+        }.start();
+    }
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if(pageId == 1){
-            newPhoneLl.setVisibility(View.GONE);
-            confirmBtn.setVisibility(View.GONE);
-            identifyCodeLl.setVisibility(View.VISIBLE);
-            identifyBtn.setVisibility(View.VISIBLE);
-            identifyCode.setVisibility(View.GONE);
-            pageId--;
-        }else{
-            identifyCode.setVisibility(View.GONE);
-            pageId=-1;
-            countDownTimer.cancel();
-
+        if(oldPhoneLayout.getVisibility() == View.VISIBLE){
+            if(oldCountDownTimer != null){
+                oldCountDownTimer.cancel();
+            }
             finish();
+        }else{
+            if(newCountDownTimer != null){
+                newCountDownTimer.cancel();
+            }
+            oldPhoneLayout.setVisibility(View.VISIBLE);
+            newPhoneLayout.setVisibility(View.GONE);
+            identifyCode.setVisibility(View.GONE);
+            identifyBtn.setVisibility(View.VISIBLE);
+            confirmBtn.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(oldCountDownTimer != null){
+            oldCountDownTimer.cancel();
+        }
+        if(newCountDownTimer != null){
+            newCountDownTimer.cancel();
         }
     }
 }
