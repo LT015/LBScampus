@@ -56,13 +56,20 @@ public class NoticeItemFragment extends Fragment{
     AutoLinearLayout search;
     Unbinder unbinder;
     public List<NoticeDetailBean> noticeList=new ArrayList<>();
+    private boolean isFirstLoad = false;//初始化为false
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
             view = inflater.inflate(R.layout.fragment_notice_item, container, false);
+            isFirstLoad = true;//视图创建完成，将变量置为true
             initData();
             initView();
+            if (getUserVisibleHint()) {//判断Fragment是否可见
+                getNoticeData();
+                isFirstLoad = false;//将变量置为false
+            }
         }
         return view;
     }
@@ -175,7 +182,10 @@ public class NoticeItemFragment extends Fragment{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){
-            getNoticeData();
+            if (isFirstLoad && isVisibleToUser) {
+                getNoticeData();
+                isFirstLoad = false;
+            }
         }
     }
 }

@@ -52,6 +52,7 @@ public class RoomFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private BuildingAdapter adapter;
     private List<BuildingBean> buildingList=new ArrayList<>();
+    private boolean isFirstLoad = false;//初始化为false
 
     @Nullable
     @Override
@@ -60,6 +61,8 @@ public class RoomFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_room, container, false);
             initData();
             initView();
+            isFirstLoad = true;
+            getBuildingData();
         }
         return view;
 
@@ -104,7 +107,6 @@ public class RoomFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getBuildingData();
     }
 
     public void getBuildingData() {

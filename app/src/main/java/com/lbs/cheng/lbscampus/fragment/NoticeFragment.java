@@ -94,7 +94,7 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
         }
 
         //设置导航栏的fragment
-        adapter = new FragmentAdapter(getActivity().getSupportFragmentManager(), fragments, strings);
+        adapter = new FragmentAdapter(getChildFragmentManager(), fragments, strings);
         viewPager.setAdapter(adapter);
         title.setupWithViewPager(viewPager);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -191,5 +191,12 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
                 getActivity().getWindow().setAttributes(lp);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        int a = CommonUtils.noticeTypeId;
+        viewPager.setCurrentItem(CommonUtils.noticeTypeId - 1);
     }
 }
