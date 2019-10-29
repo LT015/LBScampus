@@ -39,4 +39,7 @@
     <string name="hour">时</string>
     <string name="minute">分</string>
 
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+
 </resources>

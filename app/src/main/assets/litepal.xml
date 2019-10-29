@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="LBS"></dbname>
-    <version value = "15"></version>
+    <version value = "16"></version>
     <list>
         <!--模型类映射，一定要使用完整的类名-->
         <mapping class="com.lbs.cheng.lbscampus.bean.UserBean"></mapping>
@@ -9,5 +9,6 @@
         <mapping class="com.lbs.cheng.lbscampus.bean.ShareTimeBean"></mapping>
         <mapping class="com.lbs.cheng.lbscampus.bean.Student"></mapping>
         <mapping class="com.lbs.cheng.lbscampus.bean.Staff"></mapping>
+        <mapping class="com.lbs.cheng.lbscampus.bean.LoginInfo"></mapping>
     </list>
 </litepal>

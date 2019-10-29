@@ -6,9 +6,13 @@ import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,12 +20,14 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lbs.cheng.lbscampus.R;
+import com.lbs.cheng.lbscampus.bean.LoginInfo;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
 import com.lt.common.util.HttpUtil;
+import com.zhy.autolayout.AutoLinearLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,22 +53,39 @@ public class LoginActivity extends BaseActivity {
     ImageView back;
     TextView titleName;
     TextView Register;
-    @BindView(R.id.account)
-    EditText account;
-    @BindView(R.id.password)
+    @BindView(R.id.login_by_password_ll)
+    AutoLinearLayout loginByPasswordLl;
+    @BindView(R.id.login_by_identify_code_ll)
+    AutoLinearLayout loginByIdentifyCodeLl;
+    @BindView(R.id.login_get_identify_code)
+    TextView loginGetIdentifyCodeTv;
+    @BindView(R.id.login_user_name)
+    EditText userName;
+    @BindView(R.id.login_phone)
+    EditText loginPhoneEt;
+    @BindView(R.id.login_password)
     EditText password;
-    @BindView(R.id.get_identify_code)
-    TextView getIdentifyCode;
-    @BindView(R.id.login)
-    TextView login;
-    @BindView(R.id.identify_or_password)
-    TextView identifyOrPassword;
-    @BindView(R.id.password_not)
-    TextView passwordNot;
     @BindView(R.id.login_identify_code)
+    EditText loginIdentifyCodeEt;
+    @BindView(R.id.login_clear_iv)
+    ImageView clearIv;
+    @BindView(R.id.login_clear_iv2)
+    ImageView clearIv2;
+    @BindView(R.id.login_eye_iv)
+    ImageView eyeIv;
+    @BindView(R.id.login_btn)
+    Button loginBtn;
+    @BindView(R.id.login_by_identify_code)
+    TextView loginByIdentifyCodeTv;
+    @BindView(R.id.login_by_password)
+    TextView loginByPassword;
+    @BindView(R.id.identify_code)
     TextView identifyCode;
-    private int loginType = 1;//1是学号登录 2是手机号登录
+    @BindView(R.id.login_not)
+    TextView loginNotTv;
     private int a = 1000000000;
+    private LoginTextWatcher loginTextWatcher;
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +96,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+        loginTextWatcher = new LoginTextWatcher();
 
     }
 
@@ -80,11 +104,28 @@ public class LoginActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         initTitle();
-        initListener();
-        account.setText(CommonUtils.userID);
-        password.setText(CommonUtils.password);
-        password.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        identifyOrPassword.setText("手机验证码登录");
+        loginBtn.setOnClickListener(this);
+        clearIv.setOnClickListener(this);
+        clearIv2.setOnClickListener(this);
+        eyeIv.setOnClickListener(this);
+        loginByIdentifyCodeTv.setOnClickListener(this);
+        loginNotTv.setOnClickListener(this);
+        loginByPassword.setOnClickListener(this);
+        loginGetIdentifyCodeTv.setOnClickListener(this);
+        userName.addTextChangedListener(loginTextWatcher);
+        password.addTextChangedListener(loginTextWatcher);
+        loginPhoneEt.addTextChangedListener(loginTextWatcher);
+        loginIdentifyCodeEt.addTextChangedListener(loginTextWatcher);
+
+        LoginInfo loginInfo = DataSupport.findLast(LoginInfo.class);
+        if(loginInfo != null){
+            if(loginInfo.getType() == 1){
+                userName.setText(loginInfo.getNum());
+                password.setText(loginInfo.getPassword());
+            }else{
+                loginPhoneEt.setText(loginInfo.getNum());
+            }
+        }
     }
 
     private void initTitle() {
@@ -99,12 +140,6 @@ public class LoginActivity extends BaseActivity {
         titleName.setText("登录");
     }
 
-    private void initListener() {
-        getIdentifyCode.setOnClickListener(this);
-        login.setOnClickListener(this);
-        identifyOrPassword.setOnClickListener(this);
-        passwordNot.setOnClickListener(this);
-    }
 
     @Override
     public void onClick(View v) {
@@ -113,11 +148,12 @@ public class LoginActivity extends BaseActivity {
             case R.id.title_back:
                 finish();
                 break;
-            case R.id.login:
-                if(loginType == 1){
-                    initUser();
-                }else if(loginType == 2){
-                    if (Integer.parseInt(passwordNot.getText().toString()) == a) {
+            case R.id.login_btn:
+                if (loginByPasswordLl.getVisibility() == View.VISIBLE){
+                    login();
+                }else{//手机验证码登陆
+                    if (Integer.parseInt(loginIdentifyCodeEt.getText().toString()) == a) {
+                        CommonUtils.isLogin = 1;
                         Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
                         intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
@@ -132,20 +168,17 @@ public class LoginActivity extends BaseActivity {
                 Intent intent = new Intent(this,RegisterActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.identify_or_password:
-                if(identifyOrPassword.getText()=="手机验证码登录"){
-                    getIdentifyCode.setVisibility(View.VISIBLE);
-                    account.setHint("请输入手机号");
-                    loginType = 2;
-                    identifyOrPassword.setText("密码登录");
-                }else{
-                    account.setHint("请输入学号或职工号");
-                    getIdentifyCode.setVisibility(View.GONE);
-                    loginType = 1;
-                    identifyOrPassword.setText("手机验证码登录");
-                }
+            case R.id.login_by_identify_code:
+                loginWay();
                 break;
-            case R.id.password_not:
+            case R.id.login_by_password:
+                loginWay();
+                break;
+            case R.id.login_get_identify_code:
+                login();
+                break;
+
+            case R.id.login_not:
                 AlertDialog builder = new AlertDialog.Builder(this)
                         .setTitle("修改登录密码流程")
                         .setMessage("通过手机验证码登录->进入我的界面->修改登录密码")
@@ -153,26 +186,35 @@ public class LoginActivity extends BaseActivity {
                         .create();
                 builder.show();
                 break;
-            case R.id.get_identify_code:
-                initUser();
+            case R.id.login_clear_iv:
+                clearEditText(userName);
                 break;
-
-
+            case R.id.login_clear_iv2:
+                clearEditText(loginPhoneEt);
+                break;
+            case R.id.login_eye_iv:
+                if (password.getTransformationMethod() == HideReturnsTransformationMethod.getInstance()) {
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                password.setSelection(password.getText().length());
+                break;
         }
     }
-    public void initUser(){
 
+    public void login(){
         List<String> list=new ArrayList<>();
-        if(loginType == 1){
-            String userId = account.getText().toString();
+        //密码登陆
+        if (loginByPasswordLl.getVisibility() == View.VISIBLE){
+            String studentId = userName.getText().toString().replace(" ", "");
             String passWord = password.getText().toString();
-            list.add(userId);
+            list.add(studentId);
             list.add(passWord);
-        }else if(loginType == 2){
-            String telNum = account.getText().toString();
+        }else{//手机验证码登陆
+            String telNum = loginPhoneEt.getText().toString().replace(" ","");
             list.add(telNum);
         }
-
         HashMap hashmap = new HashMap();
 
         String address=HttpUtil.GetUrl( HttpUtil.HOME_PATH + HttpUtil.LOG_IN,list);
@@ -204,7 +246,7 @@ public class LoginActivity extends BaseActivity {
                             if (state == 1){
                                 UserBean userBean = new Gson().fromJson(jsonObject.getJSONObject("user").toString(),UserBean.class);
                                 userBean.saveThrows();
-                                CommonUtils.password = userBean.getPassword();
+                                LoginInfo loginInfo = new LoginInfo();
                                 List<UserBean> list= DataSupport.findAll(UserBean.class);
                                 if(!jsonObject.get("shareTime").toString().equals("null")){
                                     ShareTimeBean shareTime = new Gson().fromJson(jsonObject.getJSONObject("shareTime").toString(),ShareTimeBean.class);
@@ -215,14 +257,14 @@ public class LoginActivity extends BaseActivity {
                                     if(!jsonObject.get("student").toString().equals("null")){
                                         Student student = new Gson().fromJson(jsonObject.getJSONObject("student").toString(),Student.class);
                                         student.saveThrows();
-                                        CommonUtils.userID = student.getStudentId();
+                                        loginInfo.setNum(student.getStudentId());
                                     }
 
                                 }else{
                                     if(!jsonObject.get("staff").toString().equals("null")){
                                         Staff staff = new Gson().fromJson(jsonObject.getJSONObject("staff").toString(),Staff.class);
                                         staff.saveThrows();
-                                        CommonUtils.userID = staff.getStaffId();
+                                        loginInfo.setNum(staff.getStaffId());
 
                                     }
 
@@ -230,15 +272,20 @@ public class LoginActivity extends BaseActivity {
 
                                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit();
                                 setResult(RESULT_OK);
-                                if(list.size()!=0){
-                                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                }
-
-                                if(loginType == 1){
+                                if (loginByPasswordLl.getVisibility() == View.VISIBLE){
+                                    CommonUtils.isLogin = 1;
+                                    loginInfo.setPassword(userBean.getPassword());
+                                    loginInfo.setType(1);
+                                    loginInfo.saveThrows();
                                     Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
                                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
-                                }else if(loginType == 2){
+                                }else{//手机验证码登陆
+                                    CommonUtils.isLogin = 0;
+                                    loginInfo.setNum(userBean.getTelNumber());
+                                    loginInfo.setPassword("");
+                                    loginInfo.setType(2);
+                                    loginInfo.saveThrows();
                                     setCountDownTimer();
                                 }
 
@@ -261,6 +308,7 @@ public class LoginActivity extends BaseActivity {
 
 
     }
+
 //    public void initUser() {
 //        UserBean user=new UserBean();
 //        user.setUserId("2016111001");
@@ -270,29 +318,146 @@ public class LoginActivity extends BaseActivity {
 //        user.save();
 //    }
 
+    private void clearEditText(EditText et) {
+        et.setText("");
+        et.setFocusable(true);
+        et.setFocusableInTouchMode(true);
+        et.requestFocus();
+    }
+
+    private void loginWay() {
+        if (loginByPasswordLl.getVisibility() == View.GONE) {
+            identifyCode.setVisibility(View.GONE);
+            loginByPasswordLl.setVisibility(View.VISIBLE);
+            loginByIdentifyCodeLl.setVisibility(View.GONE);
+            loginByIdentifyCodeTv.setVisibility(View.VISIBLE);
+            loginNotTv.setVisibility(View.VISIBLE);
+            loginByPassword.setVisibility(View.GONE);
+            password.setText("");
+        } else {
+            if (loginPhoneEt.getText().toString().length() == 13) {
+                loginGetIdentifyCodeTv.setEnabled(true);
+                loginGetIdentifyCodeTv.setTextColor(getResources().getColor(R.color.bottom_tab_text_selected_color));
+            }
+            loginByIdentifyCodeLl.setVisibility(View.VISIBLE);
+            loginByPasswordLl.setVisibility(View.GONE);
+            loginByIdentifyCodeTv.setVisibility(View.GONE);
+            loginNotTv.setVisibility(View.GONE);
+            loginByPassword.setVisibility(View.VISIBLE);
+            loginIdentifyCodeEt.setText("");
+        }
+
+    }
+
     private void setCountDownTimer() {
         identifyCode.setVisibility(View.VISIBLE);
         a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;//产生1000-9999的随机数
         identifyCode.setText("验证码为:" + a);
-        getIdentifyCode.setEnabled(false);
-        getIdentifyCode.setTextColor(getResources().getColor(R.color.text_color_grey));
-        new CountDownTimer(59000 + 50, 1000) {
+        loginGetIdentifyCodeTv.setEnabled(false);
+        loginGetIdentifyCodeTv.setTextColor(getResources().getColor(R.color.text_color_grey));
+        countDownTimer = new CountDownTimer(59000 + 50, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                getIdentifyCode.setText("已发送(" + millisUntilFinished / 1000 + "秒)");
+                if(!LoginActivity.this.isFinishing()){
+                    loginGetIdentifyCodeTv.setText("已发送(" + millisUntilFinished / 1000 + "秒)");
+                }
+
             }
 
             @Override
             public void onFinish() {
-                if (account.getText().toString().length() == 11) {
-                    getIdentifyCode.setEnabled(true);
-                    getIdentifyCode.setTextColor(getResources().getColor(R.color.bottom_tab_text_selected_color));
+                if(!LoginActivity.this.isFinishing()){
+                    if (loginPhoneEt.getText().toString().length() == 11) {
+                        loginGetIdentifyCodeTv.setEnabled(true);
+                        loginGetIdentifyCodeTv.setTextColor(getResources().getColor(R.color.bottom_tab_text_selected_color));
+                    }
+                    loginGetIdentifyCodeTv.setText("获取验证码");
                 }
-                getIdentifyCode.setText("获取验证码");
+
             }
         }.start();
     }
 
+    class LoginTextWatcher implements TextWatcher {
+        EditText editText;
+        int lastContentLength = 0;
+        boolean isDelete = false;
 
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            //隐藏显示登陆按钮
+            if (loginByPasswordLl.getVisibility() == View.VISIBLE) {
+                if (!(userName.getText().toString().equals("") || password.getText().toString().equals(""))) {
+                    loginBtn.setEnabled(true);
+                    loginBtn.setBackground(getResources().getDrawable(R.drawable.login_selected_bg));
+                }
+            } else {
+                if (!(loginPhoneEt.getText().toString().equals("") || loginIdentifyCodeEt.getText().toString().equals(""))) {
+                    loginBtn.setEnabled(true);
+                    loginBtn.setBackground(getResources().getDrawable(R.drawable.login_selected_bg));
+                }
+            }
+
+        }
+
+        /**
+         * 添加或删除空格EditText的设置
+         *
+         * @param sb
+         */
+        private void setContent(StringBuffer sb) {
+            editText.setText(sb.toString());
+            //移动光标到最后面
+            editText.setSelection(sb.length());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.toString().equals("")) {
+                loginBtn.setEnabled(false);
+                loginBtn.setBackground(getResources().getDrawable(R.drawable.login_bg));
+            }
+            if (loginByIdentifyCodeLl.getVisibility() == View.VISIBLE) {
+                if (loginPhoneEt.getText().toString().length() == 11 && loginGetIdentifyCodeTv.getText().toString().equals("获取验证码")) {
+                    loginGetIdentifyCodeTv.setTextColor(getResources().getColor(R.color.bg_blue));
+                    loginGetIdentifyCodeTv.setEnabled(true);
+                } else {
+                    loginGetIdentifyCodeTv.setEnabled(false);
+                    loginGetIdentifyCodeTv.setTextColor(getResources().getColor(R.color.text_color_grey));
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(countDownTimer!=null){
+            countDownTimer.cancel();
+        }
+
+        if(CommonUtils.isLogin == 0){
+            DataSupport.deleteAll(UserBean.class);
+            DataSupport.deleteAll(ShareTimeBean.class);
+            DataSupport.deleteAll(Student.class);
+            DataSupport.deleteAll(Staff.class);
+            DataSupport.deleteAll(LoginInfo.class);
+        }
+
+    }
 }

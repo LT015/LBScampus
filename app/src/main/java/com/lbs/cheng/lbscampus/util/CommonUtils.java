@@ -24,12 +24,11 @@ public class CommonUtils {
 
 //    public static int userType = 1;//用户身份  1是学生 2是教师 3是其他
 
-    public static String userID = "";
-    public static String password = "";
+    public static int isLogin = 1;
 
     public static int noticeEditType = 0;//0是创建公告  1是从草稿箱编辑
 
-    public static  List<Integer> tagList;
+//    public static  List<Integer> tagList;
 
 
 

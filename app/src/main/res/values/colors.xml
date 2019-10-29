@@ -13,6 +13,7 @@
     <color name="colorRed">#ff0000</color>
     <color name="colorYellow">#fcfc03</color>
     <color name="colorGray">#f6fbf5</color>
+    <color name="bottom_tab_text_selected_color">#05c0ab</color>
 
     <color name="res_detail_month_order">#444444</color>
 
