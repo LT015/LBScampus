@@ -76,7 +76,7 @@ public class AlterPwdActivity extends BaseActivity {
                         oldPwd= passwordOld.getText().toString();
                         newPwd=passwordNew.getText().toString();
                         updatePwd();
-                        finish();
+
                     }else {
                         Toast.makeText(getApplication(),"两次密码输入不一致!",Toast.LENGTH_SHORT).show();
                     }
@@ -104,6 +104,7 @@ public class AlterPwdActivity extends BaseActivity {
         passwordNew.setTransformationMethod(PasswordTransformationMethod.getInstance());
         passwordIdentify.setTransformationMethod(PasswordTransformationMethod.getInstance());
     }
+
     private void updatePwd(){
 
         UserBean user= DataSupport.findLast(UserBean.class);
@@ -138,10 +139,11 @@ public class AlterPwdActivity extends BaseActivity {
                                 DataSupport.deleteAll(UserBean.class);
                                 user.saveThrows();
                                 Toast.makeText(AlterPwdActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-
+                                finish();
                             }catch (JSONException e){
                                 Log.d("LoginActivity",e.toString());
                                 Toast.makeText(AlterPwdActivity.this, "修改失败!", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         }
                     }

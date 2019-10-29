@@ -92,7 +92,7 @@ public class SearchPeopleActivity extends BaseActivity {
     private List<String> type2 = new ArrayList<>();
 
     private String name = null;//搜索框输的学生名字
-    private int type = -1;//查找人的类型 -1是所有 0是学生 1是教职工
+    private int type = 0;//查找人的类型 0是所有 1是学生 2是教职工
     private int deptId = -1;//院系ID
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +125,7 @@ public class SearchPeopleActivity extends BaseActivity {
         spinnerType1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                type = i;
                 switch (i){
                     case 0:
                         getData(0);
@@ -339,6 +340,9 @@ public class SearchPeopleActivity extends BaseActivity {
 //
 //            }
 //        }
+        if(type != 0){
+            url=url+"/type/"+type;
+        }
         try {
             name = URLEncoder.encode(name, "utf-8");
         } catch (UnsupportedEncodingException e) {
