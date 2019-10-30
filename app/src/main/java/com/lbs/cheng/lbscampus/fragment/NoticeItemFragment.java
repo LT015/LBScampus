@@ -68,7 +68,6 @@ public class NoticeItemFragment extends Fragment{
             initView();
             if (getUserVisibleHint()) {//判断Fragment是否可见
                 getNoticeData();
-                isFirstLoad = false;//将变量置为false
             }
         }
         return view;
@@ -182,10 +181,15 @@ public class NoticeItemFragment extends Fragment{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){
-            if (isFirstLoad && isVisibleToUser) {
-                getNoticeData();
-                isFirstLoad = false;
-            }
+
+        }
+    }
+
+    public void firstLoadData(){
+        if (isFirstLoad) {
+            getNoticeData();
+            isFirstLoad = false;
+
         }
     }
 }

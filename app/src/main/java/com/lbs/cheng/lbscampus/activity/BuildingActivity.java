@@ -12,6 +12,7 @@ import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.adapter.FragmentAdapter;
 import com.lbs.cheng.lbscampus.fragment.BuildingItemFragment;
 import com.lbs.cheng.lbscampus.fragment.NoticeItemFragment;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class BuildingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building);
+        CommonUtils.buildingTypeId = 1;
     }
     private void initTitle() {
         back = findViewById(R.id.title_back);
@@ -114,37 +116,37 @@ public class BuildingActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                buildingTypeId = position+1;
-//                switch (position){
-//                    case 0:
-//                        fragment0.getBuildingData();
-//                        break;
-//                    case 1:
-//                        fragment1.getBuildingData();
-//                        break;
-//                    case 2:
-//                        fragment2.getBuildingData();
-//                        break;
-//                    case 3:
-//                        fragment3.getBuildingData();
-//                        break;
-//                    case 4:
-//                        fragment4.getBuildingData();
-//                        break;
-//                    case 5:
-//                        fragment5.getBuildingData();
-//                        break;
-//                    case 6:
-//                        fragment6.getBuildingData();
-//                        break;
-//                    case 7:
-//                        fragment7.getBuildingData();
-//                        break;
-//                    case 8:
-//                        fragment8.getBuildingData();
-//                        break;
-//
-//                }
+                buildingTypeId = position + 1;
+                switch (position){
+                    case 0:
+                        fragment0.firstLoadData();
+                        break;
+                    case 1:
+                        fragment1.firstLoadData();
+                        break;
+                    case 2:
+                        fragment2.firstLoadData();
+                        break;
+                    case 3:
+                        fragment3.firstLoadData();
+                        break;
+                    case 4:
+                        fragment4.firstLoadData();
+                        break;
+                    case 5:
+                        fragment5.firstLoadData();
+                        break;
+                    case 6:
+                        fragment6.firstLoadData();
+                        break;
+                    case 7:
+                        fragment7.firstLoadData();
+                        break;
+                    case 8:
+                        fragment8.firstLoadData();
+                        break;
+
+                }
             }
 
             @Override

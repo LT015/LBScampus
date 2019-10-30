@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.activity.AddNoticeActivity;
@@ -65,6 +67,7 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
             view = inflater.inflate(R.layout.fragment_notice, container, false);
+            CommonUtils.noticeTypeId = 1;
             initData();
             initView();
         }
@@ -101,27 +104,29 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                Log.d("noticeTypeId", "onPageSelected: ");
             }
 
             @Override
             public void onPageSelected(int position) {
                 CommonUtils.noticeTypeId = position + 1;
-//                if(position == 0){
-//                    noticeFragment.getNoticeData();
-//                }else if(position == 1){
-//                    activityFragment.getNoticeData();
-//                }else if(position == 2){
-//                    lpFragment.getNoticeData();
-//                }else{
-//                    helpFragment.getNoticeData();
-//                }
+
+                if(position == 0){
+                    noticeFragment.firstLoadData();
+                }else if(position == 1){
+                    activityFragment.firstLoadData();
+                }else if(position == 2){
+                    lpFragment.firstLoadData();
+                }else{
+                    helpFragment.firstLoadData();
+                }
 
 
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                Log.d("noticeTypeId", "onPageSelected: ");
             }
         });
 

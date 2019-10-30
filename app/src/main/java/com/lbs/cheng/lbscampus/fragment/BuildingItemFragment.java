@@ -70,13 +70,18 @@ public class BuildingItemFragment extends Fragment {
     RecyclerView recyclerView;
     Unbinder unbinder;
     List<BuildingBean> buildingList=new ArrayList<>();
+    private boolean isFirstLoad = false;//初始化为false
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
             view = inflater.inflate(R.layout.fragment_building_item, container, false);
+            isFirstLoad = true;//视图创建完成，将变量置为true
             initData();
             initView();
+            if (getUserVisibleHint()) {//判断Fragment是否可见
+                getBuildingData();
+            }
         }
         return view;
     }
@@ -108,7 +113,7 @@ public class BuildingItemFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){
-            getBuildingData();
+
         }
     }
 
@@ -218,4 +223,11 @@ public class BuildingItemFragment extends Fragment {
         });
     }
 
+    public void firstLoadData(){
+        if (isFirstLoad) {
+            getBuildingData();
+            isFirstLoad = false;
+
+        }
+    }
 }
