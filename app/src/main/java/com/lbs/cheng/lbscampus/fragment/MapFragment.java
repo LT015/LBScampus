@@ -3,6 +3,7 @@ package com.lbs.cheng.lbscampus.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -27,6 +28,7 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.map.TextureMapView;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.utils.DistanceUtil;
 import com.lbs.cheng.lbscampus.R;
@@ -51,7 +53,7 @@ import butterknife.Unbinder;
 
 public class MapFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.fragment_map_map)
-    MapView mMapView;
+    TextureMapView mMapView;
     BaiduMap mBaiduMap;
     private LocationService locService;
     private LinkedList<MapFragment.LocationEntity> locationList = new LinkedList<MapFragment.LocationEntity>();
@@ -70,6 +72,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
             SDKInitializer.initialize(getActivity().getApplicationContext());
+            getActivity().getWindow().setFormat(PixelFormat.TRANSLUCENT);
             locService = new LocationService(getActivity().getApplicationContext());
             LocationClientOption mOption = locService.getDefaultLocationClientOption();
             mOption.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
@@ -107,15 +110,17 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     }
     @Override
     public void onResume() {
-        super.onResume();
         //在activity执行onResume时执行mMapView. onResume ()，实现地图生命周期管理
+        mMapView.setVisibility(View.VISIBLE);
         mMapView.onResume();
+        super.onResume();
     }
     @Override
     public void onPause() {
-        super.onPause();
         //在activity执行onPause时执行mMapView. onPause ()，实现地图生命周期管理
+        mMapView.setVisibility(View.INVISIBLE);
         mMapView.onPause();
+        super.onPause();
     }
     @Override
     public void onClick(View v) {

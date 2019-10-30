@@ -3,6 +3,7 @@ package com.lbs.cheng.lbscampus.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
@@ -32,6 +33,7 @@ public class HomeActivity extends BaseActivity {
     FragmentTabHost tabHost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initUser();

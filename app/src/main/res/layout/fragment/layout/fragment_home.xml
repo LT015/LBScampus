@@ -36,17 +36,9 @@
             </com.zhy.autolayout.AutoLinearLayout>
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_332px">
-                <View
-                    android:id="@+id/banner_view_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_190px"
-                    android:background="@color/bg_blue"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/banner_view_1"
-                    android:background="@color/colorGray"/>
+                android:layout_height="@dimen/space_332px"
+                android:background="@color/colorGray">
+
                 <com.youth.banner.Banner
                     android:paddingLeft="@dimen/space_12px"
                     android:paddingRight="@dimen/space_12px"

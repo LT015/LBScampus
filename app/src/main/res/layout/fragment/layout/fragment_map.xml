@@ -4,11 +4,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.baidu.mapapi.map.MapView
+    <com.baidu.mapapi.map.TextureMapView
         android:id="@+id/fragment_map_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.baidu.mapapi.map.MapView>
+    </com.baidu.mapapi.map.TextureMapView>
     <com.zhy.autolayout.AutoLinearLayout
         android:gravity="center_vertical"
         android:id="@+id/fragment_search"
