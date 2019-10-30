@@ -8,7 +8,7 @@ import com.lbs.cheng.lbscampus.view.RCImageView;
 import com.youth.banner.loader.ImageLoader;
 
 /**
- * Created by cheng on 2019/1/19.
+ * Created by lt on 2019/1/19.
  */
 
 public class GlideLoader extends ImageLoader {

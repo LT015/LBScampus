@@ -1,6 +1,7 @@
 package com.lbs.cheng.lbscampus.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import com.lbs.cheng.lbscampus.adapter.NoticeAdapter;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.Student;
 import com.lbs.cheng.lbscampus.bean.UserBean;
+import com.lbs.cheng.lbscampus.util.GlideUtil;
+import com.lbs.cheng.lbscampus.util.ImageUtil;
 import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.view.PullToRefreshView;
 import com.youth.banner.Banner;
@@ -42,6 +45,7 @@ import com.zhy.autolayout.AutoLinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
@@ -86,6 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     AutoLinearLayout headIcon7;
     Unbinder unbinder;
     List<NoticeDetailBean> list = new ArrayList<>();
+    private List<Integer> bannerNoticeId = new ArrayList<>();
 
     @Nullable
     @Override
@@ -96,8 +101,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             initView();
         }
         return view;
-    }//5B:A0:5D:C7:D1:A7:3C:E5:CF:E4:A9:5C:68:DD:F3:55:A8:BD:2B:BA 发布版SH1
-    //9F:B2:D4:45:E4:C8:06:51:D6:24:A5:24:E8:B9:40:99:B4:38:EC:0F 开发版SH1
+    }
 
 
     private void initData() {
@@ -126,16 +130,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private void initBanner() {
         banner.setImageLoader(new GlideLoader());
-//       List<String> images = new ArrayList<>();
-//        images.add(HttpUtil.Banner+"1.jpg");
-//        images.add(HttpUtil.Banner+"2.jpeg");
-//        images.add(HttpUtil.Banner+"3.jpeg");
-//        images.add(HttpUtil.Banner+"4.jpg");
-        List<Integer> images=new ArrayList<>();
-        images.add(R.mipmap.b1);
-        images.add(R.mipmap.b2);
-        images.add(R.mipmap.b3);
-        images.add(R.mipmap.b4);
+        List<String> images = new ArrayList<>();
+        images.add(HttpUtil.HOME_PATH + HttpUtil.Image +"notice/"+ "notices1.jpg");
+        images.add(HttpUtil.HOME_PATH + HttpUtil.Image +"notice/"+ "notices2.png");
+        images.add(HttpUtil.HOME_PATH + HttpUtil.Image +"notice/"+ "notices13.png");
+        bannerNoticeId.add(1);
+        bannerNoticeId.add(2);
+        bannerNoticeId.add(13);
+
+//        List<Integer> images=new ArrayList<>();
+//        images.add(R.mipmap.b1);
+//        images.add(R.mipmap.b2);
+//        images.add(R.mipmap.b3);
+//        images.add(R.mipmap.b4);
 
         banner.setImages(images);
         banner.isAutoPlay(true);
@@ -143,17 +150,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置轮播样式（没有标题默认为右边,有标题时默认左边）
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        setBannerClickListener();
-        banner.start();
-    }
-
-    private void setBannerClickListener() {
-        OnBannerListener onBannerListener = new OnBannerListener() {
+        banner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-
+                getNoticeById(bannerNoticeId.get(position));
             }
-        };
+        });
+        banner.start();
     }
 
     private void initRecyclerView() {
@@ -204,6 +207,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             }
         });
     }
+
+
 
     private void initRefreshView() {
         refreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
@@ -287,5 +292,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    public void getNoticeById(int i) {
+        List<String> list1 = new ArrayList<>();
+        list1.add(String.valueOf(i));
+        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_ID, list1, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+
+                try {
+
+                    final JSONObject jsonObject = new JSONObject(responseText);
+                    if(jsonObject.isNull("error")){
+                        Intent toContent = new Intent(getActivity(), NoticeActivity.class);
+                        toContent.putExtra("noticeDetail",jsonObject.toString());
+                        startActivity(toContent);
+                    }else{
+
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 }
