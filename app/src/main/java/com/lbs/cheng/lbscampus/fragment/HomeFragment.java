@@ -255,6 +255,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     if(userBean.getType() == 1){
                         Student student = DataSupport.findLast(Student.class);
                         ARouter.getInstance().build("/course/main").withInt("key",1).withInt("classId",student.getClassId()).withString("courseName","").navigation();
+                    }else{
+                        ARouter.getInstance().build("/course/selectroom").navigation();
                     }
                 }else{
                     ARouter.getInstance().build("/course/selectroom").navigation();

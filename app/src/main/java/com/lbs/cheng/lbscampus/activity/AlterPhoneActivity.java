@@ -253,20 +253,16 @@ public class AlterPhoneActivity extends BaseActivity {
                     @Override
                     public void run() {
 
-                        if (responseText.equals("123456789")){
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    UserBean userBean = DataSupport.findLast(UserBean.class);
-                                    userBean.setTelNumber(newTelNumber);
-                                    userBean.save();
-                                    Toast.makeText(AlterPhoneActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
+                        if (responseText.equals(newTelNumber)){
+                            UserBean userBean = DataSupport.findLast(UserBean.class);
+                            userBean.setTelNumber(newTelNumber);
+                            userBean.save();
+                            Toast.makeText(AlterPhoneActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+                            finish();
                         }else{       //返回错误信息
                             Toast.makeText(AlterPhoneActivity.this, "修改失败!", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
 
                     }

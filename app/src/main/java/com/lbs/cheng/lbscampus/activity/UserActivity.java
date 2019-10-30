@@ -163,6 +163,12 @@ public class UserActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUserInfo();
+    }
+
     private void initTitle() {
         back = findViewById(R.id.title_back);
         titleName=findViewById(R.id.title_name);
@@ -182,7 +188,6 @@ public class UserActivity extends BaseActivity {
         userPassword.setOnClickListener(this);
         headImg.setOnClickListener(this);
         userEmail.setOnClickListener(this);
-        setUserInfo();
         initTitle();
     }
     private void setUserInfo() {
