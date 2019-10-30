@@ -230,7 +230,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     UserBean userBean= DataSupport.findLast(UserBean.class);
                     if(userBean!=null){
                         final PositionBean position=new PositionBean();
-                        Log.d("location", "学号: "+userBean.getUserId());
+//                        Log.d("location", "学号: "+userBean.getUserId());
                         position.setUserId(userBean.getUserId());
                         position.setLatitude(location.getLatitude());
                         position.setLongitude( location.getLongitude());
@@ -253,7 +253,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                             final JSONObject jsonObject = new JSONObject(responseText);
                                             PositionBean positionBean = new Gson().fromJson(jsonObject.toString(),PositionBean.class);
 
-                                            Log.d("location", "纬度: "+positionBean.getLatitude());
+//                                            Log.d("location", "纬度: "+positionBean.getLatitude());
 
 
                                         }catch (JSONException e){

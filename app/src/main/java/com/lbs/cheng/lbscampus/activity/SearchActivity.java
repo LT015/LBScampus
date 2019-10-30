@@ -30,6 +30,7 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
 import com.lbs.cheng.lbscampus.util.CommonUtils;
+import com.lbs.cheng.lbscampus.util.SoftKeyboardUtils;
 import com.lt.common.util.HttpUtil;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -260,9 +261,7 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void search(String content){
-        //关闭软键盘
-        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
 
         LLhotAndHistory.setVisibility(View.GONE);
 
