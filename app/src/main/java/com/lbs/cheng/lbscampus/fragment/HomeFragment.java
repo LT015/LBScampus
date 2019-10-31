@@ -183,7 +183,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络连接失败!", Toast.LENGTH_SHORT).show();
 
+                    }
+                });
             }
 
             @Override
@@ -193,6 +201,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 try {
                     final JSONArray jsonArray = new JSONArray(responseText);
                     list = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<NoticeDetailBean>>(){}.getType());
+                    if(getActivity() == null)
+                        return;
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -302,6 +312,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_ID, list1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络连接失败!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
 

@@ -1,10 +1,8 @@
 package com.lbs.cheng.lbscampus.util;
 
-/**
- * Created by LT on 2019/3/16.
- */
-
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -12,8 +10,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+
+import com.lbs.cheng.lbscampus.activity.UserActivity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -27,7 +28,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by rjq on 2017/12/28.
+ * Created by LT on 2019/3/16.
  */
 
 public class FileStorage {
@@ -268,5 +269,53 @@ public class FileStorage {
         return bitmap;
     }
 
+    /**
+     * 下面三个方法是把uri转换成filepath
+     * @param context
+     * @param uri
+     * @return
+     */
+    @TargetApi(19)
+    private String handleImgUri2String(Context context,Uri uri){
+        String path = "";
+        if (DocumentsContract.isDocumentUri(context, uri)) {
+            //如果是document类型的uri,则通过document id处理
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1];//解析出数字格式的id
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                path = getImagePath(context,MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                path = getImagePath(context,contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            //如果是content类型的Uri，则使用普通方式处理
+            path = getImagePath(context,uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            //如果是file类型的Uri,直接获取图片路径即可
+            path = uri.getPath();
+        }
+        return path;
+    }
+
+    private String handleImgUri2StringBeforeKitKat(Context context,Uri uri){
+        String path;
+        path = getImagePath(context,uri, null);
+        return path;
+    }
+
+    private String getImagePath(Context context,Uri uri, String selection) {
+        String path = null;
+        //通过Uri和selection来获取真实的图片路径
+        Cursor cursor = context.getContentResolver().query(uri, null, selection, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
 }
 

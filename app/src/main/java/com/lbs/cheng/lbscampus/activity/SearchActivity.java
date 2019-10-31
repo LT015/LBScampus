@@ -281,7 +281,7 @@ public class SearchActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

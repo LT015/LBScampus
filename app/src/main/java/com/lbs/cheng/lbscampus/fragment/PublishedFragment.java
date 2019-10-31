@@ -131,10 +131,12 @@ public class PublishedFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "网络连接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -142,6 +144,8 @@ public class PublishedFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -227,6 +231,8 @@ public class PublishedFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpDeleteRequest( HttpUtil.HOME_PATH + HttpUtil.DELETE_NOTICE + "/" + id, ""+id, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -238,6 +244,8 @@ public class PublishedFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

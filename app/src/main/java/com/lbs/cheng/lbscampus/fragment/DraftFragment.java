@@ -124,6 +124,8 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -135,6 +137,8 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -168,6 +172,8 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpDeleteRequest( HttpUtil.HOME_PATH + HttpUtil.DELETE_NOTICE + "/" + id, ""+id, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -179,6 +185,8 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -258,7 +266,7 @@ public class DraftFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-
+        getNoticeData();
     }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

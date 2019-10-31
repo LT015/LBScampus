@@ -136,6 +136,8 @@ public class MapFragment extends Fragment implements View.OnClickListener{
                     break;
             }
         }else{
+            if(getActivity() == null)
+                return;
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

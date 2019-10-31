@@ -120,7 +120,7 @@ public class PeopleDetailActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(PeopleDetailActivity.this, "获取用户位置失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PeopleDetailActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

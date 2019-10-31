@@ -314,7 +314,7 @@ public class SearchAllActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchAllActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchAllActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -357,7 +357,7 @@ public class SearchAllActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchAllActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchAllActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -399,7 +399,7 @@ public class SearchAllActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchAllActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchAllActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });

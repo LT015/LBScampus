@@ -49,9 +49,6 @@ import okhttp3.Response;
 
 import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 
-/**
- * Created by cheng on 2019/4/25.
- */
 
 public class VerifyFragment extends Fragment implements View.OnClickListener{
 
@@ -130,21 +127,27 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
         }else if(staff.getRole().equals("3")){
             type = 6;//type为5表示能审核type为1 2的公告
         }
-        String url= HttpUtil.HOME_PATH + HttpUtil.GET_MY_NOTICE+"/type/"+type+"/status/1";
+        String url= HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE+"/"+type+"/status/1";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "网络连接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -230,6 +233,8 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
         HttpUtil.sendOkHttpPostRequest( HttpUtil.HOME_PATH + HttpUtil.UPDATE_NOTICE_STATUS + "/" + id + "/" + status, hash, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -241,6 +246,8 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -105,7 +105,7 @@ public class LostPropertyActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(LostPropertyActivity.this, "获取数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LostPropertyActivity.this, "网络连接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

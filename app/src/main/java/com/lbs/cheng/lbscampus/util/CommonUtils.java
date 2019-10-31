@@ -17,7 +17,8 @@ public class CommonUtils {
     }
 
     public static int noticeTypeId = 1;
-    public static int buildingTypeId = 0;
+    public static int buildingTypeId = 1;
+    public static int isResume = 0;
 
 //    public static int myNoticeTypeId = 0;//我的公告的类型  0是草稿 1是审核中 2是发布
 //    public static int verifyNoticeTypeId = 0;//审核公告的类型 0是审核 1是完结

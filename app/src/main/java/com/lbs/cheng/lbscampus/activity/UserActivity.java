@@ -9,14 +9,18 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +29,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Base64.Encoder;
@@ -95,15 +100,21 @@ public class UserActivity extends BaseActivity {
     private static final String TAG = "UserActivity";
     private static final int REQUEST_ALTER_PHONE = 3001;
     private View rootView;
+    //调取系统摄像头的请求码
+    private static final int MY_ADD_CASE_CALL_PHONE = 6;
+    //打开相册的请求码
+    private static final int MY_ADD_CASE_CALL_PHONE2 = 7;
+
     private static final int REQUEST_Certification = 6; //实名认证
     private static final int REQUEST_PICK_IMAGE = 1; //相册选取
     private static final int REQUEST_CAPTURE = 2;  //拍照
     private static final int REQUEST_PICTURE_CUT = 3;  //剪裁图片
     private static final int REQUEST_PERMISSION = 4;  //权限请求
     public static final int REQUEST_LOGIN = 5;      //登录
-    private Uri imageUri;//原图保存地址
+    private Uri uriPhoto;
     private Uri outputUri;//剪切的地址
     private String imagePath;
+    private Bitmap newImage;
 
     private Dialog dialog;
     private TextView tv3;
@@ -252,11 +263,32 @@ public class UserActivity extends BaseActivity {
 
             case R.id.tx_1:
                 dialog.dismiss();
-                openCamera();
+                if (ContextCompat.checkSelfPermission(UserActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+
+                    ActivityCompat.requestPermissions(UserActivity.this, new String[]{Manifest.permission.CAMERA}, MY_ADD_CASE_CALL_PHONE);
+
+                    if(ContextCompat.checkSelfPermission(UserActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                        ActivityCompat.requestPermissions(UserActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_ADD_CASE_CALL_PHONE2);
+
+                    }
+                }else {
+                    try {
+                        takePhoto();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case R.id.tx_2:
+                if (ContextCompat.checkSelfPermission(UserActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(UserActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_ADD_CASE_CALL_PHONE2);
+
+                } else {
+                    choosePhoto();
+                }
                 dialog.dismiss();
-                selectFromAlbum();
                 break;
             case R.id.tx_3:
                 dialog.dismiss();
@@ -515,129 +547,162 @@ public class UserActivity extends BaseActivity {
         dialog.show();//显示对话框
     }
 
-    /**
-     * 打开系统相机
-     */
-    private void openCamera() {
-        File file = new FileStorage().createIconFile(); //用到了sd卡权限,运行时权限处理
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri = FileProvider.getUriForFile(UserActivity.this, "com.lbs.cheng.lbscampus.fileprovider", file);//通过FileProvider创建一个content类型的Uri
-        } else {
-            imageUri = Uri.fromFile(file);
-        }
+
+    private void takePhoto() throws IOException {
         Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);//添加这一句表示对目标应用临时授权该Uri所代表的文件
+        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
+        // 获取文件
+        File file = createFileIfNeed("UserIcon.png");
+        //拍照后原图回存入此路径下
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+            uriPhoto = Uri.fromFile(file);
+        } else {
+            /**
+             * 7.0 调用系统相机拍照不再允许使用Uri方式，应该替换为FileProvider
+             * 并且这样可以解决MIUI系统上拍照返回size为0的情况
+             */
+            uriPhoto = FileProvider.getUriForFile(this, "com.lbs.cheng.lbscampus.fileprovider", file);
         }
-        intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);//设置Action为拍照
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//将拍取的照片保存到指定URI
-        startActivityForResult(intent, REQUEST_CAPTURE);
-    }
-
-    /**
-     * 从相册选择
-     */
-    private void selectFromAlbum() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");//打开指定URI目录下的照片
-        startActivityForResult(intent, REQUEST_PICK_IMAGE);
-    }
-
-    /**
-     * 裁剪
-     */
-    private void cropPhoto() {
-        outputUri = null;
-        File file = new FileStorage().createCropFile(); //用到了sd卡权限，运行时权限处理
-        outputUri = Uri.fromFile(file);
-        Intent intent = new Intent("com.android.camera.action.CROP");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         }
-        intent.setDataAndType(imageUri, "image/*");  //打开指定URI目录下的照片
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("scale", true);
-        intent.putExtra("return-data", false);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);//将裁剪完的照片保存到指定URI
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        intent.putExtra("noFaceDetection", true);
-        startActivityForResult(intent, REQUEST_PICTURE_CUT);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        startActivityForResult(intent, REQUEST_CAPTURE);
+    }
+    /**
+     * 打开相册
+     */
+    private void choosePhoto() {
+        //这是打开系统默认的相册(就是你系统怎么分类,就怎么显示,首先展示分类列表)
+        Intent picture = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(picture, REQUEST_PICK_IMAGE);
     }
 
-    @TargetApi(19)
-    private String handleImgUri2String(Uri uri){
-        String path = "";
-        if (DocumentsContract.isDocumentUri(UserActivity.this, uri)) {
-            //如果是document类型的uri,则通过document id处理
-            String docId = DocumentsContract.getDocumentId(uri);
-            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                String id = docId.split(":")[1];//解析出数字格式的id
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                path = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-            } else if ("com.android.downloads.documents".equals(uri.getAuthority())) {
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
-                path = getImagePath(contentUri, null);
+    // 在sd卡中创建一保存图片（原图和缩略图共用的）文件夹
+    private File createFileIfNeed(String fileName) {
+        File file = new File(getExternalCacheDir(),fileName);
+        try{
+            if(file.exists()){
+                file.delete();
             }
-        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            //如果是content类型的Uri，则使用普通方式处理
-            path = getImagePath(uri, null);
-        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            //如果是file类型的Uri,直接获取图片路径即可
-            path = uri.getPath();
+            file.createNewFile();
+        }catch(IOException e){
+            e.printStackTrace();
         }
-        return path;
+        return file;
     }
 
-    private String handleImgUri2StringBeforeKitKat(Uri uri){
-        String path;
-        path = getImagePath(uri, null);
-        return path;
-    }
+    /**
+     * 申请权限回调
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-    private String getImagePath(Uri uri, String selection) {
-        String path = null;
-        //通过Uri和selection来获取真实的图片路径
-        Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        if (requestCode == MY_ADD_CASE_CALL_PHONE) {//摄像头
+            if(grantResults.length > 0){
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    try {
+                        takePhoto();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(this, "权限被拒绝", Toast.LENGTH_SHORT).show();
+                }
             }
-            cursor.close();
+
         }
-        return path;
+
+
+        if (requestCode == MY_ADD_CASE_CALL_PHONE2) {
+            if(grantResults.length > 0){
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    choosePhoto();
+                } else {
+                    Toast.makeText(this, "权限被拒绝", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_PICK_IMAGE://从相册选择
+                getOutputUri();
+                //得到图片路径
                 if (resultCode == Activity.RESULT_OK){
-                    if (data != null) {
-                        imageUri = data.getData();
-                        cropPhoto();
+                    Uri uri = data.getData();
+                    //调用系统裁剪功能
+                    Intent it = new Intent("com.android.camera.action.CROP");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        it.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     }
+                    //得到照片进行裁剪
+                    it.setDataAndType(uri, "image/*");
+                    //设置是否支持裁剪
+                    it.putExtra("crop", true);
+                    //设置框的宽高比
+                    it.putExtra("aspactX", 1);
+                    it.putExtra("aspactY", 1);
+                    //设置输出图片大小
+                    it.putExtra("outputX", 250);
+                    it.putExtra("outputY", 250);
+                    it.putExtra("scale", true);
+                    it.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+                    it.putExtra("return-data", false);
+                    it.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                    it.putExtra("noFaceDetection", true); // no face detection
+
+                    startActivityForResult(it, REQUEST_PICTURE_CUT);
                 }
+
                 break;
             case REQUEST_CAPTURE://拍照
-                if (resultCode == Activity.RESULT_OK) {
-                    cropPhoto();
+                if (resultCode == Activity.RESULT_OK){
+                    Intent intent = new Intent("com.android.camera.action.CROP");
+                    getOutputUri();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    }
+                    //得到拍完的照片进行裁剪
+                    intent.setDataAndType(uriPhoto, "image/*");
+                    //设置是否支持裁剪
+                    intent.putExtra("crop", true);
+                    //设置框的宽高比
+                    intent.putExtra("aspactX", 1);
+                    intent.putExtra("aspactY", 1);
+                    //设置输出的照片
+                    intent.putExtra("outputX", 250);
+                    intent.putExtra("outputY", 250);
+                    intent.putExtra("scale", true);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
+                    intent.putExtra("return-data", false);
+                    intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+                    intent.putExtra("noFaceDetection", true); // no face detection
+
+                    startActivityForResult(intent, REQUEST_PICTURE_CUT);
                 }
+
                 break;
             case REQUEST_PICTURE_CUT://裁剪完成
                 if (resultCode == Activity.RESULT_OK){
-                    if (Build.VERSION.SDK_INT >= 19) {
-                        imagePath = handleImgUri2String(outputUri);
-                    } else {
-                        imagePath = handleImgUri2StringBeforeKitKat(outputUri);
+                    try {
+                        newImage = BitmapFactory.decodeStream(getContentResolver().openInputStream(outputUri));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
+                    imagePath =  readpic();
                     String image = Base64Util.GetImageStr(imagePath);
-                    //获取图片格式
-//                    BitmapFactory.Options options = new BitmapFactory.Options();
-//                    options.inJustDecodeBounds = true;
-//                    BitmapFactory.decodeFile(imagePath, options);
-//                    String type = options.outMimeType;
 
                     //将图片保存到MySql
                     progressBar.setVisibility(View.VISIBLE);
@@ -689,6 +754,26 @@ public class UserActivity extends BaseActivity {
         }
     }
 
+    private void getOutputUri(){
+        File CropPhoto = new File(getExternalCacheDir(),"crop.png");
+        try{
+            if(CropPhoto.exists()){
+                CropPhoto.delete();
+            }
+            CropPhoto.createNewFile();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        outputUri = Uri.fromFile(CropPhoto);
+    }
+
+    /**
+     * 从保存裁剪图片的地址读取图片
+     */
+    private String readpic() {
+        String filePath = getExternalCacheDir() + "/" + "crop.png";
+        return filePath;
+    }
 
 
 

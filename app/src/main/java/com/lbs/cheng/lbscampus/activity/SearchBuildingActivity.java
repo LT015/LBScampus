@@ -188,7 +188,7 @@ public class SearchBuildingActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchBuildingActivity.this, "获取建筑物类别失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchBuildingActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -297,7 +297,7 @@ public class SearchBuildingActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchBuildingActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchBuildingActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });

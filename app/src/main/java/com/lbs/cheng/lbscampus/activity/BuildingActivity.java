@@ -45,7 +45,7 @@ public class BuildingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building);
-        CommonUtils.buildingTypeId = 1;
+
     }
     private void initTitle() {
         back = findViewById(R.id.title_back);

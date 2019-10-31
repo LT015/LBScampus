@@ -67,7 +67,6 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
             view = inflater.inflate(R.layout.fragment_notice, container, false);
-            CommonUtils.noticeTypeId = 1;
             initData();
             initView();
         }
@@ -117,7 +116,7 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
                     activityFragment.firstLoadData();
                 }else if(position == 2){
                     lpFragment.firstLoadData();
-                }else{
+                }else if(position == 3){
                     helpFragment.firstLoadData();
                 }
 
@@ -203,5 +202,6 @@ public class NoticeFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         int a = CommonUtils.noticeTypeId;
         viewPager.setCurrentItem(CommonUtils.noticeTypeId - 1);
+        CommonUtils.isResume = 1;
     }
 }

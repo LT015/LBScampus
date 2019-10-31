@@ -115,10 +115,12 @@ public class RoomFragment extends Fragment {
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });
@@ -127,6 +129,8 @@ public class RoomFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

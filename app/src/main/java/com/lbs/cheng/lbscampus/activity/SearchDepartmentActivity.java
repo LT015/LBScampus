@@ -286,7 +286,7 @@ public class SearchDepartmentActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchDepartmentActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchDepartmentActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });

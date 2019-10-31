@@ -355,7 +355,7 @@ public class SearchPeopleActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(SearchPeopleActivity.this, "搜索失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchPeopleActivity.this, "网络连接失败!", Toast.LENGTH_SHORT).show();
                         // progressBar.setVisibility(View.GONE);
                     }
                 });

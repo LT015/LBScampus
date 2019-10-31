@@ -107,10 +107,12 @@ public class NoticeItemFragment extends Fragment{
         HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "获取数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "网络连接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -118,6 +120,8 @@ public class NoticeItemFragment extends Fragment{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
+                if(getActivity() == null)
+                    return;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -181,14 +185,17 @@ public class NoticeItemFragment extends Fragment{
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if(isVisibleToUser){
-
+           if(CommonUtils.isResume == 1){
+               firstLoadData();
+           }
         }
     }
 
     public void firstLoadData(){
-        if (isFirstLoad) {
+        if (isFirstLoad || CommonUtils.isResume == 1) {
             getNoticeData();
             isFirstLoad = false;
+            CommonUtils.isResume = 0;
 
         }
     }

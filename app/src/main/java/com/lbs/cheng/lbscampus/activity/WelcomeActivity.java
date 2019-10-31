@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.mapapi.SDKInitializer;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.overlay.RoutePlanDemo;
+import com.lbs.cheng.lbscampus.util.CommonUtils;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -16,6 +17,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_welcome);
+        CommonUtils.buildingTypeId = 1;
+        CommonUtils.noticeTypeId = 1;
         initDelay();
 //        if (true) {
 //            ARouter.openLog();
