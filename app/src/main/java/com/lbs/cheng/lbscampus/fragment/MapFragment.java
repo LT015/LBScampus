@@ -104,9 +104,11 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     }
     @Override
     public void onDestroy() {
-        super.onDestroy();
         //在activity执行onDestroy时执行mMapView.onDestroy()，实现地图生命周期管理
         mMapView.onDestroy();
+        super.onDestroy();
+
+
     }
     @Override
     public void onResume() {

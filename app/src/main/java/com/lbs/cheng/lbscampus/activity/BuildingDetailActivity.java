@@ -101,6 +101,10 @@ public class BuildingDetailActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * 使用步行导航前，需要初始化引擎
+     */
     void startNavigation(){
         WalkNavigateHelper.getInstance().initNaviEngine(this, new IWEngineInitListener() {
             @Override
@@ -122,10 +126,15 @@ public class BuildingDetailActivity extends BaseActivity {
         });
 
     }
+
+    /**
+     * 引擎初始化成功之后，发起导航算路。算路成功后，在回调函数中设置跳转至诱导页面。
+     * 开始算路
+     */
     void routeWalkPlanWithParam(){
         LatLng endPt;
         WalkNaviLaunchParam mParam;
-
+        //设置导航的起终点信息
         endPt = new LatLng(building.getLatitude(), building.getLongitude());
         mParam = new WalkNaviLaunchParam().stPt(LocationUtil.getMyLocation()).endPt(endPt);
         WalkNavigateHelper.getInstance().routePlanWithParams(mParam, new IWRoutePlanListener() {

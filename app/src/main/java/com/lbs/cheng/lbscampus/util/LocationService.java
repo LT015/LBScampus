@@ -13,7 +13,7 @@ import com.baidu.location.LocationClientOption.LocationMode;
  *
  */
 public class LocationService {
-	private LocationClient client = null;
+	private LocationClient client = null;//定位服务的客户端
 	private LocationClientOption mOption,DIYoption;
 	private Object  objLock = new Object();
 
@@ -24,7 +24,9 @@ public class LocationService {
 	public LocationService(Context locationContext){
 		synchronized (objLock) {
 			if(client == null){
+				//声明LocationClient类实例并配置定位参数
 				client = new LocationClient(locationContext);
+				//需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
 				client.setLocOption(getDefaultLocationClientOption());
 			}
 		}
@@ -39,7 +41,7 @@ public class LocationService {
 	public boolean registerListener(BDAbstractLocationListener listener){
 		boolean isSuccess = false;
 		if(listener != null){
-			client.registerLocationListener(listener);
+			client.registerLocationListener(listener);//注册监听函数
 			isSuccess = true;
 		}
 		return  isSuccess;
@@ -76,7 +78,7 @@ public class LocationService {
 			mOption = new LocationClientOption();
 			mOption.setLocationMode(LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
 			mOption.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系，如果配合百度地图使用，建议设置为bd09ll;
-			mOption.setScanSpan(3000);//可选，默认0，即仅定位一次，设置发起连续定位请求的间隔需要大于等于1000ms才是有效的
+			mOption.setScanSpan(5000);//可选，默认0，即仅定位一次，设置发起连续定位请求的间隔需要大于等于1000ms才是有效的
 		    mOption.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
 		    mOption.setIsNeedLocationDescribe(true);//可选，设置是否需要地址描述
 		    mOption.setNeedDeviceDirect(false);//可选，设置是否需要设备方向结果

@@ -156,11 +156,15 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * 实现定位回调
+     */
     BDAbstractLocationListener listener = new BDAbstractLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation location) {
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             // TODO Auto-generated method stub
-
+            //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明 location.getLocType()
             if (location != null && (location.getLocType() == 161 || location.getLocType() == 66)) {
                 Message locMsg = locHander.obtainMessage();
                 Bundle locData;
@@ -236,8 +240,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 BDLocation location = msg.getData().getParcelable("loc");
                 int iscal = msg.getData().getInt("iscalculate");
                 if (location != null) {
-                    LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
-                    startPt=point = new LatLng(location.getLatitude(), location.getLongitude());
+                    startPt = new LatLng(location.getLatitude(), location.getLongitude());
                     LocationUtil.setMyLocation(startPt);
                     UserBean userBean= DataSupport.findLast(UserBean.class);
                     if(userBean!=null){

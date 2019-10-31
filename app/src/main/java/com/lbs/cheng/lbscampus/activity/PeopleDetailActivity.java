@@ -138,7 +138,10 @@ public class PeopleDetailActivity extends BaseActivity {
                             if(position.getLatitude()==0){
                                 Toast.makeText(PeopleDetailActivity.this, "对方未共享位置", Toast.LENGTH_SHORT).show();
                             }else{
-                                startNavigation();
+                                Intent intent = new Intent(PeopleDetailActivity.this,UserLocationActivity.class);
+                                intent.putExtra("longitude",position.getLongitude());
+                                intent.putExtra("latitude",position.getLatitude());
+                                startActivity(intent);
                             }
 
 

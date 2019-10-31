@@ -12,9 +12,11 @@ import okhttp3.OkHttpClient;
 
 public class LocationUtil {
     static LatLng myLocation;
+
     public static void setMyLocation( LatLng latLng){
         myLocation = latLng;
     }
+
     public static LatLng getMyLocation(){
         return myLocation;
     }
