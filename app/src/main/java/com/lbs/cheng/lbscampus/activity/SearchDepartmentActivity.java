@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -29,6 +30,8 @@ import com.lbs.cheng.lbscampus.adapter.DepartmentAdapter;
 import com.lbs.cheng.lbscampus.bean.DepartmentDetailBean;
 import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
 import com.lt.common.util.HttpUtil;
+import com.zhy.autolayout.AutoLinearLayout;
+import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -57,6 +60,8 @@ public class SearchDepartmentActivity extends BaseActivity {
 
     @BindView(R.id.back_btn)
     ImageButton backBtn;
+    @BindView(R.id.title_ll)
+    AutoLinearLayout titleLL;
     @BindView(R.id.search_activity_history_flowlayout)
     TagFlowLayout mHistoryFlowLayout;
     @BindView(R.id.search_et)
@@ -65,6 +70,8 @@ public class SearchDepartmentActivity extends BaseActivity {
     TextView TVnoHistory;
     @BindView(R.id.activity_search_clear_history)
     TextView TVclearHistory;
+    @BindView(R.id.activity_search_hot_and_history_ll)
+    AutoLinearLayout LLhotAndHistory;
     @BindView(R.id.search_btn)
     TextView searchBtn;
     @BindView(R.id.search_section_spinner)
@@ -76,7 +83,6 @@ public class SearchDepartmentActivity extends BaseActivity {
     private ArrayAdapter<String> arr_adapter;
     private List<String> data_list;
     private TagAdapter<SearchHistoricalBean> mHistoryFlowLayoutAdapter;
-    private List<String> mHotData;//热门推荐
     private List<SearchHistoricalBean> mHistoryData;
     private List<DepartmentDetailBean> departmentDetailList = new ArrayList<>();
     private LinearLayoutManager linearLayoutManager;
@@ -111,10 +117,7 @@ public class SearchDepartmentActivity extends BaseActivity {
                 if(type != 0){
                     getDepartmentDetailList();
                 }
-
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -127,13 +130,7 @@ public class SearchDepartmentActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
-
-        mHotData = new ArrayList<>();
-        mHotData.add("考研");
-        mHotData.add("U盘");
-        mHotData.add("讲座");
-
-        mHistoryData = DataSupport.order("time desc").find(SearchHistoricalBean.class);
+        mHistoryData = DataSupport.where("type = 2").order("time desc").find(SearchHistoricalBean.class);
 
 
     }
@@ -159,7 +156,7 @@ public class SearchDepartmentActivity extends BaseActivity {
             TVnoHistory.setVisibility(View.VISIBLE);
             mHistoryFlowLayout.setVisibility(View.GONE);
         }
-//        initTagFlowLayout();
+        initTagFlowLayout();
         //软键盘 搜索键 监听
         ETsearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -180,6 +177,7 @@ public class SearchDepartmentActivity extends BaseActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (TextUtils.isEmpty(s.toString())){
+                    LLhotAndHistory.setVisibility(View.VISIBLE);
                     recyclerView.setVisibility(View.GONE);
                     emptyImg.setVisibility(View.GONE);
 
@@ -205,7 +203,7 @@ public class SearchDepartmentActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.activity_search_clear_history:
-                DataSupport.deleteAll(SearchHistoricalBean.class);
+                DataSupport.deleteAll(SearchHistoricalBean.class ,"type = 2");
                 mHistoryData.clear();
                 TVnoHistory.setVisibility(View.VISIBLE);
                 TVclearHistory.setVisibility(View.GONE);
@@ -218,21 +216,21 @@ public class SearchDepartmentActivity extends BaseActivity {
         }
     }
 
-    private void search(String content){
-        //关闭软键盘
-        InputMethodManager im = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(getCurrentFocus().getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        recyclerView.setVisibility(View.GONE);
-        emptyImg.setVisibility(View.GONE);
-    }
-
-
-
     private void searchUiChange(){
         if (!TextUtils.isEmpty(ETsearch.getText().toString())){
+            saveSearchHistoryBean(ETsearch.getText().toString());
+            mHistoryData.clear();
+            mHistoryData.addAll(DataSupport.where("type = 2").order("time desc").find(SearchHistoricalBean.class));
+            mHistoryFlowLayoutAdapter.notifyDataChanged();
             name = ETsearch.getText().toString();
+            LLhotAndHistory.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             getDepartmentDetailList();
+            if (mHistoryFlowLayout.getVisibility() == View.GONE){
+                mHistoryFlowLayout.setVisibility(View.VISIBLE);
+                TVclearHistory.setVisibility(View.VISIBLE);
+                TVnoHistory.setVisibility(View.GONE);
+            }
         }
     }
     private void initRecyclerView() {
@@ -314,19 +312,52 @@ public class SearchDepartmentActivity extends BaseActivity {
             }
         });
 
-
     }
     private void saveSearchHistoryBean(String name){
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         SearchHistoricalBean searchHistoricalBean = new SearchHistoricalBean();
         searchHistoricalBean.setName(name);
+        searchHistoricalBean.setType(2);
         searchHistoricalBean.setTime(df.format(new Date()));
-        List<SearchHistoricalBean> list = DataSupport.where("name = ?",name).find(SearchHistoricalBean.class);
+        List<SearchHistoricalBean> list = DataSupport.where("type = 2 and name = ?",name).find(SearchHistoricalBean.class);
         if (list.size()>0){
-            searchHistoricalBean.updateAll("name=?",name);
+            searchHistoricalBean.updateAll("type = 2 and name=?",name);
         }else{
             searchHistoricalBean.save();
         }
+    }
+
+    private void initTagFlowLayout(){
+
+        mHistoryFlowLayoutAdapter = new TagAdapter<SearchHistoricalBean>(mHistoryData) {
+            @Override
+            public View getView(FlowLayout parent, int position, SearchHistoricalBean searchHistoricalBean) {
+                //将tv.xml文件填充到标签内
+                TextView tv = (TextView) LayoutInflater.from(SearchDepartmentActivity.this).inflate(R.layout.flow_layout_item,
+                        mHistoryFlowLayout, false);
+                //为标签设置对应的内容
+                tv.setText(searchHistoricalBean.getName());
+                return tv;
+            }
+        };
+
+        //为历史标签设置点击事件
+        mHistoryFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener()
+        {
+            @Override
+            public boolean onTagClick(View view, int position, com.zhy.view.flowlayout.FlowLayout parent)
+            {
+                ETsearch.setText(mHistoryData.get(position).getName());
+                ETsearch.setSelection(ETsearch.getText().length());
+                saveSearchHistoryBean(mHistoryData.get(position).getName());
+                mHistoryData.clear();
+                mHistoryData.addAll(DataSupport.where("type = 2").order("time desc").find(SearchHistoricalBean.class));
+                mHistoryFlowLayoutAdapter.notifyDataChanged();
+                searchUiChange();
+                return true;
+            }
+        });
+        mHistoryFlowLayout.setAdapter(mHistoryFlowLayoutAdapter);
     }
 
     @Override

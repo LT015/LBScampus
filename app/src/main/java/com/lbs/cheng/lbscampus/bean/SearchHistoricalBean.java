@@ -8,7 +8,11 @@ import org.litepal.crud.DataSupport;
 
 public class SearchHistoricalBean extends DataSupport {
     private int id;
+
+    private int type;//1是建筑物搜索 2是部门 3是人 4是综合搜索 5是公告搜索
+
     private String name;
+
     private String time;
 
     public int getId() {
@@ -17,6 +21,14 @@ public class SearchHistoricalBean extends DataSupport {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {

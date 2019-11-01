@@ -64,26 +64,18 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     AutoLinearLayout route;
     @BindView(R.id.fragment_search)
     AutoLinearLayout search;
-    LatLng startPt;
+    LatLng myPt;
     private static final int BAIDU_READ_PHONE_STATE =10;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         if(view==null){
-            SDKInitializer.initialize(getActivity().getApplicationContext());
             getActivity().getWindow().setFormat(PixelFormat.TRANSLUCENT);
-            locService = new LocationService(getActivity().getApplicationContext());
-            LocationClientOption mOption = locService.getDefaultLocationClientOption();
-            mOption.setLocationMode(LocationClientOption.LocationMode.Battery_Saving);
-            mOption.setCoorType("bd09ll");
-            locService.setLocationOption(mOption);
-            locService.registerListener(listener);
             view = inflater.inflate(R.layout.fragment_map, container, false);
             initData();
             initView();
             initMap();
-            showContacts();
         }
         return view;
     }
@@ -100,7 +92,28 @@ public class MapFragment extends Fragment implements View.OnClickListener{
     private void initMap() {
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(18));
-        locService.start();
+        myPt = LocationUtil.getMyLocation();
+        if (myPt != null) {
+
+            // 构建Marker图标
+            BitmapDescriptor bitmap = null;
+//                    if (iscal == 0) {
+//                    bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_mark); // 非推算结果
+//                    } else {
+            bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_focuse_mark); // 推算结果
+//                    }
+            // 构建MarkerOption，用于在地图上添加Marker
+            OverlayOptions option = new MarkerOptions().position(myPt).icon(bitmap);
+            // 在地图上添加新Marker，并显示
+            mBaiduMap.clear();
+            mBaiduMap.addOverlay(option);
+            if (isFirst) {
+                isFirst = false;
+                mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(myPt));
+            }
+        }
+
+
     }
     @Override
     public void onDestroy() {
@@ -116,6 +129,7 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         mMapView.setVisibility(View.VISIBLE);
         mMapView.onResume();
         super.onResume();
+        initMap();
     }
     @Override
     public void onPause() {
@@ -185,113 +199,4 @@ public class MapFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    /***
-     * 定位结果回调，在此方法中处理定位结果
-     */
-    BDAbstractLocationListener listener = new BDAbstractLocationListener() {
-
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // TODO Auto-generated method stub
-
-            if (location != null && (location.getLocType() == 161 || location.getLocType() == 66)) {
-                Message locMsg = locHander.obtainMessage();
-                Bundle locData;
-                locData = Algorithm(location);
-                if (locData != null) {
-                    locData.putParcelable("loc", location);
-                    locMsg.setData(locData);
-                    locHander.sendMessage(locMsg);
-                }
-            }
-        }
-
-    };
-
-    /***
-     * 平滑策略代码实现方法，主要通过对新定位和历史定位结果进行速度评分，
-     * 来判断新定位结果的抖动幅度，如果超过经验值，则判定为过大抖动，进行平滑处理,若速度过快，
-     * 则推测有可能是由于运动速度本身造成的，则不进行低速平滑处理 ╭(●｀∀´●)╯
-     *
-     * @param location
-     * @return Bundle
-     */
-    private Bundle Algorithm(BDLocation location) {
-        Bundle locData = new Bundle();
-        double curSpeed = 0;
-        if (locationList.isEmpty() || locationList.size() < 2) {
-            MapFragment.LocationEntity temp = new MapFragment.LocationEntity();
-            temp.location = location;
-            temp.time = System.currentTimeMillis();
-            locData.putInt("iscalculate", 0);
-            locationList.add(temp);
-        } else {
-            if (locationList.size() > 5)
-                locationList.removeFirst();
-            double score = 0;
-            for (int i = 0; i < locationList.size(); ++i) {
-                LatLng lastPoint = new LatLng(locationList.get(i).location.getLatitude(),
-                        locationList.get(i).location.getLongitude());
-                LatLng curPoint = new LatLng(location.getLatitude(), location.getLongitude());
-                double distance = DistanceUtil.getDistance(lastPoint, curPoint);
-                curSpeed = distance / (System.currentTimeMillis() - locationList.get(i).time) / 1000;
-                score += curSpeed * Utils.EARTH_WEIGHT[i];
-            }
-            if (score > 0.00000999 && score < 0.00005) { // 经验值,开发者可根据业务自行调整，也可以不使用这种算法
-                location.setLongitude(
-                        (locationList.get(locationList.size() - 1).location.getLongitude() + location.getLongitude())
-                                / 2);
-                location.setLatitude(
-                        (locationList.get(locationList.size() - 1).location.getLatitude() + location.getLatitude())
-                                / 2);
-                locData.putInt("iscalculate", 1);
-            } else {
-                locData.putInt("iscalculate", 0);
-            }
-            MapFragment.LocationEntity newLocation = new MapFragment.LocationEntity();
-            newLocation.location = location;
-            newLocation.time = System.currentTimeMillis();
-            locationList.add(newLocation);
-        }
-        return locData;
-    }
-
-    /***
-     * 接收定位结果消息，并显示在地图上
-     */
-    private Handler locHander = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            // TODO Auto-generated method stub
-            super.handleMessage(msg);
-            try {
-                BDLocation location = msg.getData().getParcelable("loc");
-                int iscal = msg.getData().getInt("iscalculate");
-                if (location != null) {
-                    LatLng point = new LatLng(location.getLatitude(), location.getLongitude());
-                    startPt=point = new LatLng(location.getLatitude(), location.getLongitude());
-                    LocationUtil.setMyLocation(startPt);
-                    // 构建Marker图标
-                    BitmapDescriptor bitmap = null;
-//                    if (iscal == 0) {
-//                    bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_mark); // 非推算结果
-//                    } else {
-                    bitmap = BitmapDescriptorFactory.fromResource(R.mipmap.icon_openmap_focuse_mark); // 推算结果
-//                    }
-                    // 构建MarkerOption，用于在地图上添加Marker
-                    OverlayOptions option = new MarkerOptions().position(point).icon(bitmap);
-                    // 在地图上添加新Marker，并显示
-                    mBaiduMap.clear();
-                    mBaiduMap.addOverlay(option);
-                    if (isFirst){
-                        isFirst=false;
-                        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(point));
-                    }
-                }
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
-        }
-    };
 }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.lbs.cheng.lbscampus.R;
 import com.lbs.cheng.lbscampus.bean.LoginInfo;
+import com.lbs.cheng.lbscampus.bean.SearchHistoricalBean;
 import com.lbs.cheng.lbscampus.bean.ShareTimeBean;
 import com.lbs.cheng.lbscampus.bean.Staff;
 import com.lbs.cheng.lbscampus.bean.Student;
@@ -156,6 +157,7 @@ public class LoginActivity extends BaseActivity {
                         CommonUtils.isLogin = 1;
                         Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
                         intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                        DataSupport.deleteAll(SearchHistoricalBean.class);
                         Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
 
@@ -278,6 +280,7 @@ public class LoginActivity extends BaseActivity {
                                     loginInfo.setType(1);
                                     loginInfo.saveThrows();
                                     Intent intent =  new Intent(LoginActivity.this,HomeActivity.class);
+                                    DataSupport.deleteAll(SearchHistoricalBean.class);
                                     intent.setFlags(FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                 }else{//手机验证码登陆

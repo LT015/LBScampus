@@ -56,8 +56,6 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         SDKInitializer.initialize(getApplicationContext());
         locService = new LocationService(getApplicationContext());
         showContacts();
-        locService.registerListener(listener);
-        locService.start();
     }
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -123,6 +121,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this,"没有权限,请手动开启定位权限",Toast.LENGTH_SHORT).show();
             // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE}, BAIDU_READ_PHONE_STATE);
+        }else{
+            locService.registerListener(listener);
+            locService.start();
         }
     }
 
@@ -135,6 +136,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             case BAIDU_READ_PHONE_STATE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // 获取到权限，作相应处理
+                    locService.registerListener(listener);
+                    locService.start();
                 } else {
                     // 没有获取到权限，做特殊处理
                     Toast.makeText(this, "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();

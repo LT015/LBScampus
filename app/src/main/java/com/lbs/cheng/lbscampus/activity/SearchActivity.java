@@ -103,14 +103,12 @@ public class SearchActivity extends BaseActivity {
         super.initData();
         list = new ArrayList<>();
 
-
-
         mHotData = new ArrayList<>();
         mHotData.add("考研");
         mHotData.add("U盘");
         mHotData.add("讲座");
 
-        mHistoryData = DataSupport.order("time desc").find(SearchHistoricalBean.class);
+        mHistoryData = DataSupport.where("type = 5").order("time desc").find(SearchHistoricalBean.class);
     }
 
     @Override
@@ -179,7 +177,7 @@ public class SearchActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.activity_search_clear_history:
-                DataSupport.deleteAll(SearchHistoricalBean.class);
+                DataSupport.deleteAll(SearchHistoricalBean.class ,"type = 5");
                 mHistoryData.clear();
                 TVnoHistory.setVisibility(View.VISIBLE);
                 TVclearHistory.setVisibility(View.GONE);
@@ -227,7 +225,7 @@ public class SearchActivity extends BaseActivity {
                 ETsearch.setSelection(ETsearch.getText().length());
                 saveSearchHistoryBean(mHotData.get(position));
                 mHistoryData.clear();
-                mHistoryData.addAll(DataSupport.order("time desc").find(SearchHistoricalBean.class));
+                mHistoryData.addAll(DataSupport.where("type = ", "5").order("time desc").find(SearchHistoricalBean.class));
                 mHistoryFlowLayoutAdapter.notifyDataChanged();
                 search(ETsearch.getText().toString());
                 if (mHistoryFlowLayout.getVisibility() == View.GONE){
@@ -249,7 +247,7 @@ public class SearchActivity extends BaseActivity {
                 ETsearch.setSelection(ETsearch.getText().length());
                 saveSearchHistoryBean(mHistoryData.get(position).getName());
                 mHistoryData.clear();
-                mHistoryData.addAll(DataSupport.order("time desc").find(SearchHistoricalBean.class));
+                mHistoryData.addAll(DataSupport.where("type = ", "5").order("time desc").find(SearchHistoricalBean.class));
                 mHistoryFlowLayoutAdapter.notifyDataChanged();
                 search(ETsearch.getText().toString());
                 return true;
@@ -336,7 +334,7 @@ public class SearchActivity extends BaseActivity {
         if (!TextUtils.isEmpty(ETsearch.getText().toString())){
             saveSearchHistoryBean(ETsearch.getText().toString());
             mHistoryData.clear();
-            mHistoryData.addAll(DataSupport.order("time desc").find(SearchHistoricalBean.class));
+            mHistoryData.addAll(DataSupport.where("type = 5").order("time desc").find(SearchHistoricalBean.class));
             mHistoryFlowLayoutAdapter.notifyDataChanged();
             search(ETsearch.getText().toString());
             if (mHistoryFlowLayout.getVisibility() == View.GONE){
@@ -351,10 +349,11 @@ public class SearchActivity extends BaseActivity {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         SearchHistoricalBean searchHistoricalBean = new SearchHistoricalBean();
         searchHistoricalBean.setName(name);
+        searchHistoricalBean.setType(5);
         searchHistoricalBean.setTime(df.format(new Date()));
-        List<SearchHistoricalBean> list = DataSupport.where("name = ?",name).find(SearchHistoricalBean.class);
+        List<SearchHistoricalBean> list = DataSupport.where("type = 5 and name = ?",name).find(SearchHistoricalBean.class);
         if (list.size()>0){
-            searchHistoricalBean.updateAll("name=?",name);
+            searchHistoricalBean.updateAll("type = 5 and name=?",name);
         }else{
             searchHistoricalBean.save();
         }

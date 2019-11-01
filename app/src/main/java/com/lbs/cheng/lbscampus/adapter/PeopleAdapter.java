@@ -37,10 +37,16 @@ public class PeopleAdapter extends BaseQuickAdapter<UserDetailBean, BaseViewHold
             GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);
         }
         if(item.getTelNumber()!=null){
-            helper.setText(R.id.item_people_tel,"电话："+item.getTelNumber());
+            String telNum = item.getTelNumber();
+            StringBuffer sb = new StringBuffer(item.getTelNumber());
+            sb.replace(3,6,"****");
+            helper.setText(R.id.item_people_tel,"电话：" + sb.toString());
         }
         if(item.getEmail()!=null){
             helper.setText(R.id.item_people_email,"邮箱："+item.getEmail());
+        }
+        if(item.getDeptName()!= null){
+            helper.setText(R.id.item_people_dept,item.getDeptName());
         }
         helper.setText(R.id.item_people_name,item.getUserName());
 
