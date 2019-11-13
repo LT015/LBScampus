@@ -81,6 +81,8 @@ public class HttpUtil {
     public static final String COLLECT_NOTICE="/LBS/notice";  //get请
     //public static final String GET_BOTICE_WITH_PAGER="/LBS/notice/list/pager";///{userId:.+}
     public static final String GET_NOTICE_BY_TYPE="/LBS/notice/type";  //get请求 //type/{type:.+}/status/{status:.+}
+    public static final String GET_VERTIFY_NOTICE="/LBS/notice/userVertify";
+    public static final String GET_NOTICE_BY_HOBBY="/LBS/notice/userTag";
     public static final String GET_NOTICE_BY_TITLE="/LBS/notice";  //get请求 /type/{type:.+}/title/{title:.+}
     public static final String GET_USER_NOTICE="/LBS/notice";//我的收藏
     public static final String CREATE_NOTICE="/LBS/notice";//PUT

@@ -26,6 +26,8 @@ import com.lbs.cheng.lbscampus.bean.NoticeBean;
 import com.lbs.cheng.lbscampus.bean.NoticeDetailBean;
 import com.lbs.cheng.lbscampus.bean.TagBean;
 import com.lbs.cheng.lbscampus.bean.UserBean;
+import com.lbs.cheng.lbscampus.util.GlideUtil;
+import com.lbs.cheng.lbscampus.view.RCImageView;
 import com.lt.common.util.HttpUtil;
 import com.lbs.cheng.lbscampus.util.LocationUtil;
 
@@ -69,6 +71,8 @@ public class NoticeActivity extends BaseActivity {
     TextView noticePlaveTv;
     @BindView(R.id.notice_source)
     TextView noticeSource;
+    @BindView(R.id.notice_image)
+    RCImageView noticeImage;
 
     public String buindingName;
     private int status = 2;//status为2时表示查看当前notice是否被该用户收藏   收藏为1，未收藏为0
@@ -109,12 +113,18 @@ public class NoticeActivity extends BaseActivity {
         SimpleDateFormat simleDateFormat=new SimpleDateFormat("yyy-MM-dd HH:mm");
         String time=simleDateFormat.format(date);
         publishTime.setText(time);
+        if(notice.getPicturePath()!=null){
+            String path = HttpUtil.HOME_PATH + HttpUtil.Image +"notice/"+ notice.getPicturePath();
+            noticeImage.setRadius(15);
+//            GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
+            GlideUtil.load(NoticeActivity.this, path, noticeImage, GlideUtil.REQUEST_OPTIONS);
+        }
         if(notice.getPublisher()!=null){
             publisher.setText("发布人："+notice.getPublisher().getUserName());
             noticeSource.setVisibility(View.VISIBLE);
             if(notice.getPublisher().getType() == 1){
                 noticeSource.setText("来源：学生个体");
-            }else if(notice.getPublisher().getType() == 1){
+            }else{
                 noticeSource.setText("来源：老师");
             }
         }else{

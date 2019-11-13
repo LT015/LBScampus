@@ -42,11 +42,8 @@ public class BuildingAdapter extends BaseQuickAdapter<BuildingBean, BaseViewHold
 //            GlideUtil.REQUEST_OPTIONS.signature(new ObjectKey(System.currentTimeMillis()));//签名  用以重新获取图片
             GlideUtil.load(context, path, imageView, GlideUtil.REQUEST_OPTIONS);
         }
-
-        if(flag == 1){
-            ImageView imageView = helper.getView(R.id.item_building_go);
-            imageView.setVisibility(View.GONE);
-        }
+        ImageView imageView = helper.getView(R.id.item_building_go);
+        imageView.setVisibility(View.GONE);
 
         helper.setText(R.id.item_building_name,item.getName());
 

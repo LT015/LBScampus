@@ -109,14 +109,9 @@ public class FinishFragment extends Fragment implements View.OnClickListener{
         });
     }
     public void getNoticeData() {
-        Staff staff = DataSupport.findLast(Staff.class);
-        int type = 2;
-        if(staff.getRole().equals("2")){//2只有活动
-            type = 5;
-        }else if(staff.getRole().equals("3")){
-            type = 6;
-        }
-        String url= HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE+"/"+type+"/status/2";
+        Staff  staff = DataSupport.findLast(Staff.class);
+        String userId = staff.getUserId();
+        String url= HttpUtil.HOME_PATH + HttpUtil.GET_VERTIFY_NOTICE+"/"+userId+"/status/2";
         HttpUtil.sendOkHttpGetRequest(url, new ArrayList<String>(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

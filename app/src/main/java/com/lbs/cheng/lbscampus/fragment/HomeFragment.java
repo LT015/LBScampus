@@ -178,9 +178,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     public void getNoticeData() {
         List<String> list1 = new ArrayList<>();
-        list1.add("1");
-        list1.add("status/2");
-        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_TYPE, list1, new Callback() {
+        UserBean userBean = DataSupport.findLast(UserBean.class);
+        if(userBean!=null){
+            list1.add(userBean.getUserId());
+        }else{
+            list1.add("0");
+        }
+        HttpUtil.sendOkHttpGetRequest(HttpUtil.HOME_PATH + HttpUtil.GET_NOTICE_BY_HOBBY, list1, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if(getActivity() == null)

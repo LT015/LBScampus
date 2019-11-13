@@ -91,7 +91,7 @@ public class SelectClassActivity extends BaseActivity {
         back.setOnClickListener(this);
         titleInfo.setOnClickListener(this);
         back.setVisibility(View.VISIBLE);
-        titleInfo.setVisibility(View.VISIBLE);
+        titleInfo.setVisibility(View.GONE);
         titleName.setText("选择班级");
     }
 

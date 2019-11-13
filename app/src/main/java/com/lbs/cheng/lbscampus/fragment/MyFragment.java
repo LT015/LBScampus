@@ -191,6 +191,8 @@ public class MyFragment extends Fragment implements View.OnClickListener{
                             myImage.setImageResource(R.mipmap.no_image);
                             myName.setText("点击登录");
                             point.setVisibility(View.INVISIBLE);
+                            verify.setVisibility(View.GONE);
+                            verifyActivity.setVisibility(View.GONE);
                             DataSupport.deleteAll(UserBean.class);
                             DataSupport.deleteAll(ShareTimeBean.class);
                             DataSupport.deleteAll(Student.class);

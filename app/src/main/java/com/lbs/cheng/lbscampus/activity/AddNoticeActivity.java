@@ -159,42 +159,6 @@ public class AddNoticeActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        Intent intent=getIntent();
-        if(CommonUtils.noticeEditType == 1) {
-            String json = intent.getStringExtra("noticeDetail");
-            if(json != null){
-                noticeDetail = new Gson().fromJson(json,NoticeDetailBean.class);
-            }
-            if(noticeDetail.getPicturePath() != null){
-                imageState = 2;
-                String url= HttpUtil.HOME_PATH + HttpUtil.Image + "notice/" + noticeDetail.getPicturePath();
-                GlideUtil.load(AddNoticeActivity.this,url , addImage, GlideUtil.REQUEST_OPTIONS);
-            }
-            noticeTitle.setText(noticeDetail.getTitle());
-            noticeContent.setText(noticeDetail.getContent());
-            List<TagBean> tagList=noticeDetail.getTagList();
-            if(tagList != null){
-                for(TagBean tag:tagList){
-                    list.add(tag.getTagId());
-                }
-            }
-            noticeType = noticeDetail.getType();
-            switch (noticeType){
-                case 1:
-                    radio0.setChecked(true);
-                    break;
-                case 2:
-                    radio1.setChecked(true);
-                    break;
-                case 3:
-                    radio2.setChecked(true);
-                    break;
-                case 4:
-                    radio3.setChecked(true);
-                    break;
-            }
-
-        }
         userBean = DataSupport.findLast(UserBean.class);
         getTagList();
 
@@ -273,9 +237,49 @@ public class AddNoticeActivity extends BaseActivity {
         initListener();
         initRadioButton();
         radioGroup.setOnCheckedChangeListener(mChangeRadio);
-
+        initNotice();
 
     }
+
+    private void initNotice(){
+        Intent intent=getIntent();
+        if(CommonUtils.noticeEditType == 1) {
+            String json = intent.getStringExtra("noticeDetail");
+            if(json != null){
+                noticeDetail = new Gson().fromJson(json,NoticeDetailBean.class);
+            }
+            if(noticeDetail.getPicturePath() != null){
+                imageState = 2;
+                String url= HttpUtil.HOME_PATH + HttpUtil.Image + "notice/" + noticeDetail.getPicturePath();
+                GlideUtil.load(AddNoticeActivity.this,url , addImage, GlideUtil.REQUEST_OPTIONS);
+            }
+            noticeTitle.setText(noticeDetail.getTitle());
+            noticeContent.setText(noticeDetail.getContent());
+            List<TagBean> tagList=noticeDetail.getTagList();
+            if(tagList != null){
+                for(TagBean tag:tagList){
+                    list.add(tag.getTagId());
+                }
+            }
+            noticeType = noticeDetail.getType();
+            switch (noticeType){
+                case 1:
+                    radio0.setChecked(true);
+                    break;
+                case 2:
+                    radio1.setChecked(true);
+                    break;
+                case 3:
+                    radio2.setChecked(true);
+                    break;
+                case 4:
+                    radio3.setChecked(true);
+                    break;
+            }
+
+        }
+    }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -327,10 +331,14 @@ public class AddNoticeActivity extends BaseActivity {
     }
 
     private void initRadioButton(){
+        radio0.setChecked(false);
+        radio1.setChecked(false);
+        radio2.setChecked(false);
+        radio3.setChecked(false);
         if (userBean.getType() != 1){
             Staff staff = DataSupport.findLast(Staff.class);
             if(staff != null){
-                if(staff.getRole().equals("2")){
+                if(staff.getRole().equals("1")){
                     radio0.setVisibility(View.GONE);
                 }else if(staff.getRole().equals("3")){
 
