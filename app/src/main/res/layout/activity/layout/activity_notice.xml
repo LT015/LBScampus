@@ -9,145 +9,152 @@
 
     <include layout="@layout/title_bar"/>
 
-    <com.zhy.autolayout.AutoLinearLayout
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/space_10px"
-        android:layout_marginRight="@dimen/space_20px"
-        android:layout_marginLeft="@dimen/space_20px"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <com.lbs.cheng.lbscampus.view.RCImageView
-            android:id="@+id/notice_image"
-            android:scaleType="fitXY"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_270px"
-            />
-
-        <TextView
-            android:id="@+id/notice_title"
-            android:layout_marginTop="@dimen/space_10px"
-            android:layout_marginBottom="@dimen/space_20px"
-            android:lineSpacingExtra="@dimen/space_10px"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:text="天津财经大学怎么样？他们的回答是：各方面都挺好！"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <View
-            android:background="@color/grey_divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_1px"/>
-
         <com.zhy.autolayout.AutoLinearLayout
+            android:orientation="vertical"
             android:layout_marginTop="@dimen/space_10px"
-            android:layout_marginBottom="@dimen/space_20px"
-            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/space_20px"
+            android:layout_marginLeft="@dimen/space_20px"
+            android:layout_marginBottom="@dimen/space_30px"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/notice_publisher"
-                android:layout_marginLeft="@dimen/space_40px"
-                android:layout_gravity="center_vertical"
-                android:text="发布人：小白城"
-                android:layout_weight="1"
+            android:layout_height="match_parent">
+
+            <com.lbs.cheng.lbscampus.view.RCImageView
+                android:id="@+id/notice_image"
+                android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/publish_time"
-                android:gravity="center"
-                android:text="发布时间：4天前"
-                android:layout_marginRight="@dimen/space_50px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </com.zhy.autolayout.AutoLinearLayout>
-
-        <View
-            android:background="@color/grey_divider"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_1px"/>
-
-        <com.zhy.autolayout.AutoRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:layout_height="@dimen/space_270px"
+                />
 
             <TextView
-                android:id="@+id/notice_place"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/space_40px"
-                android:visibility="invisible"
-                android:text="地点："/>
-
-            <TextView
-                android:id="@+id/notice_place_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:layout_toRightOf="@+id/notice_place" />
-
-            <ImageView
-                android:layout_marginRight="@dimen/space_40px"
-                android:background="@mipmap/ic_uncollect"
-                android:adjustViewBounds="true"
-                android:id="@+id/notice_collection"
-                android:layout_alignParentRight="true"
-                android:layout_width="@dimen/space_60px"
-                android:layout_height="@dimen/space_60px" />
-
-        </com.zhy.autolayout.AutoRelativeLayout>
-
-
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/space_460px">
-            <TextView
-                android:id="@+id/notice_content"
-                android:layout_weight="1"
-                android:text="         清明节放假通知全体同学注意个人安全，宿舍安全。h座部分教室不开放，同学们请相互通知。"
-                android:layout_marginTop="@dimen/space_30px"
-                android:textSize="16sp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.NestedScrollView>
-
-
-        <com.zhy.autolayout.AutoLinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_20px"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/notice_source"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_30px"
-                android:gravity="center"
-                android:text="来源：学生个体"
-                android:textSize="@dimen/space_20px"
-                android:visibility="invisible" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/notice_title"
                 android:layout_marginTop="@dimen/space_10px"
                 android:layout_marginBottom="@dimen/space_20px"
-                android:gravity="center"
-                android:text="天津财经大学出版"
-                android:textSize="11sp" />
-
-
-            <ImageView
+                android:lineSpacingExtra="@dimen/space_10px"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="天津财经大学怎么样？他们的回答是：各方面都挺好！"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_144px"
-                android:scaleType="fitXY"
-                android:src="@mipmap/b1" />
+                android:layout_height="wrap_content" />
+            <View
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_marginTop="@dimen/space_10px"
+                android:layout_marginBottom="@dimen/space_20px"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/notice_publisher"
+                    android:layout_marginLeft="@dimen/space_40px"
+                    android:layout_gravity="center_vertical"
+                    android:text="发布人：小白城"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/publish_time"
+                    android:gravity="center"
+                    android:text="发布时间：4天前"
+                    android:layout_marginRight="@dimen/space_50px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:background="@color/grey_divider"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_1px"/>
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/notice_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/space_40px"
+                    android:visibility="invisible"
+                    android:text="地点："/>
+
+                <TextView
+                    android:id="@+id/notice_place_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/notice_place" />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/space_40px"
+                    android:background="@mipmap/ic_uncollect"
+                    android:adjustViewBounds="true"
+                    android:id="@+id/notice_collection"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="@dimen/space_60px"
+                    android:layout_height="@dimen/space_60px" />
+
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_460px">
+                <TextView
+                    android:id="@+id/notice_content"
+                    android:layout_weight="1"
+                    android:text="         清明节放假通知全体同学注意个人安全，宿舍安全。h座部分教室不开放，同学们请相互通知。"
+                    android:layout_marginTop="@dimen/space_30px"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.NestedScrollView>
+
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_20px"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/notice_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_30px"
+                    android:gravity="center"
+                    android:text="来源：学生个体"
+                    android:textSize="@dimen/space_20px"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_10px"
+                    android:layout_marginBottom="@dimen/space_20px"
+                    android:gravity="center"
+                    android:text="天津财经大学出版"
+                    android:textSize="11sp" />
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/space_144px"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/b1" />
+            </com.zhy.autolayout.AutoLinearLayout>
+
+
         </com.zhy.autolayout.AutoLinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
-    </com.zhy.autolayout.AutoLinearLayout>
 
 
 
