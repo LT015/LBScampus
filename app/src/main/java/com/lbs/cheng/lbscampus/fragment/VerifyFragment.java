@@ -139,7 +139,7 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 final String responseText = response.body().string();
                 if(getActivity() == null)
                     return;
@@ -148,10 +148,14 @@ public class VerifyFragment extends Fragment implements View.OnClickListener{
                     public void run() {
 
                         try{
-                            final JSONArray jsonArray = new JSONArray(responseText);
-                            noticeList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<NoticeDetailBean>>(){}.getType());
+                            String result = responseText;
+                            if(!result.equals("")){
+                                final JSONArray jsonArray = new JSONArray(result);
+                                noticeList = new Gson().fromJson(jsonArray.toString(),new TypeToken<List<NoticeDetailBean>>(){}.getType());
 
-                            initRecyclerView();
+                                initRecyclerView();
+                            }
+
 
                         }catch (JSONException e){
 

@@ -25,6 +25,8 @@ import org.w3c.dom.Text;
 
 import butterknife.BindView;
 
+import static com.baidu.mapapi.walknavi.model.WalkRoutePlanError.DISTANCE_MORE_THAN_50KM;
+
 public class BuildingDetailActivity extends BaseActivity {
 
 
@@ -154,6 +156,10 @@ public class BuildingDetailActivity extends BaseActivity {
             @Override
             public void onRoutePlanFail(WalkRoutePlanError walkRoutePlanError) {
                 //算路失败的回调
+                if(walkRoutePlanError == DISTANCE_MORE_THAN_50KM){
+                    Toast.makeText(getApplicationContext(),"距离过远，步行导航失败",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

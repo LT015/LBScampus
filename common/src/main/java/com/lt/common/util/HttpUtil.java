@@ -26,7 +26,7 @@ public class HttpUtil {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static final String SERVER_HOST = "server_host";
-    //public static String HOME_PATH = "http://192.168.0.172:8080";
+    //public static String HOME_PATH = "http://192.168.43.209:8080";
     public static String HOME_PATH = "http://47.95.212.222:8080";
     public static String Banner = "/banner/";
     public static String Image = "/images/";

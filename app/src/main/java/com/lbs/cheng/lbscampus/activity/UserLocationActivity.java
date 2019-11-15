@@ -35,6 +35,8 @@ import java.util.LinkedList;
 import butterknife.BindView;
 import butterknife.Unbinder;
 
+import static com.baidu.mapapi.walknavi.model.WalkRoutePlanError.DISTANCE_MORE_THAN_50KM;
+
 public class UserLocationActivity extends BaseActivity {
 
     ImageView back;
@@ -198,7 +200,9 @@ public class UserLocationActivity extends BaseActivity {
             @Override
             public void onRoutePlanFail(WalkRoutePlanError walkRoutePlanError) {
                 //算路失败的回调
-                Toast.makeText(UserLocationActivity.this, "算路失败", Toast.LENGTH_SHORT).show();
+                if(walkRoutePlanError == DISTANCE_MORE_THAN_50KM){
+                    Toast.makeText(getApplicationContext(),"距离过远，步行导航失败",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

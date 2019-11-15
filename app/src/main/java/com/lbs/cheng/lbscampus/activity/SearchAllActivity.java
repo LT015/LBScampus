@@ -67,6 +67,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+import static com.baidu.mapapi.walknavi.model.WalkRoutePlanError.DISTANCE_MORE_THAN_50KM;
 import static com.chad.library.adapter.base.BaseQuickAdapter.ALPHAIN;
 
 public class SearchAllActivity extends BaseActivity {
@@ -486,6 +487,9 @@ public class SearchAllActivity extends BaseActivity {
             @Override
             public void onRoutePlanFail(WalkRoutePlanError walkRoutePlanError) {
                 //算路失败的回调
+                if(walkRoutePlanError == DISTANCE_MORE_THAN_50KM){
+                    Toast.makeText(getApplicationContext(),"距离过远，步行导航失败",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

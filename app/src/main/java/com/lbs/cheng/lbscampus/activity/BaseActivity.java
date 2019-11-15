@@ -169,7 +169,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
             //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
             // TODO Auto-generated method stub
             //获取定位类型、定位错误返回码，具体信息可参照类参考中BDLocation类中的说明 location.getLocType()
-            if (location != null && (location.getLocType() == 161 || location.getLocType() == 66)) {
+            if (location != null && (location.getLocType() == 161 || location.getLocType() == 66 || location.getLocType() == 61)) {
                 Message locMsg = locHander.obtainMessage();
                 Bundle locData;
                 locData = Algorithm(location);
@@ -249,7 +249,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                     UserBean userBean= DataSupport.findLast(UserBean.class);
                     if(userBean!=null){
                         final PositionBean position=new PositionBean();
-//                        Log.d("location", "学号: "+userBean.getUserId());
+                       // Log.d("location11", "学号: "+userBean.getUserId());
                         position.setUserId(userBean.getUserId());
                         position.setLatitude(location.getLatitude());
                         position.setLongitude( location.getLongitude());
@@ -258,7 +258,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                         HttpUtil.sendOkHttpPutRequest( HttpUtil.HOME_PATH + HttpUtil.UPDATE_POSITION, json, new okhttp3.Callback() {
                             @Override
                             public void onFailure(Call call, IOException e) {
-                                Log.d("location", "upadte location failed:");
+                                Log.d("location11", "upadte location failed:");
                             }
 
                             @Override
@@ -272,7 +272,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                                             final JSONObject jsonObject = new JSONObject(responseText);
                                             PositionBean positionBean = new Gson().fromJson(jsonObject.toString(),PositionBean.class);
 
-//                                            Log.d("location", "纬度: "+positionBean.getLatitude());
+                                           // Log.d("location11", "纬度: "+positionBean.getLatitude());
 
 
                                         }catch (JSONException e){
